@@ -38,7 +38,7 @@ module DigitalFemsa
       @default_headers = {
         'Content-Type' => 'application/json',
         'User-Agent' => @user_agent,
-        'X-DigitalFemsa-Client-User-Agent' => digitalfemsa_headers.to_json
+        'Spin-Client-User-Agent' => digitalfemsa_headers_to_string
       }
     end
 
@@ -430,13 +430,17 @@ module DigitalFemsa
     end
     def digitalfemsa_headers
       params = {
-        bindings_version: DigitalFemsa::VERSION,
+        sdk_version: DigitalFemsa::VERSION,
         lang: 'ruby',
-        lang_version: RUBY_VERSION,
-        publisher: 'digitalfemsa'
+        lang_version: RUBY_VERSION
       }
 
       @digitalfemsa_headers ||= params
+    end
+    
+    def digitalfemsa_headers_to_string
+      headers = digitalfemsa_headers
+      headers.map { |k, v| "#{k}=#{v}" }.join(';')
     end
   end
 end
