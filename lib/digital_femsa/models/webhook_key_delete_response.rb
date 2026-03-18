@@ -14,35 +14,39 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # webhook keys model
+  # Represents a webhook signing key after it has been deleted.
   class WebhookKeyDeleteResponse
-    # Indicates if the webhook key is active
-    attr_accessor :active
-
-    # Unix timestamp in seconds with the creation date of the webhook key
-    attr_accessor :created_at
-
-    # Indicates if the webhook key is deleted
-    attr_accessor :deleted
-
     # Unique identifier of the webhook key
     attr_accessor :id
-
-    # Indicates if the webhook key is in live mode
-    attr_accessor :livemode
 
     # Object name, value is webhook_key
     attr_accessor :object
 
+    # Indicates if the webhook key is active
+    attr_accessor :active
+
+    # Indicates if the webhook key is in live mode
+    attr_accessor :livemode
+
+    # Unix timestamp in seconds with the creation date of the webhook key
+    attr_accessor :created_at
+
+    # Unix timestamp in seconds when the webhook key was deactivated (if applicable).
+    attr_accessor :deactivated_at
+
+    # Indicates if the webhook key is deleted
+    attr_accessor :deleted
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'active' => :'active',
-        :'created_at' => :'created_at',
-        :'deleted' => :'deleted',
         :'id' => :'id',
+        :'object' => :'object',
+        :'active' => :'active',
         :'livemode' => :'livemode',
-        :'object' => :'object'
+        :'created_at' => :'created_at',
+        :'deactivated_at' => :'deactivated_at',
+        :'deleted' => :'deleted'
       }
     end
 
@@ -54,18 +58,20 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'active' => :'Boolean',
-        :'created_at' => :'Integer',
-        :'deleted' => :'Boolean',
         :'id' => :'String',
+        :'object' => :'String',
+        :'active' => :'Boolean',
         :'livemode' => :'Boolean',
-        :'object' => :'String'
+        :'created_at' => :'Integer',
+        :'deactivated_at' => :'Integer',
+        :'deleted' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'deactivated_at',
       ])
     end
 
@@ -84,28 +90,44 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'active')
-        self.active = attributes[:'active']
-      end
-
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
-      if attributes.key?(:'deleted')
-        self.deleted = attributes[:'deleted']
-      end
-
       if attributes.key?(:'id')
         self.id = attributes[:'id']
-      end
-
-      if attributes.key?(:'livemode')
-        self.livemode = attributes[:'livemode']
+      else
+        self.id = nil
       end
 
       if attributes.key?(:'object')
         self.object = attributes[:'object']
+      else
+        self.object = nil
+      end
+
+      if attributes.key?(:'active')
+        self.active = attributes[:'active']
+      else
+        self.active = nil
+      end
+
+      if attributes.key?(:'livemode')
+        self.livemode = attributes[:'livemode']
+      else
+        self.livemode = nil
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      else
+        self.created_at = nil
+      end
+
+      if attributes.key?(:'deactivated_at')
+        self.deactivated_at = attributes[:'deactivated_at']
+      end
+
+      if attributes.key?(:'deleted')
+        self.deleted = attributes[:'deleted']
+      else
+        self.deleted = nil
       end
     end
 
@@ -114,6 +136,30 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @object.nil?
+        invalid_properties.push('invalid value for "object", object cannot be nil.')
+      end
+
+      if @active.nil?
+        invalid_properties.push('invalid value for "active", active cannot be nil.')
+      end
+
+      if @livemode.nil?
+        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @deleted.nil?
+        invalid_properties.push('invalid value for "deleted", deleted cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -121,6 +167,12 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @id.nil?
+      return false if @object.nil?
+      return false if @active.nil?
+      return false if @livemode.nil?
+      return false if @created_at.nil?
+      return false if @deleted.nil?
       true
     end
 
@@ -129,12 +181,13 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          active == o.active &&
-          created_at == o.created_at &&
-          deleted == o.deleted &&
           id == o.id &&
+          object == o.object &&
+          active == o.active &&
           livemode == o.livemode &&
-          object == o.object
+          created_at == o.created_at &&
+          deactivated_at == o.deactivated_at &&
+          deleted == o.deleted
     end
 
     # @see the `==` method
@@ -146,7 +199,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [active, created_at, deleted, id, livemode, object].hash
+      [id, object, active, livemode, created_at, deactivated_at, deleted].hash
     end
 
     # Builds the object from hash

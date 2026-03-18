@@ -4,8 +4,8 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **type** | **String** | Type of payment method |  |
-| **expires_at** | **Integer** |  | [optional] |
+| **type** | **String** | Type of payment method. |  |
+| **expires_at** | **Integer** | Expiration date as unix timestamp (seconds). | [optional] |
 
 ## Example
 

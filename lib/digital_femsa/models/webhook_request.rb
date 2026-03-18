@@ -14,19 +14,35 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # a webhook
+  # Parameters used to create or update a webhook.
   class WebhookRequest
-    # Here you must place the URL of your Webhook remember that you must program what you will do with the events received. Also do not forget to handle the HTTPS protocol for greater security.
+    # Webhook endpoint URL. Local URLs are not allowed.
     attr_accessor :url
 
-    # It is a value that allows to decide if the events will be synchronous or asynchronous. We recommend asynchronous = false
+    # List of event types the webhook is subscribed to.
+    attr_accessor :subscribed_events
+
+    # Alias for subscribed_events.
+    attr_accessor :events
+
+    # Indicates whether the webhook uses synchronous delivery behavior.
     attr_accessor :synchronous
+
+    # Indicates whether the webhook is active.
+    attr_accessor :active
+
+    # Optional description of the webhook.
+    attr_accessor :description
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'url' => :'url',
-        :'synchronous' => :'synchronous'
+        :'subscribed_events' => :'subscribed_events',
+        :'events' => :'events',
+        :'synchronous' => :'synchronous',
+        :'active' => :'active',
+        :'description' => :'description'
       }
     end
 
@@ -39,13 +55,18 @@ module DigitalFemsa
     def self.openapi_types
       {
         :'url' => :'String',
-        :'synchronous' => :'Boolean'
+        :'subscribed_events' => :'Array<String>',
+        :'events' => :'Array<String>',
+        :'synchronous' => :'Boolean',
+        :'active' => :'Boolean',
+        :'description' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'description'
       ])
     end
 
@@ -70,10 +91,32 @@ module DigitalFemsa
         self.url = nil
       end
 
+      if attributes.key?(:'subscribed_events')
+        if (value = attributes[:'subscribed_events']).is_a?(Array)
+          self.subscribed_events = value
+        end
+      end
+
+      if attributes.key?(:'events')
+        if (value = attributes[:'events']).is_a?(Array)
+          self.events = value
+        end
+      end
+
       if attributes.key?(:'synchronous')
         self.synchronous = attributes[:'synchronous']
       else
         self.synchronous = false
+      end
+
+      if attributes.key?(:'active')
+        self.active = attributes[:'active']
+      else
+        self.active = true
+      end
+
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
       end
     end
 
@@ -91,10 +134,6 @@ module DigitalFemsa
         invalid_properties.push("invalid value for \"url\", must conform to the pattern #{pattern}.")
       end
 
-      if @synchronous.nil?
-        invalid_properties.push('invalid value for "synchronous", synchronous cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -104,7 +143,6 @@ module DigitalFemsa
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @url.nil?
       return false if @url !~ Regexp.new(/^(?!.*(localhost|127\.0\.0\.1)).*$/)
-      return false if @synchronous.nil?
       true
     end
 
@@ -129,7 +167,11 @@ module DigitalFemsa
       return true if self.equal?(o)
       self.class == o.class &&
           url == o.url &&
-          synchronous == o.synchronous
+          subscribed_events == o.subscribed_events &&
+          events == o.events &&
+          synchronous == o.synchronous &&
+          active == o.active &&
+          description == o.description
     end
 
     # @see the `==` method
@@ -141,7 +183,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, synchronous].hash
+      [url, subscribed_events, events, synchronous, active, description].hash
     end
 
     # Builds the object from hash

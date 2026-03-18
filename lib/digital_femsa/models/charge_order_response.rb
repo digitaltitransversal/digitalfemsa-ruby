@@ -85,7 +85,7 @@ module DigitalFemsa
     def self.openapi_types
       {
         :'amount' => :'Integer',
-        :'channel' => :'ChargeResponseChannel',
+        :'channel' => :'ChargeOrderResponseChannel',
         :'created_at' => :'Integer',
         :'currency' => :'String',
         :'customer_id' => :'String',

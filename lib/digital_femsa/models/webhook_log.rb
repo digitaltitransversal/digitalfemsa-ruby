@@ -29,6 +29,28 @@ module DigitalFemsa
 
     attr_accessor :url
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -63,6 +85,7 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'response_data',
       ])
     end
 
@@ -83,18 +106,26 @@ module DigitalFemsa
 
       if attributes.key?(:'failed_attempts')
         self.failed_attempts = attributes[:'failed_attempts']
+      else
+        self.failed_attempts = nil
       end
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      else
+        self.id = nil
       end
 
       if attributes.key?(:'last_attempted_at')
         self.last_attempted_at = attributes[:'last_attempted_at']
+      else
+        self.last_attempted_at = nil
       end
 
       if attributes.key?(:'last_http_response_status')
         self.last_http_response_status = attributes[:'last_http_response_status']
+      else
+        self.last_http_response_status = nil
       end
 
       if attributes.key?(:'object')
@@ -109,6 +140,8 @@ module DigitalFemsa
 
       if attributes.key?(:'url')
         self.url = attributes[:'url']
+      else
+        self.url = nil
       end
     end
 
@@ -117,8 +150,28 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @failed_attempts.nil?
+        invalid_properties.push('invalid value for "failed_attempts", failed_attempts cannot be nil.')
+      end
+
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @last_attempted_at.nil?
+        invalid_properties.push('invalid value for "last_attempted_at", last_attempted_at cannot be nil.')
+      end
+
+      if @last_http_response_status.nil?
+        invalid_properties.push('invalid value for "last_http_response_status", last_http_response_status cannot be nil.')
+      end
+
       if !@response_data.nil? && @response_data.length > 100
         invalid_properties.push('invalid value for "response_data", number of items must be less than or equal to 100.')
+      end
+
+      if @url.nil?
+        invalid_properties.push('invalid value for "url", url cannot be nil.')
       end
 
       invalid_properties
@@ -128,18 +181,31 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @failed_attempts.nil?
+      return false if @id.nil?
+      return false if @last_attempted_at.nil?
+      return false if @last_http_response_status.nil?
+      object_validator = EnumAttributeValidator.new('String', ["webhook_log"])
+      return false unless object_validator.valid?(@object)
       return false if !@response_data.nil? && @response_data.length > 100
+      return false if @url.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["webhook_log"])
+      unless validator.valid?(object)
+        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
     end
 
     # Custom attribute writer method with validation
     # @param [Object] response_data Value to be assigned
     def response_data=(response_data)
-      if response_data.nil?
-        fail ArgumentError, 'response_data cannot be nil'
-      end
-
-      if response_data.length > 100
+      if !response_data.nil? && response_data.length > 100
         fail ArgumentError, 'invalid value for "response_data", number of items must be less than or equal to 100.'
       end
 

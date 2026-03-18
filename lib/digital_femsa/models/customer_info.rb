@@ -15,6 +15,8 @@ require 'time'
 
 module DigitalFemsa
   class CustomerInfo
+    attr_accessor :customer_id
+
     attr_accessor :name
 
     attr_accessor :email
@@ -28,6 +30,7 @@ module DigitalFemsa
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'customer_id' => :'customer_id',
         :'name' => :'name',
         :'email' => :'email',
         :'phone' => :'phone',
@@ -44,6 +47,7 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'customer_id' => :'String',
         :'name' => :'String',
         :'email' => :'String',
         :'phone' => :'String',
@@ -72,6 +76,10 @@ module DigitalFemsa
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'customer_id')
+        self.customer_id = attributes[:'customer_id']
+      end
 
       if attributes.key?(:'name')
         self.name = attributes[:'name']
@@ -135,6 +143,7 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          customer_id == o.customer_id &&
           name == o.name &&
           email == o.email &&
           phone == o.phone &&
@@ -151,7 +160,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, email, phone, corporate, object].hash
+      [customer_id, name, email, phone, corporate, object].hash
     end
 
     # Builds the object from hash

@@ -14,20 +14,44 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # Payment method used in the charge. Go to the [payment methods](https://developers.femsa.com/reference/m%C3%A9todos-de-pago) section for more details 
+  # Payment method used in the charge. 
   class ChargeRequestPaymentMethod
-    # Method expiration date as unix timestamp
-    attr_accessor :expires_at
-
+    # Payment method type.
     attr_accessor :type
 
+    # Method expiration date as unix timestamp (applies to some payment methods, e.g. cash).
+    attr_accessor :expires_at
+
+    # Identifier of a saved payment source to be used for this charge (if applicable).
     attr_accessor :payment_source_id
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'expires_at' => :'expires_at',
         :'type' => :'type',
+        :'expires_at' => :'expires_at',
         :'payment_source_id' => :'payment_source_id'
       }
     end
@@ -40,8 +64,8 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'expires_at' => :'Integer',
         :'type' => :'String',
+        :'expires_at' => :'Integer',
         :'payment_source_id' => :'String'
       }
     end
@@ -49,6 +73,8 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'expires_at',
+        :'payment_source_id'
       ])
     end
 
@@ -67,14 +93,14 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
-      end
-
       if attributes.key?(:'type')
         self.type = attributes[:'type']
       else
         self.type = nil
+      end
+
+      if attributes.key?(:'expires_at')
+        self.expires_at = attributes[:'expires_at']
       end
 
       if attributes.key?(:'payment_source_id')
@@ -99,7 +125,19 @@ module DigitalFemsa
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @type.nil?
+      type_validator = EnumAttributeValidator.new('String', ["cash", "oxxo_cash"])
+      return false unless type_validator.valid?(@type)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      validator = EnumAttributeValidator.new('String', ["cash", "oxxo_cash"])
+      unless validator.valid?(type)
+        fail ArgumentError, "invalid value for \"type\", must be one of #{validator.allowable_values}."
+      end
+      @type = type
     end
 
     # Checks equality by comparing each attribute.
@@ -107,8 +145,8 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          expires_at == o.expires_at &&
           type == o.type &&
+          expires_at == o.expires_at &&
           payment_source_id == o.payment_source_id
     end
 
@@ -121,7 +159,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [expires_at, type, payment_source_id].hash
+      [type, expires_at, payment_source_id].hash
     end
 
     # Builds the object from hash

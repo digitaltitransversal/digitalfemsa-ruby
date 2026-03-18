@@ -14,12 +14,12 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # create new taxes for an existing order
+  # Create a new tax line for an existing order.
   class UpdateOrderTaxRequest
     # The amount to be collected for tax in cents
     attr_accessor :amount
 
-    # description or tax's name
+    # Description or tax name
     attr_accessor :description
 
     attr_accessor :metadata
@@ -70,10 +70,14 @@ module DigitalFemsa
 
       if attributes.key?(:'amount')
         self.amount = attributes[:'amount']
+      else
+        self.amount = nil
       end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
+      else
+        self.description = nil
       end
 
       if attributes.key?(:'metadata')
@@ -88,11 +92,19 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if !@amount.nil? && @amount < 0
+      if @amount.nil?
+        invalid_properties.push('invalid value for "amount", amount cannot be nil.')
+      end
+
+      if @amount < 0
         invalid_properties.push('invalid value for "amount", must be greater than or equal to 0.')
       end
 
-      if !@description.nil? && @description.to_s.length < 2
+      if @description.nil?
+        invalid_properties.push('invalid value for "description", description cannot be nil.')
+      end
+
+      if @description.to_s.length < 2
         invalid_properties.push('invalid value for "description", the character length must be great than or equal to 2.')
       end
 
@@ -107,8 +119,10 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if !@amount.nil? && @amount < 0
-      return false if !@description.nil? && @description.to_s.length < 2
+      return false if @amount.nil?
+      return false if @amount < 0
+      return false if @description.nil?
+      return false if @description.to_s.length < 2
       return false if !@metadata.nil? && @metadata.length > 100
       true
     end

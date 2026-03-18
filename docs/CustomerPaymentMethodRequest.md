@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **type** | **String** | Type of payment method |  |
+| **type** | **String** | Type of payment method. |  |
 
 ## Example
 

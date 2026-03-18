@@ -4,18 +4,18 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**create_customer_shipping_contacts**](ShippingContactsApi.md#create_customer_shipping_contacts) | **POST** /customers/{id}/shipping_contacts | Create a shipping contacts |
-| [**delete_customer_shipping_contacts**](ShippingContactsApi.md#delete_customer_shipping_contacts) | **DELETE** /customers/{id}/shipping_contacts/{shipping_contacts_id} | Delete shipping contacts |
-| [**update_customer_shipping_contacts**](ShippingContactsApi.md#update_customer_shipping_contacts) | **PUT** /customers/{id}/shipping_contacts/{shipping_contacts_id} | Update shipping contacts |
+| [**create_customer_shipping_contacts**](ShippingContactsApi.md#create_customer_shipping_contacts) | **POST** /customers/{id}/shipping_contacts | Create a shipping contact |
+| [**delete_customer_shipping_contacts**](ShippingContactsApi.md#delete_customer_shipping_contacts) | **DELETE** /customers/{id}/shipping_contacts/{shipping_contacts_id} | Delete shipping contact |
+| [**update_customer_shipping_contacts**](ShippingContactsApi.md#update_customer_shipping_contacts) | **PUT** /customers/{id}/shipping_contacts/{shipping_contacts_id} | Update shipping contact |
 
 
 ## create_customer_shipping_contacts
 
 > <CustomerShippingContactsResponse> create_customer_shipping_contacts(id, customer_shipping_contacts, opts)
 
-Create a shipping contacts
+Create a shipping contact
 
-Create a shipping contacts for a customer.
+Creates a new shipping contact for a customer. The shipping contact is associated with the customer identified by `id`.
 
 ### Examples
 
@@ -30,14 +30,14 @@ end
 
 api_instance = DigitalFemsa::ShippingContactsApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
-customer_shipping_contacts = DigitalFemsa::CustomerShippingContacts.new({address: DigitalFemsa::CustomerShippingContactsAddress.new}) # CustomerShippingContacts | requested field for customer shippings contacts
+customer_shipping_contacts = DigitalFemsa::CustomerShippingContacts.new({address: DigitalFemsa::CustomerShippingContactsAddress.new}) # CustomerShippingContacts | Request body for creating or updating a customer shipping contact.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
 }
 
 begin
-  # Create a shipping contacts
+  # Create a shipping contact
   result = api_instance.create_customer_shipping_contacts(id, customer_shipping_contacts, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -53,7 +53,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Create a shipping contacts
+  # Create a shipping contact
   data, status_code, headers = api_instance.create_customer_shipping_contacts_with_http_info(id, customer_shipping_contacts, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -68,7 +68,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Identifier of the resource |  |
-| **customer_shipping_contacts** | [**CustomerShippingContacts**](CustomerShippingContacts.md) | requested field for customer shippings contacts |  |
+| **customer_shipping_contacts** | [**CustomerShippingContacts**](CustomerShippingContacts.md) | Request body for creating or updating a customer shipping contact. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 
@@ -90,9 +90,9 @@ end
 
 > <CustomerShippingContactsResponse> delete_customer_shipping_contacts(id, shipping_contacts_id, opts)
 
-Delete shipping contacts
+Delete shipping contact
 
-Delete shipping contact that corresponds to a customer ID.
+Deletes an existing shipping contact for a customer. The shipping contact identified by `shipping_contacts_id` belongs to the customer identified by `id`. The response includes the deleted resource with `deleted: true`.
 
 ### Examples
 
@@ -114,7 +114,7 @@ opts = {
 }
 
 begin
-  # Delete shipping contacts
+  # Delete shipping contact
   result = api_instance.delete_customer_shipping_contacts(id, shipping_contacts_id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -130,7 +130,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Delete shipping contacts
+  # Delete shipping contact
   data, status_code, headers = api_instance.delete_customer_shipping_contacts_with_http_info(id, shipping_contacts_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -167,9 +167,9 @@ end
 
 > <CustomerShippingContactsResponse> update_customer_shipping_contacts(id, shipping_contacts_id, customer_update_shipping_contacts, opts)
 
-Update shipping contacts
+Update shipping contact
 
-Update shipping contact that corresponds to a customer ID.
+Updates an existing shipping contact for a customer. The shipping contact identified by `shipping_contacts_id` belongs to the customer identified by `id`. Only the fields provided in the request body are updated.
 
 ### Examples
 
@@ -185,14 +185,14 @@ end
 api_instance = DigitalFemsa::ShippingContactsApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
 shipping_contacts_id = '6307a60c41de27127515a575' # String | identifier
-customer_update_shipping_contacts = DigitalFemsa::CustomerUpdateShippingContacts.new # CustomerUpdateShippingContacts | requested field for customer update shippings contacts
+customer_update_shipping_contacts = DigitalFemsa::CustomerUpdateShippingContacts.new # CustomerUpdateShippingContacts | Request body for updating a customer shipping contact.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
 }
 
 begin
-  # Update shipping contacts
+  # Update shipping contact
   result = api_instance.update_customer_shipping_contacts(id, shipping_contacts_id, customer_update_shipping_contacts, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -208,7 +208,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Update shipping contacts
+  # Update shipping contact
   data, status_code, headers = api_instance.update_customer_shipping_contacts_with_http_info(id, shipping_contacts_id, customer_update_shipping_contacts, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -224,7 +224,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Identifier of the resource |  |
 | **shipping_contacts_id** | **String** | identifier |  |
-| **customer_update_shipping_contacts** | [**CustomerUpdateShippingContacts**](CustomerUpdateShippingContacts.md) | requested field for customer update shippings contacts |  |
+| **customer_update_shipping_contacts** | [**CustomerUpdateShippingContacts**](CustomerUpdateShippingContacts.md) | Request body for updating a customer shipping contact. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 

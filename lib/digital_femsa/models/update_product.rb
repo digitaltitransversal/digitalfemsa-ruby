@@ -15,8 +15,6 @@ require 'time'
 
 module DigitalFemsa
   class UpdateProduct
-    attr_accessor :antifraud_info
-
     attr_accessor :description
 
     attr_accessor :sku
@@ -36,7 +34,6 @@ module DigitalFemsa
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'antifraud_info' => :'antifraud_info',
         :'description' => :'description',
         :'sku' => :'sku',
         :'name' => :'name',
@@ -56,7 +53,6 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'antifraud_info' => :'Hash<String, Object>',
         :'description' => :'String',
         :'sku' => :'String',
         :'name' => :'String',
@@ -88,12 +84,6 @@ module DigitalFemsa
         end
         h[k.to_sym] = v
       }
-
-      if attributes.key?(:'antifraud_info')
-        if (value = attributes[:'antifraud_info']).is_a?(Hash)
-          self.antifraud_info = value
-        end
-      end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
@@ -209,7 +199,6 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          antifraud_info == o.antifraud_info &&
           description == o.description &&
           sku == o.sku &&
           name == o.name &&
@@ -229,7 +218,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [antifraud_info, description, sku, name, unit_price, quantity, tags, brand, metadata].hash
+      [description, sku, name, unit_price, quantity, tags, brand, metadata].hash
     end
 
     # Builds the object from hash

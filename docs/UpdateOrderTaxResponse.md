@@ -10,6 +10,7 @@
 | **id** | **String** |  |  |
 | **object** | **String** |  | [optional] |
 | **parent_id** | **String** |  | [optional] |
+| **deleted** | **Boolean** | Present only when the tax line was deleted. | [optional] |
 
 ## Example
 
@@ -22,7 +23,8 @@ instance = DigitalFemsa::UpdateOrderTaxResponse.new(
   metadata: {key&#x3D;value},
   id: tax_lin_2tQ8dC5mg1UADmVPo,
   object: tax_line,
-  parent_id: ord_2tPAmKCEJqh8RE6nY
+  parent_id: ord_2tPAmKCEJqh8RE6nY,
+  deleted: true
 )
 ```
 

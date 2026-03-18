@@ -22,14 +22,11 @@ module DigitalFemsa
     # It is the time when the link will expire. It is expressed in seconds since the Unix epoch. The valid range is from 2 to 365 days (the valid range will be taken from the next day of the creation date at 00:01 hrs) 
     attr_accessor :expires_at
 
-    # Reason for charge
+    # Payment link name
     attr_accessor :name
 
     # This flag allows you to fill in the shipping information at checkout.
     attr_accessor :needs_shipping_contact
-
-    # This flag allows you to specify if the link will be on demand.
-    attr_accessor :on_demand_enabled
 
     attr_accessor :order_template
 
@@ -49,7 +46,6 @@ module DigitalFemsa
         :'expires_at' => :'expires_at',
         :'name' => :'name',
         :'needs_shipping_contact' => :'needs_shipping_contact',
-        :'on_demand_enabled' => :'on_demand_enabled',
         :'order_template' => :'order_template',
         :'payments_limit_count' => :'payments_limit_count',
         :'recurrent' => :'recurrent',
@@ -69,7 +65,6 @@ module DigitalFemsa
         :'expires_at' => :'Integer',
         :'name' => :'String',
         :'needs_shipping_contact' => :'Boolean',
-        :'on_demand_enabled' => :'Boolean',
         :'order_template' => :'CheckoutOrderTemplate',
         :'payments_limit_count' => :'Integer',
         :'recurrent' => :'Boolean',
@@ -80,7 +75,6 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'on_demand_enabled',
       ])
     end
 
@@ -121,10 +115,6 @@ module DigitalFemsa
 
       if attributes.key?(:'needs_shipping_contact')
         self.needs_shipping_contact = attributes[:'needs_shipping_contact']
-      end
-
-      if attributes.key?(:'on_demand_enabled')
-        self.on_demand_enabled = attributes[:'on_demand_enabled']
       end
 
       if attributes.key?(:'order_template')
@@ -204,7 +194,6 @@ module DigitalFemsa
           expires_at == o.expires_at &&
           name == o.name &&
           needs_shipping_contact == o.needs_shipping_contact &&
-          on_demand_enabled == o.on_demand_enabled &&
           order_template == o.order_template &&
           payments_limit_count == o.payments_limit_count &&
           recurrent == o.recurrent &&
@@ -220,7 +209,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [allowed_payment_methods, expires_at, name, needs_shipping_contact, on_demand_enabled, order_template, payments_limit_count, recurrent, type].hash
+      [allowed_payment_methods, expires_at, name, needs_shipping_contact, order_template, payments_limit_count, recurrent, type].hash
     end
 
     # Builds the object from hash

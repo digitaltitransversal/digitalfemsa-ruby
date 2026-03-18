@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Create Payment Method
-    # Create a payment method for a customer.
+    # Creates a new payment method for a customer. The payment method is associated with the customer identified by `id`. The accepted fields depend on the payment method `type`.
     # @param id [String] Identifier of the resource
     # @param create_customer_payment_methods_request [CreateCustomerPaymentMethodsRequest] requested field for customer payment methods
     # @param [Hash] opts the optional parameters
@@ -33,7 +33,7 @@ module DigitalFemsa
     end
 
     # Create Payment Method
-    # Create a payment method for a customer.
+    # Creates a new payment method for a customer. The payment method is associated with the customer identified by &#x60;id&#x60;. The accepted fields depend on the payment method &#x60;type&#x60;.
     # @param id [String] Identifier of the resource
     # @param create_customer_payment_methods_request [CreateCustomerPaymentMethodsRequest] requested field for customer payment methods
     # @param [Hash] opts the optional parameters
@@ -104,7 +104,7 @@ module DigitalFemsa
     end
 
     # Delete Payment Method
-    # Delete an existing payment method
+    # Deletes a specific payment method of a customer. After deletion, the payment method can no longer be used for future payments.
     # @param id [String] Identifier of the resource
     # @param payment_method_id [String] Identifier of the payment method
     # @param [Hash] opts the optional parameters
@@ -117,7 +117,7 @@ module DigitalFemsa
     end
 
     # Delete Payment Method
-    # Delete an existing payment method
+    # Deletes a specific payment method of a customer. After deletion, the payment method can no longer be used for future payments.
     # @param id [String] Identifier of the resource
     # @param payment_method_id [String] Identifier of the payment method
     # @param [Hash] opts the optional parameters
@@ -276,10 +276,10 @@ module DigitalFemsa
     end
 
     # Update Payment Method
-    # Gets a payment Method that corresponds to a customer ID.
+    # Updates a specific payment method of a customer. Use this endpoint to modify the payment method identified by `payment_method_id` for the customer identified by `id`. The fields that can be updated depend on the payment method `type`.
     # @param id [String] Identifier of the resource
     # @param payment_method_id [String] Identifier of the payment method
-    # @param update_payment_methods [UpdatePaymentMethods] requested field for customer payment methods
+    # @param update_payment_methods [UpdatePaymentMethods] Request body for updating a customer payment method.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -290,10 +290,10 @@ module DigitalFemsa
     end
 
     # Update Payment Method
-    # Gets a payment Method that corresponds to a customer ID.
+    # Updates a specific payment method of a customer. Use this endpoint to modify the payment method identified by &#x60;payment_method_id&#x60; for the customer identified by &#x60;id&#x60;. The fields that can be updated depend on the payment method &#x60;type&#x60;.
     # @param id [String] Identifier of the resource
     # @param payment_method_id [String] Identifier of the payment method
-    # @param update_payment_methods [UpdatePaymentMethods] requested field for customer payment methods
+    # @param update_payment_methods [UpdatePaymentMethods] Request body for updating a customer payment method.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

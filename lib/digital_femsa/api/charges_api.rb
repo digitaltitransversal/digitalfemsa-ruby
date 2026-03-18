@@ -19,28 +19,30 @@ module DigitalFemsa
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Get A List of Charges
+    # List charges
+    # Retrieves a paginated list of charges for the authenticated account.  Use the pagination parameters (`limit`, `next_page`, `previous_page`) to navigate through results. Use `search` to filter charges (for example by id or reference). 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
-    # @option opts [String] :search General order search, e.g. by mail, reference etc.
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
+    # @option opts [String] :search General order search, e.g. by mail, reference etc.
     # @return [GetChargesResponse]
     def get_charges(opts = {})
       data, _status_code, _headers = get_charges_with_http_info(opts)
       data
     end
 
-    # Get A List of Charges
+    # List charges
+    # Retrieves a paginated list of charges for the authenticated account.  Use the pagination parameters (&#x60;limit&#x60;, &#x60;next_page&#x60;, &#x60;previous_page&#x60;) to navigate through results. Use &#x60;search&#x60; to filter charges (for example by id or reference). 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
-    # @option opts [String] :search General order search, e.g. by mail, reference etc.
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
+    # @option opts [String] :search General order search, e.g. by mail, reference etc.
     # @return [Array<(GetChargesResponse, Integer, Hash)>] GetChargesResponse data, response status code and response headers
     def get_charges_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -64,9 +66,9 @@ module DigitalFemsa
       # query parameters
       query_params = opts[:query_params] || {}
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
-      query_params[:'search'] = opts[:'search'] if !opts[:'search'].nil?
       query_params[:'next'] = opts[:'_next'] if !opts[:'_next'].nil?
       query_params[:'previous'] = opts[:'previous'] if !opts[:'previous'].nil?
+      query_params[:'search'] = opts[:'search'] if !opts[:'search'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -104,8 +106,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Create charge
-    # Create charge for an existing orden
+    # Create a charge for an order
+    # Creates a new charge associated with an existing order.  Notes: - The charge is created for the order identified by the path parameter `id`. - Depending on the payment method, the charge may be created in a non-final status (for example, pending). - If the order does not meet the required conditions, the API may respond with **428 Precondition Required**. 
     # @param id [String] Identifier of the resource
     # @param charge_request [ChargeRequest] requested field for a charge
     # @param [Hash] opts the optional parameters
@@ -117,8 +119,8 @@ module DigitalFemsa
       data
     end
 
-    # Create charge
-    # Create charge for an existing orden
+    # Create a charge for an order
+    # Creates a new charge associated with an existing order.  Notes: - The charge is created for the order identified by the path parameter &#x60;id&#x60;. - Depending on the payment method, the charge may be created in a non-final status (for example, pending). - If the order does not meet the required conditions, the API may respond with **428 Precondition Required**. 
     # @param id [String] Identifier of the resource
     # @param charge_request [ChargeRequest] requested field for a charge
     # @param [Hash] opts the optional parameters
@@ -189,6 +191,7 @@ module DigitalFemsa
     end
 
     # Update a charge
+    # Updates an existing charge. Only `reference_id` can be updated.
     # @param id [String] Identifier of the resource
     # @param charge_update_request [ChargeUpdateRequest] requested field for update a charge
     # @param [Hash] opts the optional parameters
@@ -201,6 +204,7 @@ module DigitalFemsa
     end
 
     # Update a charge
+    # Updates an existing charge. Only &#x60;reference_id&#x60; can be updated.
     # @param id [String] Identifier of the resource
     # @param charge_update_request [ChargeUpdateRequest] requested field for update a charge
     # @param [Hash] opts the optional parameters

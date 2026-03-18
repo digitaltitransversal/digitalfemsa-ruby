@@ -19,8 +19,8 @@ module DigitalFemsa
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Create Api Key
-    # Create a api key
+    # Create API key
+    # Creates a new API key.  The response includes an `authentication_token` that is shown only once (at creation time). Copy and store it securely. 
     # @param api_key_request [ApiKeyRequest] requested field for a api keys
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -31,8 +31,8 @@ module DigitalFemsa
       data
     end
 
-    # Create Api Key
-    # Create a api key
+    # Create API key
+    # Creates a new API key.  The response includes an &#x60;authentication_token&#x60; that is shown only once (at creation time). Copy and store it securely. 
     # @param api_key_request [ApiKeyRequest] requested field for a api keys
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -97,8 +97,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Delete Api Key
-    # Deletes a api key that corresponds to a api key ID
+    # Delete API key
+    # Deletes an API key by its ID. 
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -108,8 +108,8 @@ module DigitalFemsa
       data
     end
 
-    # Delete Api Key
-    # Deletes a api key that corresponds to a api key ID
+    # Delete API key
+    # Deletes an API key by its ID. 
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -167,8 +167,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get Api Key
-    # Gets a api key that corresponds to a api key ID
+    # Get API key
+    # Retrieves the details of an API key by its ID. 
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -179,8 +179,8 @@ module DigitalFemsa
       data
     end
 
-    # Get Api Key
-    # Gets a api key that corresponds to a api key ID
+    # Get API key
+    # Retrieves the details of an API key by its ID. 
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -240,30 +240,30 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get list of Api Keys
-    # Consume the list of api keys you have
+    # List API keys
+    # Retrieves a paginated list of API keys for the authenticated account.  Use the pagination parameters (`limit`, `next_page`, `previous_page`) to navigate through results. Use the `search` query parameter to perform a general search (for example by key `id` or description). 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
-    # @option opts [String] :search General search, e.g. by id, description, prefix
+    # @option opts [String] :search General search, e.g. by id or description
     # @return [GetApiKeysResponse]
     def get_api_keys(opts = {})
       data, _status_code, _headers = get_api_keys_with_http_info(opts)
       data
     end
 
-    # Get list of Api Keys
-    # Consume the list of api keys you have
+    # List API keys
+    # Retrieves a paginated list of API keys for the authenticated account.  Use the pagination parameters (&#x60;limit&#x60;, &#x60;next_page&#x60;, &#x60;previous_page&#x60;) to navigate through results. Use the &#x60;search&#x60; query parameter to perform a general search (for example by key &#x60;id&#x60; or description). 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
-    # @option opts [String] :search General search, e.g. by id, description, prefix
+    # @option opts [String] :search General search, e.g. by id or description
     # @return [Array<(GetApiKeysResponse, Integer, Hash)>] GetApiKeysResponse data, response status code and response headers
     def get_api_keys_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -327,8 +327,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Update Api Key
-    # Update an existing api key
+    # Update API key
+    # Updates an existing API key by its ID.  Use this endpoint to change the key's status (active/inactive) or update its description. 
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -339,8 +339,8 @@ module DigitalFemsa
       data
     end
 
-    # Update Api Key
-    # Update an existing api key
+    # Update API key
+    # Updates an existing API key by its ID.  Use this endpoint to change the key&#39;s status (active/inactive) or update its description. 
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')

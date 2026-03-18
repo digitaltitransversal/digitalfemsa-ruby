@@ -4,13 +4,13 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **failed_attempts** | **Integer** |  | [optional] |
-| **id** | **String** |  | [optional] |
-| **last_attempted_at** | **Integer** |  | [optional] |
-| **last_http_response_status** | **Integer** |  | [optional] |
+| **failed_attempts** | **Integer** |  |  |
+| **id** | **String** |  |  |
+| **last_attempted_at** | **Integer** |  |  |
+| **last_http_response_status** | **Integer** |  |  |
 | **object** | **String** |  | [optional] |
 | **response_data** | **Hash&lt;String, Object&gt;** |  | [optional] |
-| **url** | **String** |  | [optional] |
+| **url** | **String** |  |  |
 
 ## Example
 

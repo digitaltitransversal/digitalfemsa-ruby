@@ -4,7 +4,6 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **antifraud_info** | **Hash&lt;String, Object&gt;** |  | [optional] |
 | **brand** | **String** | The brand of the item. | [optional] |
 | **description** | **String** | Short description of the item | [optional] |
 | **metadata** | **Hash&lt;String, String&gt;** | It is a key/value hash that can hold custom fields. Maximum 100 elements and allows special characters. | [optional] |
@@ -20,7 +19,6 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::Product.new(
-  antifraud_info: {&quot;key&quot;:&quot;value&quot;},
   brand: Cohiba,
   description: Imported From Mex.,
   metadata: {&quot;key&quot;:&quot;value&quot;},

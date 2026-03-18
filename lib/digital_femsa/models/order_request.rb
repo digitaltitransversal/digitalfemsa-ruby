@@ -16,22 +16,26 @@ require 'time'
 module DigitalFemsa
   # a order
   class OrderRequest
-    # List of [charges](https://developers.femsa.com/v2.1.0/reference/orderscreatecharge) that are applied to the order
+    # List of [charges](https://developers.digitalfemsa.io/reference/orderscreatecharge) that are applied to the order
     attr_accessor :charges
 
     attr_accessor :checkout
+
+    # Optional return URL used by some payment/checkout flows.
+    attr_accessor :return_url
 
     # Currency with which the payment will be made. It uses the 3-letter code of the [International Standard ISO 4217.](https://es.wikipedia.org/wiki/ISO_4217)
     attr_accessor :currency
 
     attr_accessor :customer_info
 
-    # List of [discounts](https://developers.femsa.com/v2.1.0/reference/orderscreatediscountline) that are applied to the order. You must have at least one discount.
+    # List of [discounts](https://developers.digitalfemsa.io/reference/orderscreatediscountline) that are applied to the order. You must have at least one discount.
     attr_accessor :discount_lines
 
+    # Fiscal entity of the order, Currently it is a purely informative field
     attr_accessor :fiscal_entity
 
-    # List of [products](https://developers.femsa.com/v2.1.0/reference/orderscreateproduct) that are sold in the order. You must have at least one product.
+    # List of [products](https://developers.digitalfemsa.io/reference/orderscreateproduct) that are sold in the order. You must have at least one product.
     attr_accessor :line_items
 
     # Metadata associated with the order
@@ -43,15 +47,12 @@ module DigitalFemsa
     # Indicates the processing mode for the order, either ecommerce, recurrent or validation.
     attr_accessor :processing_mode
 
-    # Indicates the redirection callback upon completion of the 3DS2 flow.
-    attr_accessor :return_url
-
     attr_accessor :shipping_contact
 
-    # List of [shipping costs](https://developers.femsa.com/v2.1.0/reference/orderscreateshipping). If the online store offers digital products.
+    # List of [shipping costs](https://developers.digitalfemsa.io/reference/orderscreateshipping). If the online store offers digital products.
     attr_accessor :shipping_lines
 
-    # List of [taxes](https://developers.femsa.com/v2.1.0/reference/orderscreatetaxes) that are applied to the order.
+    # List of [taxes](https://developers.digitalfemsa.io/reference/orderscreatetaxes) that are applied to the order.
     attr_accessor :tax_lines
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -59,6 +60,7 @@ module DigitalFemsa
       {
         :'charges' => :'charges',
         :'checkout' => :'checkout',
+        :'return_url' => :'return_url',
         :'currency' => :'currency',
         :'customer_info' => :'customer_info',
         :'discount_lines' => :'discount_lines',
@@ -67,7 +69,6 @@ module DigitalFemsa
         :'metadata' => :'metadata',
         :'needs_shipping_contact' => :'needs_shipping_contact',
         :'processing_mode' => :'processing_mode',
-        :'return_url' => :'return_url',
         :'shipping_contact' => :'shipping_contact',
         :'shipping_lines' => :'shipping_lines',
         :'tax_lines' => :'tax_lines'
@@ -84,15 +85,15 @@ module DigitalFemsa
       {
         :'charges' => :'Array<ChargeRequest>',
         :'checkout' => :'CheckoutRequest',
+        :'return_url' => :'String',
         :'currency' => :'String',
-        :'customer_info' => :'OrderRequestCustomerInfo',
+        :'customer_info' => :'CustomerInfo',
         :'discount_lines' => :'Array<OrderDiscountLinesRequest>',
-        :'fiscal_entity' => :'OrderFiscalEntityRequest',
+        :'fiscal_entity' => :'Object',
         :'line_items' => :'Array<Product>',
         :'metadata' => :'Hash<String, Object>',
         :'needs_shipping_contact' => :'Boolean',
         :'processing_mode' => :'String',
-        :'return_url' => :'String',
         :'shipping_contact' => :'CustomerShippingContacts',
         :'shipping_lines' => :'Array<ShippingRequest>',
         :'tax_lines' => :'Array<OrderTaxRequest>'
@@ -102,6 +103,7 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'return_url',
       ])
     end
 
@@ -128,6 +130,10 @@ module DigitalFemsa
 
       if attributes.key?(:'checkout')
         self.checkout = attributes[:'checkout']
+      end
+
+      if attributes.key?(:'return_url')
+        self.return_url = attributes[:'return_url']
       end
 
       if attributes.key?(:'currency')
@@ -172,10 +178,6 @@ module DigitalFemsa
 
       if attributes.key?(:'processing_mode')
         self.processing_mode = attributes[:'processing_mode']
-      end
-
-      if attributes.key?(:'return_url')
-        self.return_url = attributes[:'return_url']
       end
 
       if attributes.key?(:'shipping_contact')
@@ -270,6 +272,7 @@ module DigitalFemsa
       self.class == o.class &&
           charges == o.charges &&
           checkout == o.checkout &&
+          return_url == o.return_url &&
           currency == o.currency &&
           customer_info == o.customer_info &&
           discount_lines == o.discount_lines &&
@@ -278,7 +281,6 @@ module DigitalFemsa
           metadata == o.metadata &&
           needs_shipping_contact == o.needs_shipping_contact &&
           processing_mode == o.processing_mode &&
-          return_url == o.return_url &&
           shipping_contact == o.shipping_contact &&
           shipping_lines == o.shipping_lines &&
           tax_lines == o.tax_lines
@@ -293,7 +295,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [charges, checkout, currency, customer_info, discount_lines, fiscal_entity, line_items, metadata, needs_shipping_contact, processing_mode, return_url, shipping_contact, shipping_lines, tax_lines].hash
+      [charges, checkout, return_url, currency, customer_info, discount_lines, fiscal_entity, line_items, metadata, needs_shipping_contact, processing_mode, shipping_contact, shipping_lines, tax_lines].hash
     end
 
     # Builds the object from hash

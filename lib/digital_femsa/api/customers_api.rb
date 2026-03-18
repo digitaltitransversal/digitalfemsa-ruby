@@ -19,8 +19,8 @@ module DigitalFemsa
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Create customer
-    # The purpose of business is to create and keep a customer, you will learn what elements you need to create a customer. 
+    # Create a customer
+    # Creates a new customer for the authenticated company.  Use customers to store and reuse buyer information (for example name, email, phone, and addresses). The created customer can be referenced later when creating orders and other resources. 
     # @param customer [Customer] requested field for customer
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -31,8 +31,8 @@ module DigitalFemsa
       data
     end
 
-    # Create customer
-    # The purpose of business is to create and keep a customer, you will learn what elements you need to create a customer. 
+    # Create a customer
+    # Creates a new customer for the authenticated company.  Use customers to store and reuse buyer information (for example name, email, phone, and addresses). The created customer can be referenced later when creating orders and other resources. 
     # @param customer [Customer] requested field for customer
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -98,7 +98,7 @@ module DigitalFemsa
     end
 
     # Create Fiscal Entity
-    # Create Fiscal entity resource that corresponds to a customer ID.
+    # Create a fiscal entity resource for a given customer ID.
     # @param id [String] Identifier of the resource
     # @param customer_fiscal_entities_request [CustomerFiscalEntitiesRequest] requested field for customer fiscal entities
     # @param [Hash] opts the optional parameters
@@ -111,7 +111,7 @@ module DigitalFemsa
     end
 
     # Create Fiscal Entity
-    # Create Fiscal entity resource that corresponds to a customer ID.
+    # Create a fiscal entity resource for a given customer ID.
     # @param id [String] Identifier of the resource
     # @param customer_fiscal_entities_request [CustomerFiscalEntitiesRequest] requested field for customer fiscal entities
     # @param [Hash] opts the optional parameters
@@ -328,7 +328,7 @@ module DigitalFemsa
     end
 
     # Get a list of customers
-    # The purpose of business is to create and maintain a client, you will learn what elements you need to obtain a list of clients, which can be paged.
+    # Returns a paginated list of customers for the authenticated company.  Use the [search] parameter to filter results. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -343,7 +343,7 @@ module DigitalFemsa
     end
 
     # Get a list of customers
-    # The purpose of business is to create and maintain a client, you will learn what elements you need to obtain a list of clients, which can be paged.
+    # Returns a paginated list of customers for the authenticated company.  Use the [search] parameter to filter results. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -498,7 +498,7 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Update  Fiscal Entity
+    # Update Fiscal Entity
     # Update Fiscal Entity resource that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param fiscal_entities_id [String] identifier
@@ -512,7 +512,7 @@ module DigitalFemsa
       data
     end
 
-    # Update  Fiscal Entity
+    # Update Fiscal Entity
     # Update Fiscal Entity resource that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param fiscal_entities_id [String] identifier

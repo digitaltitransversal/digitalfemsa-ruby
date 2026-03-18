@@ -114,6 +114,8 @@ module DigitalFemsa
 
       if attributes.key?(:'country')
         self.country = attributes[:'country']
+      else
+        self.country = nil
       end
 
       if attributes.key?(:'residential')
@@ -144,6 +146,10 @@ module DigitalFemsa
         invalid_properties.push('invalid value for "city", city cannot be nil.')
       end
 
+      if @country.nil?
+        invalid_properties.push('invalid value for "country", country cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -154,6 +160,7 @@ module DigitalFemsa
       return false if @street1.nil?
       return false if @postal_code.nil?
       return false if @city.nil?
+      return false if @country.nil?
       true
     end
 

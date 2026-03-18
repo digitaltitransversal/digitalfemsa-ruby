@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Get transaction
-    # Get the details of a transaction
+    # Retrieves the details of a transaction by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -32,7 +32,7 @@ module DigitalFemsa
     end
 
     # Get transaction
-    # Get the details of a transaction
+    # Retrieves the details of a transaction by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -92,15 +92,15 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get List transactions
-    # Get transaction details in the form of a list
+    # List transactions
+    # Returns a paginated list of transactions (ledger movements).  A transaction is a movement that represents the financial impact of payment operations, including amounts, fees, and net values. Transactions can be linked to a charge and may be linked to a transfer (payout) when they are included in a payout.  If you need payout-level information (destination, statement reference/description, payout status), use GET /transfers. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
-    # @option opts [String] :id id of the object to be retrieved
+    # @option opts [String] :search General order search, e.g. by mail, reference etc.
     # @option opts [String] :charge_id id of the charge used for filtering
     # @option opts [String] :type type of the object to be retrieved
     # @option opts [String] :currency currency of the object to be retrieved
@@ -110,15 +110,15 @@ module DigitalFemsa
       data
     end
 
-    # Get List transactions
-    # Get transaction details in the form of a list
+    # List transactions
+    # Returns a paginated list of transactions (ledger movements).  A transaction is a movement that represents the financial impact of payment operations, including amounts, fees, and net values. Transactions can be linked to a charge and may be linked to a transfer (payout) when they are included in a payout.  If you need payout-level information (destination, statement reference/description, payout status), use GET /transfers. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
-    # @option opts [String] :id id of the object to be retrieved
+    # @option opts [String] :search General order search, e.g. by mail, reference etc.
     # @option opts [String] :charge_id id of the charge used for filtering
     # @option opts [String] :type type of the object to be retrieved
     # @option opts [String] :currency currency of the object to be retrieved
@@ -147,7 +147,7 @@ module DigitalFemsa
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
       query_params[:'next'] = opts[:'_next'] if !opts[:'_next'].nil?
       query_params[:'previous'] = opts[:'previous'] if !opts[:'previous'].nil?
-      query_params[:'id'] = opts[:'id'] if !opts[:'id'].nil?
+      query_params[:'search'] = opts[:'search'] if !opts[:'search'].nil?
       query_params[:'charge_id'] = opts[:'charge_id'] if !opts[:'charge_id'].nil?
       query_params[:'type'] = opts[:'type'] if !opts[:'type'].nil?
       query_params[:'currency'] = opts[:'currency'] if !opts[:'currency'].nil?

@@ -4,7 +4,6 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **antifraud_info** | **Hash&lt;String, Object&gt;** |  | [optional] |
 | **description** | **String** |  | [optional] |
 | **sku** | **String** |  | [optional] |
 | **name** | **String** |  | [optional] |
@@ -20,7 +19,6 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::UpdateProduct.new(
-  antifraud_info: null,
   description: null,
   sku: null,
   name: Box of Cohiba S1s,

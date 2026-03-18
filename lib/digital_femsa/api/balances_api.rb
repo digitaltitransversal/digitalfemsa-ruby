@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Get a company's balance
-    # Get a company's balance
+    # Retrieves the current balance information for the authenticated company.  Monetary fields are returned as arrays of amounts grouped by currency. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @return [BalanceResponse]
@@ -30,7 +30,7 @@ module DigitalFemsa
     end
 
     # Get a company&#39;s balance
-    # Get a company&#39;s balance
+    # Retrieves the current balance information for the authenticated company.  Monetary fields are returned as arrays of amounts grouped by currency. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @return [Array<(BalanceResponse, Integer, Hash)>] BalanceResponse data, response status code and response headers

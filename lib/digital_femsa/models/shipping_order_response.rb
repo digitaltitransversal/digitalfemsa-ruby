@@ -27,6 +27,9 @@ module DigitalFemsa
     # Method of shipment
     attr_accessor :method
 
+    # Shipping line description
+    attr_accessor :description
+
     # Hash where the user can send additional information for each 'shipping'.
     attr_accessor :metadata
 
@@ -43,6 +46,7 @@ module DigitalFemsa
         :'carrier' => :'carrier',
         :'tracking_number' => :'tracking_number',
         :'method' => :'method',
+        :'description' => :'description',
         :'metadata' => :'metadata',
         :'id' => :'id',
         :'object' => :'object',
@@ -62,6 +66,7 @@ module DigitalFemsa
         :'carrier' => :'String',
         :'tracking_number' => :'String',
         :'method' => :'String',
+        :'description' => :'String',
         :'metadata' => :'Hash<String, Object>',
         :'id' => :'String',
         :'object' => :'String',
@@ -113,6 +118,10 @@ module DigitalFemsa
 
       if attributes.key?(:'method')
         self.method = attributes[:'method']
+      end
+
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
       end
 
       if attributes.key?(:'metadata')
@@ -201,6 +210,7 @@ module DigitalFemsa
           carrier == o.carrier &&
           tracking_number == o.tracking_number &&
           method == o.method &&
+          description == o.description &&
           metadata == o.metadata &&
           id == o.id &&
           object == o.object &&
@@ -216,7 +226,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, carrier, tracking_number, method, metadata, id, object, parent_id].hash
+      [amount, carrier, tracking_number, method, description, metadata, id, object, parent_id].hash
     end
 
     # Builds the object from hash

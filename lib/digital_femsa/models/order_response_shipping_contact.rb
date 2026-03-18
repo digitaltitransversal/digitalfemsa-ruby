@@ -14,6 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
+  # Shipping contact associated with the order. It may be `null` when not provided/required.
   class OrderResponseShippingContact
     attr_accessor :phone
 
@@ -23,8 +24,10 @@ module DigitalFemsa
 
     attr_accessor :address
 
+    # Customer ID that owns this shipping contact.
     attr_accessor :parent_id
 
+    # True if this is the customer's default shipping contact.
     attr_accessor :default
 
     attr_accessor :id
@@ -36,6 +39,7 @@ module DigitalFemsa
 
     attr_accessor :object
 
+    # Present only when the shipping contact was deleted.
     attr_accessor :deleted
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -81,6 +85,7 @@ module DigitalFemsa
     def self.openapi_nullable
       Set.new([
         :'between_streets',
+        :'deleted'
       ])
     end
 

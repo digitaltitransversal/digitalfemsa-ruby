@@ -14,9 +14,9 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # requested field for update a charge
+  # Request body to update a charge. Only `reference_id` can be updated.
   class ChargeUpdateRequest
-    # custom reference id
+    # Custom reference ID.
     attr_accessor :reference_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -41,6 +41,7 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'reference_id'
       ])
     end
 
@@ -69,6 +70,14 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if !@reference_id.nil? && @reference_id.to_s.length > 99
+        invalid_properties.push('invalid value for "reference_id", the character length must be smaller than or equal to 99.')
+      end
+
+      if !@reference_id.nil? && @reference_id.to_s.length < 1
+        invalid_properties.push('invalid value for "reference_id", the character length must be great than or equal to 1.')
+      end
+
       invalid_properties
     end
 
@@ -76,7 +85,23 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if !@reference_id.nil? && @reference_id.to_s.length > 99
+      return false if !@reference_id.nil? && @reference_id.to_s.length < 1
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] reference_id Value to be assigned
+    def reference_id=(reference_id)
+      if !reference_id.nil? && reference_id.to_s.length > 99
+        fail ArgumentError, 'invalid value for "reference_id", the character length must be smaller than or equal to 99.'
+      end
+
+      if !reference_id.nil? && reference_id.to_s.length < 1
+        fail ArgumentError, 'invalid value for "reference_id", the character length must be great than or equal to 1.'
+      end
+
+      @reference_id = reference_id
     end
 
     # Checks equality by comparing each attribute.

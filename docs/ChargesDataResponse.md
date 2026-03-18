@@ -4,24 +4,25 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **amount** | **Integer** |  | [optional] |
-| **channel** | [**ChargeResponseChannel**](ChargeResponseChannel.md) |  | [optional] |
-| **created_at** | **Integer** |  | [optional] |
-| **currency** | **String** |  | [optional] |
-| **customer_id** | **String** |  | [optional] |
-| **description** | **String** |  | [optional] |
-| **device_fingerprint** | **String** |  | [optional] |
+| **id** | **String** |  |  |
+| **livemode** | **Boolean** |  |  |
+| **created_at** | **Integer** |  |  |
+| **currency** | **String** |  |  |
 | **failure_code** | **String** |  | [optional] |
 | **failure_message** | **String** |  | [optional] |
-| **id** | **String** |  | [optional] |
-| **livemode** | **Boolean** |  | [optional] |
-| **object** | **String** |  | [optional] |
-| **order_id** | **String** |  | [optional] |
+| **channel** | [**ChargeResponseChannel**](ChargeResponseChannel.md) |  | [optional] |
+| **payment_method** | [**ChargeResponsePaymentMethod**](ChargeResponsePaymentMethod.md) |  |  |
+| **object** | **String** |  |  |
+| **device_fingerprint** | **String** |  | [optional] |
+| **description** | **String** |  | [optional] |
+| **is_refundable** | **Boolean** |  | [optional] |
+| **reference_id** | **String** |  | [optional] |
+| **status** | **String** |  |  |
+| **amount** | **Integer** |  |  |
 | **paid_at** | **Integer** |  | [optional] |
-| **payment_method** | [**ChargeResponsePaymentMethod**](ChargeResponsePaymentMethod.md) |  | [optional] |
-| **reference_id** | **String** | Reference ID of the charge | [optional] |
+| **customer_id** | **String** |  | [optional] |
+| **order_id** | **String** |  | [optional] |
 | **refunds** | [**ChargeResponseRefunds**](ChargeResponseRefunds.md) |  | [optional] |
-| **status** | **String** |  | [optional] |
 
 ## Example
 
@@ -29,24 +30,25 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::ChargesDataResponse.new(
-  amount: 4321,
-  channel: null,
-  created_at: 1676386026,
+  id: 696a682e1ef5ca00015698b7,
+  livemode: true,
+  created_at: 1768581166,
   currency: MXN,
-  customer_id: null,
-  description: Payment from order,
-  device_fingerprint: 6FR3chaU4Y1nGAW5NAGd1rcjAKa142Ba,
-  failure_code: suspected_fraud,
-  failure_message: Este cargo ha sido declinado porque el comportamiento del comprador es sospechoso.,
-  id: 63efa757cf65380001aec040,
-  livemode: null,
-  object: null,
-  order_id: ord_2tN73UdUSNrYRPD9r,
-  paid_at: 1676390742,
+  failure_code: null,
+  failure_message: null,
+  channel: null,
   payment_method: null,
-  reference_id: ref_2tN73UdUSNrYRPD9r,
-  refunds: null,
-  status: pending_payment
+  object: charge,
+  device_fingerprint: 6FR3chaU4Y1nGAW5NAGd1rcjAKa142Ba,
+  description: Payment from order,
+  is_refundable: false,
+  reference_id: null,
+  status: expired,
+  amount: 600000,
+  paid_at: null,
+  customer_id: ,
+  order_id: ord_2zNwzJrfNC24uQUzq,
+  refunds: null
 )
 ```
 

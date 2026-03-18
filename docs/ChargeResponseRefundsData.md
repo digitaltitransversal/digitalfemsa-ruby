@@ -11,6 +11,8 @@
 | **id** | **String** |  |  |
 | **object** | **String** |  |  |
 | **status** | **String** | refund status | [optional] |
+| **payout_id** | **String** |  | [optional] |
+| **reference** | **String** | payout reference for oxxo stores | [optional] |
 
 ## Example
 
@@ -24,7 +26,9 @@ instance = DigitalFemsa::ChargeResponseRefundsData.new(
   expires_at: 1678226878,
   id: 6407b5bee1329a000175ba11,
   object: refund,
-  status: pending
+  status: pending,
+  payout_id: 6fca054a-8519-4c43-971e-cea35cc519bb,
+  reference: 12002000778626
 )
 ```
 

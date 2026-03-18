@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # Fiscal entity of the order, Currently it is a purely informative field
+  # Fiscal entity information associated with the order.
   class OrderUpdateFiscalEntityRequest
     attr_accessor :address
 

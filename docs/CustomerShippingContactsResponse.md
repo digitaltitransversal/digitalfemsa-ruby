@@ -8,13 +8,13 @@
 | **receiver** | **String** |  | [optional] |
 | **between_streets** | **String** |  | [optional] |
 | **address** | [**CustomerShippingContactsResponseAddress**](CustomerShippingContactsResponseAddress.md) |  | [optional] |
-| **parent_id** | **String** |  | [optional] |
-| **default** | **Boolean** |  | [optional] |
+| **parent_id** | **String** | Customer ID that owns this shipping contact. | [optional] |
+| **default** | **Boolean** | True if this is the customer&#39;s default shipping contact. | [optional] |
 | **id** | **String** |  | [optional] |
 | **created_at** | **Integer** |  | [optional] |
 | **metadata** | **Hash&lt;String, Object&gt;** | Metadata associated with the shipping contact | [optional] |
 | **object** | **String** |  | [optional] |
-| **deleted** | **Boolean** |  | [optional] |
+| **deleted** | **Boolean** | Present only when the shipping contact was deleted. | [optional] |
 
 ## Example
 
@@ -26,13 +26,13 @@ instance = DigitalFemsa::CustomerShippingContactsResponse.new(
   receiver: Marvin Fuller,
   between_streets: Ackerman Crescent,
   address: null,
-  parent_id: null,
+  parent_id: cus_1234567890,
   default: false,
-  id: adr_1234567890,
+  id: ship_cont_1234567890,
   created_at: 1675715413,
   metadata: null,
   object: shipping_contact,
-  deleted: false
+  deleted: true
 )
 ```
 

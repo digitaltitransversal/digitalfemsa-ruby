@@ -14,19 +14,22 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # contains the following attributes that will guide to continue the flow
-  class OrderNextActionResponseRedirectToUrl
-    # pay.femsa.com/{id} Indicates the url of the Femsa component to authenticate the flow through 3DS2.
-    attr_accessor :url
+  class ChargeOrderResponseChannel
+    attr_accessor :segment
 
-    # Indicates the url to which the 3DS2 flow returns at the end, when the integration is redirected.
-    attr_accessor :return_url
+    attr_accessor :checkout_request_id
+
+    attr_accessor :checkout_request_type
+
+    attr_accessor :id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'url' => :'url',
-        :'return_url' => :'return_url'
+        :'segment' => :'segment',
+        :'checkout_request_id' => :'checkout_request_id',
+        :'checkout_request_type' => :'checkout_request_type',
+        :'id' => :'id'
       }
     end
 
@@ -38,8 +41,10 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'url' => :'String',
-        :'return_url' => :'String'
+        :'segment' => :'String',
+        :'checkout_request_id' => :'String',
+        :'checkout_request_type' => :'String',
+        :'id' => :'String'
       }
     end
 
@@ -53,23 +58,31 @@ module DigitalFemsa
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `DigitalFemsa::OrderNextActionResponseRedirectToUrl` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `DigitalFemsa::ChargeOrderResponseChannel` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `DigitalFemsa::OrderNextActionResponseRedirectToUrl`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `DigitalFemsa::ChargeOrderResponseChannel`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'url')
-        self.url = attributes[:'url']
+      if attributes.key?(:'segment')
+        self.segment = attributes[:'segment']
       end
 
-      if attributes.key?(:'return_url')
-        self.return_url = attributes[:'return_url']
+      if attributes.key?(:'checkout_request_id')
+        self.checkout_request_id = attributes[:'checkout_request_id']
+      end
+
+      if attributes.key?(:'checkout_request_type')
+        self.checkout_request_type = attributes[:'checkout_request_type']
+      end
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
       end
     end
 
@@ -93,8 +106,10 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          url == o.url &&
-          return_url == o.return_url
+          segment == o.segment &&
+          checkout_request_id == o.checkout_request_id &&
+          checkout_request_type == o.checkout_request_type &&
+          id == o.id
     end
 
     # @see the `==` method
@@ -106,7 +121,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, return_url].hash
+      [segment, checkout_request_id, checkout_request_type, id].hash
     end
 
     # Builds the object from hash

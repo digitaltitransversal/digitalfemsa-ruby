@@ -46,7 +46,7 @@ module DigitalFemsa
     def self.openapi_types
       {
         :'currency' => :'String',
-        :'customer_info' => :'CheckoutOrderTemplateCustomerInfo',
+        :'customer_info' => :'CustomerInfo',
         :'line_items' => :'Array<Product>',
         :'metadata' => :'Hash<String, Object>'
       }

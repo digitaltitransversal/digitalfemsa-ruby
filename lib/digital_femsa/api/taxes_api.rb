@@ -20,9 +20,9 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Create Tax
-    # Create new taxes for an existing orden
+    # Creates a new tax line for an existing order. The tax line is added to the order identified by `id`. The response returns the created tax line.
     # @param id [String] Identifier of the resource
-    # @param order_tax_request [OrderTaxRequest] requested field for a taxes
+    # @param order_tax_request [OrderTaxRequest] Request body for creating a tax line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -33,9 +33,9 @@ module DigitalFemsa
     end
 
     # Create Tax
-    # Create new taxes for an existing orden
+    # Creates a new tax line for an existing order. The tax line is added to the order identified by &#x60;id&#x60;. The response returns the created tax line.
     # @param id [String] Identifier of the resource
-    # @param order_tax_request [OrderTaxRequest] requested field for a taxes
+    # @param order_tax_request [OrderTaxRequest] Request body for creating a tax line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -104,7 +104,7 @@ module DigitalFemsa
     end
 
     # Delete Tax
-    # Delete taxes for an existing orden
+    # Deletes an existing tax line from an order. The tax line identified by `tax_id` belongs to the order identified by `id`. The response includes the deleted resource with `deleted: true`.
     # @param id [String] Identifier of the resource
     # @param tax_id [String] identifier
     # @param [Hash] opts the optional parameters
@@ -117,7 +117,7 @@ module DigitalFemsa
     end
 
     # Delete Tax
-    # Delete taxes for an existing orden
+    # Deletes an existing tax line from an order. The tax line identified by &#x60;tax_id&#x60; belongs to the order identified by &#x60;id&#x60;. The response includes the deleted resource with &#x60;deleted: true&#x60;.
     # @param id [String] Identifier of the resource
     # @param tax_id [String] identifier
     # @param [Hash] opts the optional parameters
@@ -183,10 +183,10 @@ module DigitalFemsa
     end
 
     # Update Tax
-    # Update taxes for an existing orden
+    # Updates an existing tax line for an order. The tax line identified by `tax_id` belongs to the order identified by `id`. Only the fields provided in the request body are updated.
     # @param id [String] Identifier of the resource
     # @param tax_id [String] identifier
-    # @param update_order_tax_request [UpdateOrderTaxRequest] requested field for taxes
+    # @param update_order_tax_request [UpdateOrderTaxRequest] Request body for creating a tax line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -197,10 +197,10 @@ module DigitalFemsa
     end
 
     # Update Tax
-    # Update taxes for an existing orden
+    # Updates an existing tax line for an order. The tax line identified by &#x60;tax_id&#x60; belongs to the order identified by &#x60;id&#x60;. Only the fields provided in the request body are updated.
     # @param id [String] Identifier of the resource
     # @param tax_id [String] identifier
-    # @param update_order_tax_request [UpdateOrderTaxRequest] requested field for taxes
+    # @param update_order_tax_request [UpdateOrderTaxRequest] Request body for creating a tax line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

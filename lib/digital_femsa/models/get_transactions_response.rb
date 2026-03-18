@@ -27,7 +27,7 @@ module DigitalFemsa
     # Url of the previous page.
     attr_accessor :previous_page_url
 
-    # Transactions
+    # Transactions (ledger movements)
     attr_accessor :data
 
     # Attribute mapping from ruby-style variable name to JSON key.

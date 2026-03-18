@@ -32,7 +32,7 @@ module DigitalFemsa
 
     attr_accessor :metadata
 
-    # Reason for charge
+    # Payment link name
     attr_accessor :name
 
     attr_accessor :needs_shipping_contact

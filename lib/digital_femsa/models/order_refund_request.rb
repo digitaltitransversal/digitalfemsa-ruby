@@ -15,18 +15,47 @@ require 'time'
 
 module DigitalFemsa
   class OrderRefundRequest
+    # Amount to refund. If not provided, the API refunds the refundable amount of the selected charge.
     attr_accessor :amount
 
+    # Charge ID to refund. If not provided, the API selects a refundable charge from the order.
+    attr_accessor :charge_id
+
+    # Refund reason. If not provided, the API uses a default reason.
+    attr_accessor :reason
+
+    # Expiration timestamp for cash refunds (must be within the allowed range configured by the API).
     attr_accessor :expires_at
 
-    attr_accessor :reason
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'amount' => :'amount',
-        :'expires_at' => :'expires_at',
-        :'reason' => :'reason'
+        :'charge_id' => :'charge_id',
+        :'reason' => :'reason',
+        :'expires_at' => :'expires_at'
       }
     end
 
@@ -39,15 +68,17 @@ module DigitalFemsa
     def self.openapi_types
       {
         :'amount' => :'Integer',
-        :'expires_at' => :'Integer',
-        :'reason' => :'String'
+        :'charge_id' => :'String',
+        :'reason' => :'String',
+        :'expires_at' => :'Integer'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'expires_at',
+        :'charge_id',
+        :'expires_at'
       ])
     end
 
@@ -72,14 +103,18 @@ module DigitalFemsa
         self.amount = nil
       end
 
-      if attributes.key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
+      if attributes.key?(:'charge_id')
+        self.charge_id = attributes[:'charge_id']
       end
 
       if attributes.key?(:'reason')
         self.reason = attributes[:'reason']
       else
         self.reason = nil
+      end
+
+      if attributes.key?(:'expires_at')
+        self.expires_at = attributes[:'expires_at']
       end
     end
 
@@ -90,6 +125,10 @@ module DigitalFemsa
       invalid_properties = Array.new
       if @amount.nil?
         invalid_properties.push('invalid value for "amount", amount cannot be nil.')
+      end
+
+      if @amount < 1
+        invalid_properties.push('invalid value for "amount", must be greater than or equal to 1.')
       end
 
       if @reason.nil?
@@ -104,8 +143,35 @@ module DigitalFemsa
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @amount.nil?
+      return false if @amount < 1
       return false if @reason.nil?
+      reason_validator = EnumAttributeValidator.new('String', ["requested_by_client", "cannot_be_fulfilled", "duplicated_transaction", "suspected_fraud", "other"])
+      return false unless reason_validator.valid?(@reason)
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] amount Value to be assigned
+    def amount=(amount)
+      if amount.nil?
+        fail ArgumentError, 'amount cannot be nil'
+      end
+
+      if amount < 1
+        fail ArgumentError, 'invalid value for "amount", must be greater than or equal to 1.'
+      end
+
+      @amount = amount
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] reason Object to be assigned
+    def reason=(reason)
+      validator = EnumAttributeValidator.new('String', ["requested_by_client", "cannot_be_fulfilled", "duplicated_transaction", "suspected_fraud", "other"])
+      unless validator.valid?(reason)
+        fail ArgumentError, "invalid value for \"reason\", must be one of #{validator.allowable_values}."
+      end
+      @reason = reason
     end
 
     # Checks equality by comparing each attribute.
@@ -114,8 +180,9 @@ module DigitalFemsa
       return true if self.equal?(o)
       self.class == o.class &&
           amount == o.amount &&
-          expires_at == o.expires_at &&
-          reason == o.reason
+          charge_id == o.charge_id &&
+          reason == o.reason &&
+          expires_at == o.expires_at
     end
 
     # @see the `==` method
@@ -127,7 +194,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, expires_at, reason].hash
+      [amount, charge_id, reason, expires_at].hash
     end
 
     # Builds the object from hash

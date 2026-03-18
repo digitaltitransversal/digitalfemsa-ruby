@@ -15,12 +15,18 @@ require 'time'
 
 module DigitalFemsa
   class UpdatePaymentMethods
-    attr_accessor :name
+    attr_accessor :expires_at
+
+    attr_accessor :amount
+
+    attr_accessor :type
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'name' => :'name'
+        :'expires_at' => :'expires_at',
+        :'amount' => :'amount',
+        :'type' => :'type'
       }
     end
 
@@ -32,7 +38,9 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'name' => :'String'
+        :'expires_at' => :'UpdatePaymentMethodsExpiresAt',
+        :'amount' => :'UpdatePaymentMethodsAmount',
+        :'type' => :'String'
       }
     end
 
@@ -57,8 +65,16 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'name')
-        self.name = attributes[:'name']
+      if attributes.key?(:'expires_at')
+        self.expires_at = attributes[:'expires_at']
+      end
+
+      if attributes.key?(:'amount')
+        self.amount = attributes[:'amount']
+      end
+
+      if attributes.key?(:'type')
+        self.type = attributes[:'type']
       end
     end
 
@@ -82,7 +98,9 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          name == o.name
+          expires_at == o.expires_at &&
+          amount == o.amount &&
+          type == o.type
     end
 
     # @see the `==` method
@@ -94,7 +112,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name].hash
+      [expires_at, amount, type].hash
     end
 
     # Builds the object from hash

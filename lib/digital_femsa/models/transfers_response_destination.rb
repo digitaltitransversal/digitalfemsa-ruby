@@ -14,18 +14,43 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # contains the following attributes that will guide to continue the flow
-  class OrderNextActionResponse
-    attr_accessor :redirect_to_url
+  # Destination payout method used to make the transfer.
+  class TransfersResponseDestination
+    # Unique identifier of the payee.
+    attr_accessor :payee_id
 
-    # Indicates the type of action to be taken
+    # Unique identifier of the payout method.
+    attr_accessor :id
+
+    # Date and time of creation of the payout method in Unix format.
+    attr_accessor :created_at
+
+    # Object name, present for bank transfer destination.
+    attr_accessor :object
+
+    # Destination type.
     attr_accessor :type
+
+    # Last 4 digits of the destination account number.
+    attr_accessor :last4
+
+    # Name of the account holder.
+    attr_accessor :account_holder_name
+
+    # Name of the bank.
+    attr_accessor :bank
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'redirect_to_url' => :'redirect_to_url',
-        :'type' => :'type'
+        :'payee_id' => :'payee_id',
+        :'id' => :'id',
+        :'created_at' => :'created_at',
+        :'object' => :'object',
+        :'type' => :'type',
+        :'last4' => :'last4',
+        :'account_holder_name' => :'account_holder_name',
+        :'bank' => :'bank'
       }
     end
 
@@ -37,14 +62,25 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'redirect_to_url' => :'OrderNextActionResponseRedirectToUrl',
-        :'type' => :'String'
+        :'payee_id' => :'String',
+        :'id' => :'String',
+        :'created_at' => :'Integer',
+        :'object' => :'String',
+        :'type' => :'String',
+        :'last4' => :'String',
+        :'account_holder_name' => :'String',
+        :'bank' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'object',
+        :'type',
+        :'last4',
+        :'account_holder_name',
+        :'bank'
       ])
     end
 
@@ -52,23 +88,53 @@ module DigitalFemsa
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `DigitalFemsa::OrderNextActionResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `DigitalFemsa::TransfersResponseDestination` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `DigitalFemsa::OrderNextActionResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `DigitalFemsa::TransfersResponseDestination`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'redirect_to_url')
-        self.redirect_to_url = attributes[:'redirect_to_url']
+      if attributes.key?(:'payee_id')
+        self.payee_id = attributes[:'payee_id']
+      else
+        self.payee_id = nil
+      end
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      else
+        self.id = nil
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      else
+        self.created_at = nil
+      end
+
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
       end
 
       if attributes.key?(:'type')
         self.type = attributes[:'type']
+      end
+
+      if attributes.key?(:'last4')
+        self.last4 = attributes[:'last4']
+      end
+
+      if attributes.key?(:'account_holder_name')
+        self.account_holder_name = attributes[:'account_holder_name']
+      end
+
+      if attributes.key?(:'bank')
+        self.bank = attributes[:'bank']
       end
     end
 
@@ -77,6 +143,18 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @payee_id.nil?
+        invalid_properties.push('invalid value for "payee_id", payee_id cannot be nil.')
+      end
+
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -84,6 +162,9 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @payee_id.nil?
+      return false if @id.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -92,8 +173,14 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          redirect_to_url == o.redirect_to_url &&
-          type == o.type
+          payee_id == o.payee_id &&
+          id == o.id &&
+          created_at == o.created_at &&
+          object == o.object &&
+          type == o.type &&
+          last4 == o.last4 &&
+          account_holder_name == o.account_holder_name &&
+          bank == o.bank
     end
 
     # @see the `==` method
@@ -105,7 +192,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [redirect_to_url, type].hash
+      [payee_id, id, created_at, object, type, last4, account_holder_name, bank].hash
     end
 
     # Builds the object from hash

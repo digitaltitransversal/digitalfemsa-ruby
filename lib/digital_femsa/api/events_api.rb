@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Get Event
-    # Returns a single event
+    # Returns a single event by its ID, including its payload (`data`) and webhook delivery information. The `webhook_status` indicates whether webhook notifications were applicable and their overall status. The [webhook_logs]) array contains delivery attempts (it can be empty when webhook notifications are not applicable or no attempts were created). 
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -32,7 +32,7 @@ module DigitalFemsa
     end
 
     # Get Event
-    # Returns a single event
+    # Returns a single event by its ID, including its payload (&#x60;data&#x60;) and webhook delivery information. The &#x60;webhook_status&#x60; indicates whether webhook notifications were applicable and their overall status. The [webhook_logs]) array contains delivery attempts (it can be empty when webhook notifications are not applicable or no attempts were created). 
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -178,7 +178,7 @@ module DigitalFemsa
     end
 
     # Resend Event
-    # Try to send an event
+    # Triggers a new delivery attempt for a specific webhook log associated with the given event. Use this endpoint to retry failed webhook deliveries (for example, non-2xx responses or timeouts). The response returns the updated webhook log with the latest attempt metadata. 
     # @param event_id [String] event identifier
     # @param webhook_log_id [String] webhook log identifier
     # @param [Hash] opts the optional parameters
@@ -190,7 +190,7 @@ module DigitalFemsa
     end
 
     # Resend Event
-    # Try to send an event
+    # Triggers a new delivery attempt for a specific webhook log associated with the given event. Use this endpoint to retry failed webhook deliveries (for example, non-2xx responses or timeouts). The response returns the updated webhook log with the latest attempt metadata. 
     # @param event_id [String] event identifier
     # @param webhook_log_id [String] webhook log identifier
     # @param [Hash] opts the optional parameters

@@ -14,56 +14,55 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # update customer
+  # Request body to update a customer.
   class UpdateCustomer
-    attr_accessor :antifraud_info
-
-    # It is a parameter that allows to identify in the response, the Femsa ID of a payment method (payment_id)
-    attr_accessor :default_payment_source_id
-
-    # An email address is a series of customizable characters followed by a universal Internet symbol, the at symbol (@), the name of a host server, and a web domain ending (.mx, .com, .org, . net, etc).
-    attr_accessor :email
-
-    # Client's name
+    # Customer's name.
     attr_accessor :name
 
-    # Is the customer's phone number
+    # Customer email address.
+    attr_accessor :email
+
+    # Customer phone number.
     attr_accessor :phone
 
-    # It is a parameter that allows to identify in the response, the Femsa ID of the shipping address (shipping_contact)
-    attr_accessor :default_shipping_contact_id
-
-    # It is a value that allows identifying if the email is corporate or not.
+    # Indicates whether the customer email is corporate.
     attr_accessor :corporate
 
-    # It is an undefined value.
+    # Merchant-defined reference used to identify the customer in your system.
     attr_accessor :custom_reference
 
-    attr_accessor :fiscal_entities
+    # Referrer value (if applicable).
+    attr_accessor :referrer
 
+    # Arbitrary metadata associated with the customer.
     attr_accessor :metadata
 
     # Contains details of the payment methods that the customer has active or has used in Femsa
     attr_accessor :payment_sources
 
-    # Contains the detail of the shipping addresses that the client has active or has used in Femsa
-    attr_accessor :shipping_contacts
+    # Sets the default payment source for the customer (must be an existing payment source on the customer).
+    attr_accessor :default_payment_source_id
+
+    # Sets the default fiscal entity for the customer (must be an existing fiscal entity on the customer).
+    attr_accessor :default_fiscal_entity_id
+
+    # Sets the default shipping contact for the customer (must be an existing shipping contact on the customer).
+    attr_accessor :default_shipping_contact_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'antifraud_info' => :'antifraud_info',
-        :'default_payment_source_id' => :'default_payment_source_id',
-        :'email' => :'email',
         :'name' => :'name',
+        :'email' => :'email',
         :'phone' => :'phone',
-        :'default_shipping_contact_id' => :'default_shipping_contact_id',
         :'corporate' => :'corporate',
         :'custom_reference' => :'custom_reference',
-        :'fiscal_entities' => :'fiscal_entities',
+        :'referrer' => :'referrer',
         :'metadata' => :'metadata',
         :'payment_sources' => :'payment_sources',
-        :'shipping_contacts' => :'shipping_contacts'
+        :'default_payment_source_id' => :'default_payment_source_id',
+        :'default_fiscal_entity_id' => :'default_fiscal_entity_id',
+        :'default_shipping_contact_id' => :'default_shipping_contact_id'
       }
     end
 
@@ -75,25 +74,27 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'antifraud_info' => :'UpdateCustomerAntifraudInfo',
-        :'default_payment_source_id' => :'String',
-        :'email' => :'String',
         :'name' => :'String',
+        :'email' => :'String',
         :'phone' => :'String',
-        :'default_shipping_contact_id' => :'String',
         :'corporate' => :'Boolean',
         :'custom_reference' => :'String',
-        :'fiscal_entities' => :'Array<CustomerFiscalEntitiesRequest>',
+        :'referrer' => :'String',
         :'metadata' => :'Hash<String, Object>',
         :'payment_sources' => :'Array<CustomerPaymentMethodsRequest>',
-        :'shipping_contacts' => :'Array<CustomerShippingContacts>'
+        :'default_payment_source_id' => :'String',
+        :'default_fiscal_entity_id' => :'String',
+        :'default_shipping_contact_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'antifraud_info',
+        :'phone',
+        :'custom_reference',
+        :'referrer',
+        :'payment_sources',
       ])
     end
 
@@ -112,28 +113,16 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'antifraud_info')
-        self.antifraud_info = attributes[:'antifraud_info']
-      end
-
-      if attributes.key?(:'default_payment_source_id')
-        self.default_payment_source_id = attributes[:'default_payment_source_id']
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
       if attributes.key?(:'email')
         self.email = attributes[:'email']
       end
 
-      if attributes.key?(:'name')
-        self.name = attributes[:'name']
-      end
-
       if attributes.key?(:'phone')
         self.phone = attributes[:'phone']
-      end
-
-      if attributes.key?(:'default_shipping_contact_id')
-        self.default_shipping_contact_id = attributes[:'default_shipping_contact_id']
       end
 
       if attributes.key?(:'corporate')
@@ -146,10 +135,8 @@ module DigitalFemsa
         self.custom_reference = attributes[:'custom_reference']
       end
 
-      if attributes.key?(:'fiscal_entities')
-        if (value = attributes[:'fiscal_entities']).is_a?(Array)
-          self.fiscal_entities = value
-        end
+      if attributes.key?(:'referrer')
+        self.referrer = attributes[:'referrer']
       end
 
       if attributes.key?(:'metadata')
@@ -164,10 +151,16 @@ module DigitalFemsa
         end
       end
 
-      if attributes.key?(:'shipping_contacts')
-        if (value = attributes[:'shipping_contacts']).is_a?(Array)
-          self.shipping_contacts = value
-        end
+      if attributes.key?(:'default_payment_source_id')
+        self.default_payment_source_id = attributes[:'default_payment_source_id']
+      end
+
+      if attributes.key?(:'default_fiscal_entity_id')
+        self.default_fiscal_entity_id = attributes[:'default_fiscal_entity_id']
+      end
+
+      if attributes.key?(:'default_shipping_contact_id')
+        self.default_shipping_contact_id = attributes[:'default_shipping_contact_id']
       end
     end
 
@@ -176,8 +169,8 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if !@metadata.nil? && @metadata.length > 100
-        invalid_properties.push('invalid value for "metadata", number of items must be less than or equal to 100.')
+      if !@phone.nil? && @phone.to_s.length > 19
+        invalid_properties.push('invalid value for "phone", the character length must be smaller than or equal to 19.')
       end
 
       invalid_properties
@@ -187,22 +180,18 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if !@metadata.nil? && @metadata.length > 100
+      return false if !@phone.nil? && @phone.to_s.length > 19
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] metadata Value to be assigned
-    def metadata=(metadata)
-      if metadata.nil?
-        fail ArgumentError, 'metadata cannot be nil'
+    # @param [Object] phone Value to be assigned
+    def phone=(phone)
+      if !phone.nil? && phone.to_s.length > 19
+        fail ArgumentError, 'invalid value for "phone", the character length must be smaller than or equal to 19.'
       end
 
-      if metadata.length > 100
-        fail ArgumentError, 'invalid value for "metadata", number of items must be less than or equal to 100.'
-      end
-
-      @metadata = metadata
+      @phone = phone
     end
 
     # Checks equality by comparing each attribute.
@@ -210,18 +199,17 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          antifraud_info == o.antifraud_info &&
-          default_payment_source_id == o.default_payment_source_id &&
-          email == o.email &&
           name == o.name &&
+          email == o.email &&
           phone == o.phone &&
-          default_shipping_contact_id == o.default_shipping_contact_id &&
           corporate == o.corporate &&
           custom_reference == o.custom_reference &&
-          fiscal_entities == o.fiscal_entities &&
+          referrer == o.referrer &&
           metadata == o.metadata &&
           payment_sources == o.payment_sources &&
-          shipping_contacts == o.shipping_contacts
+          default_payment_source_id == o.default_payment_source_id &&
+          default_fiscal_entity_id == o.default_fiscal_entity_id &&
+          default_shipping_contact_id == o.default_shipping_contact_id
     end
 
     # @see the `==` method
@@ -233,7 +221,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [antifraud_info, default_payment_source_id, email, name, phone, default_shipping_contact_id, corporate, custom_reference, fiscal_entities, metadata, payment_sources, shipping_contacts].hash
+      [name, email, phone, corporate, custom_reference, referrer, metadata, payment_sources, default_payment_source_id, default_fiscal_entity_id, default_shipping_contact_id].hash
     end
 
     # Builds the object from hash

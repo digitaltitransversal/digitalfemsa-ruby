@@ -43,6 +43,28 @@ module DigitalFemsa
     # Indicates if the api key is private or public
     attr_accessor :role
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -101,38 +123,56 @@ module DigitalFemsa
 
       if attributes.key?(:'active')
         self.active = attributes[:'active']
+      else
+        self.active = nil
       end
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
+      else
+        self.created_at = nil
       end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
+      else
+        self.description = nil
       end
 
       if attributes.key?(:'livemode')
         self.livemode = attributes[:'livemode']
+      else
+        self.livemode = nil
       end
 
       if attributes.key?(:'prefix')
         self.prefix = attributes[:'prefix']
+      else
+        self.prefix = nil
       end
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      else
+        self.id = nil
       end
 
       if attributes.key?(:'object')
         self.object = attributes[:'object']
+      else
+        self.object = nil
       end
 
       if attributes.key?(:'deleted')
         self.deleted = attributes[:'deleted']
+      else
+        self.deleted = nil
       end
 
       if attributes.key?(:'role')
         self.role = attributes[:'role']
+      else
+        self.role = nil
       end
     end
 
@@ -141,6 +181,42 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @active.nil?
+        invalid_properties.push('invalid value for "active", active cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @description.nil?
+        invalid_properties.push('invalid value for "description", description cannot be nil.')
+      end
+
+      if @livemode.nil?
+        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
+      end
+
+      if @prefix.nil?
+        invalid_properties.push('invalid value for "prefix", prefix cannot be nil.')
+      end
+
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @object.nil?
+        invalid_properties.push('invalid value for "object", object cannot be nil.')
+      end
+
+      if @deleted.nil?
+        invalid_properties.push('invalid value for "deleted", deleted cannot be nil.')
+      end
+
+      if @role.nil?
+        invalid_properties.push('invalid value for "role", role cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -148,7 +224,40 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @active.nil?
+      return false if @created_at.nil?
+      return false if @description.nil?
+      return false if @livemode.nil?
+      return false if @prefix.nil?
+      return false if @id.nil?
+      return false if @object.nil?
+      object_validator = EnumAttributeValidator.new('String', ["api_key"])
+      return false unless object_validator.valid?(@object)
+      return false if @deleted.nil?
+      return false if @role.nil?
+      role_validator = EnumAttributeValidator.new('String', ["private", "public"])
+      return false unless role_validator.valid?(@role)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["api_key"])
+      unless validator.valid?(object)
+        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] role Object to be assigned
+    def role=(role)
+      validator = EnumAttributeValidator.new('String', ["private", "public"])
+      unless validator.valid?(role)
+        fail ArgumentError, "invalid value for \"role\", must be one of #{validator.allowable_values}."
+      end
+      @role = role
     end
 
     # Checks equality by comparing each attribute.

@@ -5,10 +5,10 @@ All URIs are relative to *https://api.digitalfemsa.io*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_webhook_key**](WebhookKeysApi.md#create_webhook_key) | **POST** /webhook_keys | Create Webhook Key |
-| [**delete_webhook_key**](WebhookKeysApi.md#delete_webhook_key) | **DELETE** /webhook_keys/{id} | Delete Webhook key |
-| [**get_webhook_key**](WebhookKeysApi.md#get_webhook_key) | **GET** /webhook_keys/{id} | Get Webhook Key |
+| [**delete_webhook_key**](WebhookKeysApi.md#delete_webhook_key) | **DELETE** /webhook_keys/{id} | Delete webhook key |
+| [**get_webhook_key**](WebhookKeysApi.md#get_webhook_key) | **GET** /webhook_keys/{id} | Get webhook key |
 | [**get_webhook_keys**](WebhookKeysApi.md#get_webhook_keys) | **GET** /webhook_keys | Get List of Webhook Keys |
-| [**update_webhook_key**](WebhookKeysApi.md#update_webhook_key) | **PUT** /webhook_keys/{id} | Update Webhook Key |
+| [**update_webhook_key**](WebhookKeysApi.md#update_webhook_key) | **PUT** /webhook_keys/{id} | Update webhook key |
 
 
 ## create_webhook_key
@@ -17,7 +17,7 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 Create Webhook Key
 
-Create a webhook key
+Creates a new webhook signing key for the current company.
 
 ### Examples
 
@@ -33,6 +33,7 @@ end
 api_instance = DigitalFemsa::WebhookKeysApi.new
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
+  x_child_company_id: '6441b6376b60c3a638da80af', # String | In the case of a holding company, the company id of the child company to which will process the request.
   webhook_key_request: DigitalFemsa::WebhookKeyRequest.new # WebhookKeyRequest | 
 }
 
@@ -68,6 +69,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
+| **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 | **webhook_key_request** | [**WebhookKeyRequest**](WebhookKeyRequest.md) |  | [optional] |
 
 ### Return type
@@ -88,7 +90,9 @@ end
 
 > <WebhookKeyDeleteResponse> delete_webhook_key(id, opts)
 
-Delete Webhook key
+Delete webhook key
+
+Deletes a webhook signing key.
 
 ### Examples
 
@@ -108,7 +112,7 @@ opts = {
 }
 
 begin
-  # Delete Webhook key
+  # Delete webhook key
   result = api_instance.delete_webhook_key(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -124,7 +128,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Delete Webhook key
+  # Delete webhook key
   data, status_code, headers = api_instance.delete_webhook_key_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -159,7 +163,9 @@ end
 
 > <WebhookKeyResponse> get_webhook_key(id, opts)
 
-Get Webhook Key
+Get webhook key
+
+Retrieves the details of a webhook signing key by its ID.
 
 ### Examples
 
@@ -180,7 +186,7 @@ opts = {
 }
 
 begin
-  # Get Webhook Key
+  # Get webhook key
   result = api_instance.get_webhook_key(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -196,7 +202,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get Webhook Key
+  # Get webhook key
   data, status_code, headers = api_instance.get_webhook_key_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -234,7 +240,7 @@ end
 
 Get List of Webhook Keys
 
-Consume the list of webhook keys you have
+Consume the list of webhook keys you have, each environment supports 10 webhook keys (For production and testing)
 
 ### Examples
 
@@ -313,9 +319,9 @@ end
 
 > <WebhookKeyResponse> update_webhook_key(id, opts)
 
-Update Webhook Key
+Update webhook key
 
-updates an existing webhook key
+Activates or deactivates an existing webhook signing key.
 
 ### Examples
 
@@ -336,7 +342,7 @@ opts = {
 }
 
 begin
-  # Update Webhook Key
+  # Update webhook key
   result = api_instance.update_webhook_key(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -352,7 +358,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Update Webhook Key
+  # Update webhook key
   data, status_code, headers = api_instance.update_webhook_key_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -380,6 +386,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: application/vnd.app-v2.1.0+json
 - **Accept**: application/vnd.app-v2.1.0+json
 

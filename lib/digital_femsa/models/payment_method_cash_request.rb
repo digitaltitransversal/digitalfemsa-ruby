@@ -15,9 +15,10 @@ require 'time'
 
 module DigitalFemsa
   class PaymentMethodCashRequest
-    # Type of payment method
+    # Type of payment method.
     attr_accessor :type
 
+    # Expiration date as unix timestamp (seconds).
     attr_accessor :expires_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -44,6 +45,7 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'expires_at'
       ])
     end
 

@@ -14,84 +14,105 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # order response
+  # Order model. Some nested resources are returned as list previews (for example: `charges`, `line_items`), and may be `null` depending on the request/context. The `checkout` field is only present when the order is linked to a checkout (`channel.checkout_request_id`). 
   class OrderResponse
-    # The total amount to be collected in cents
+    attr_accessor :id
+
+    attr_accessor :object
+
+    attr_accessor :livemode
+
     attr_accessor :amount
 
-    # The total amount refunded in cents
+    attr_accessor :currency
+
+    # Current payment status of the order. It can be `null` for orders without payment information yet.
+    attr_accessor :payment_status
+
     attr_accessor :amount_refunded
 
-    attr_accessor :channel
+    # Indicates whether the order uses split payments (when available/configured).
+    attr_accessor :split_payment
 
-    attr_accessor :charges
+    # Metadata attached to the order.
+    attr_accessor :metadata
 
-    attr_accessor :checkout
+    # Indicates whether the order is currently refundable.
+    attr_accessor :is_refundable
 
-    # The time at which the object was created in seconds since the Unix epoch
     attr_accessor :created_at
 
-    # The three-letter ISO 4217 currency code. The currency of the order.
-    attr_accessor :currency
+    attr_accessor :updated_at
 
     attr_accessor :customer_info
 
-    attr_accessor :discount_lines
+    attr_accessor :shipping_contact
+
+    attr_accessor :channel
 
     attr_accessor :fiscal_entity
 
-    attr_accessor :id
-
-    attr_accessor :is_refundable
+    attr_accessor :checkout
 
     attr_accessor :line_items
 
-    # Whether the object exists in live mode or test mode
-    attr_accessor :livemode
+    attr_accessor :discount_lines
 
-    # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-    attr_accessor :metadata
+    attr_accessor :charges
 
-    attr_accessor :next_action
+    # Partial reference information (when applicable). Structure may vary depending on the payment flow.
+    attr_accessor :partial_reference
 
-    # String representing the object’s type. Objects of the same type share the same value.
-    attr_accessor :object
+    # Additional payment information (when available). Structure may vary.
+    attr_accessor :payments_info
 
-    # The payment status of the order.
-    attr_accessor :payment_status
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
 
-    # Indicates the processing mode for the order, either ecommerce, recurrent or validation.
-    attr_accessor :processing_mode
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
 
-    attr_accessor :shipping_contact
-
-    # The time at which the object was last updated in seconds since the Unix epoch
-    attr_accessor :updated_at
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'amount' => :'amount',
-        :'amount_refunded' => :'amount_refunded',
-        :'channel' => :'channel',
-        :'charges' => :'charges',
-        :'checkout' => :'checkout',
-        :'created_at' => :'created_at',
-        :'currency' => :'currency',
-        :'customer_info' => :'customer_info',
-        :'discount_lines' => :'discount_lines',
-        :'fiscal_entity' => :'fiscal_entity',
         :'id' => :'id',
-        :'is_refundable' => :'is_refundable',
-        :'line_items' => :'line_items',
-        :'livemode' => :'livemode',
-        :'metadata' => :'metadata',
-        :'next_action' => :'next_action',
         :'object' => :'object',
+        :'livemode' => :'livemode',
+        :'amount' => :'amount',
+        :'currency' => :'currency',
         :'payment_status' => :'payment_status',
-        :'processing_mode' => :'processing_mode',
+        :'amount_refunded' => :'amount_refunded',
+        :'split_payment' => :'split_payment',
+        :'metadata' => :'metadata',
+        :'is_refundable' => :'is_refundable',
+        :'created_at' => :'created_at',
+        :'updated_at' => :'updated_at',
+        :'customer_info' => :'customer_info',
         :'shipping_contact' => :'shipping_contact',
-        :'updated_at' => :'updated_at'
+        :'channel' => :'channel',
+        :'fiscal_entity' => :'fiscal_entity',
+        :'checkout' => :'checkout',
+        :'line_items' => :'line_items',
+        :'discount_lines' => :'discount_lines',
+        :'charges' => :'charges',
+        :'partial_reference' => :'partial_reference',
+        :'payments_info' => :'payments_info'
       }
     end
 
@@ -103,34 +124,41 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'amount' => :'Integer',
-        :'amount_refunded' => :'Integer',
-        :'channel' => :'ChargeResponseChannel',
-        :'charges' => :'OrderResponseCharges',
-        :'checkout' => :'OrderResponseCheckout',
-        :'created_at' => :'Integer',
-        :'currency' => :'String',
-        :'customer_info' => :'OrderResponseCustomerInfo',
-        :'discount_lines' => :'OrderResponseDiscountLines',
-        :'fiscal_entity' => :'OrderFiscalEntityResponse',
         :'id' => :'String',
-        :'is_refundable' => :'Boolean',
-        :'line_items' => :'OrderResponseProducts',
-        :'livemode' => :'Boolean',
-        :'metadata' => :'Hash<String, Object>',
-        :'next_action' => :'OrderNextActionResponse',
         :'object' => :'String',
+        :'livemode' => :'Boolean',
+        :'amount' => :'Integer',
+        :'currency' => :'String',
         :'payment_status' => :'String',
-        :'processing_mode' => :'String',
+        :'amount_refunded' => :'Integer',
+        :'split_payment' => :'Boolean',
+        :'metadata' => :'Hash<String, Object>',
+        :'is_refundable' => :'Boolean',
+        :'created_at' => :'Integer',
+        :'updated_at' => :'Integer',
+        :'customer_info' => :'OrderResponseCustomerInfo',
         :'shipping_contact' => :'OrderResponseShippingContact',
-        :'updated_at' => :'Integer'
+        :'channel' => :'OrderResponseChannel',
+        :'fiscal_entity' => :'OrderFiscalEntityResponse',
+        :'checkout' => :'OrderResponseCheckout',
+        :'line_items' => :'OrderResponseProducts',
+        :'discount_lines' => :'OrderResponseDiscountLines',
+        :'charges' => :'OrderResponseCharges',
+        :'partial_reference' => :'Hash<String, Object>',
+        :'payments_info' => :'Hash<String, Object>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'payment_status',
+        :'split_payment',
+        :'shipping_contact',
+        :'channel',
         :'fiscal_entity',
+        :'partial_reference',
+        :'payments_info'
       ])
     end
 
@@ -149,60 +177,36 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      end
+
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
+      end
+
+      if attributes.key?(:'livemode')
+        self.livemode = attributes[:'livemode']
+      end
+
       if attributes.key?(:'amount')
         self.amount = attributes[:'amount']
-      end
-
-      if attributes.key?(:'amount_refunded')
-        self.amount_refunded = attributes[:'amount_refunded']
-      end
-
-      if attributes.key?(:'channel')
-        self.channel = attributes[:'channel']
-      end
-
-      if attributes.key?(:'charges')
-        self.charges = attributes[:'charges']
-      end
-
-      if attributes.key?(:'checkout')
-        self.checkout = attributes[:'checkout']
-      end
-
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
       end
 
       if attributes.key?(:'currency')
         self.currency = attributes[:'currency']
       end
 
-      if attributes.key?(:'customer_info')
-        self.customer_info = attributes[:'customer_info']
+      if attributes.key?(:'payment_status')
+        self.payment_status = attributes[:'payment_status']
       end
 
-      if attributes.key?(:'discount_lines')
-        self.discount_lines = attributes[:'discount_lines']
+      if attributes.key?(:'amount_refunded')
+        self.amount_refunded = attributes[:'amount_refunded']
       end
 
-      if attributes.key?(:'fiscal_entity')
-        self.fiscal_entity = attributes[:'fiscal_entity']
-      end
-
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      end
-
-      if attributes.key?(:'is_refundable')
-        self.is_refundable = attributes[:'is_refundable']
-      end
-
-      if attributes.key?(:'line_items')
-        self.line_items = attributes[:'line_items']
-      end
-
-      if attributes.key?(:'livemode')
-        self.livemode = attributes[:'livemode']
+      if attributes.key?(:'split_payment')
+        self.split_payment = attributes[:'split_payment']
       end
 
       if attributes.key?(:'metadata')
@@ -211,28 +215,60 @@ module DigitalFemsa
         end
       end
 
-      if attributes.key?(:'next_action')
-        self.next_action = attributes[:'next_action']
+      if attributes.key?(:'is_refundable')
+        self.is_refundable = attributes[:'is_refundable']
       end
 
-      if attributes.key?(:'object')
-        self.object = attributes[:'object']
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
-      if attributes.key?(:'payment_status')
-        self.payment_status = attributes[:'payment_status']
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
       end
 
-      if attributes.key?(:'processing_mode')
-        self.processing_mode = attributes[:'processing_mode']
+      if attributes.key?(:'customer_info')
+        self.customer_info = attributes[:'customer_info']
       end
 
       if attributes.key?(:'shipping_contact')
         self.shipping_contact = attributes[:'shipping_contact']
       end
 
-      if attributes.key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
+      if attributes.key?(:'channel')
+        self.channel = attributes[:'channel']
+      end
+
+      if attributes.key?(:'fiscal_entity')
+        self.fiscal_entity = attributes[:'fiscal_entity']
+      end
+
+      if attributes.key?(:'checkout')
+        self.checkout = attributes[:'checkout']
+      end
+
+      if attributes.key?(:'line_items')
+        self.line_items = attributes[:'line_items']
+      end
+
+      if attributes.key?(:'discount_lines')
+        self.discount_lines = attributes[:'discount_lines']
+      end
+
+      if attributes.key?(:'charges')
+        self.charges = attributes[:'charges']
+      end
+
+      if attributes.key?(:'partial_reference')
+        if (value = attributes[:'partial_reference']).is_a?(Hash)
+          self.partial_reference = value
+        end
+      end
+
+      if attributes.key?(:'payments_info')
+        if (value = attributes[:'payments_info']).is_a?(Hash)
+          self.payments_info = value
+        end
       end
     end
 
@@ -241,6 +277,10 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if !@currency.nil? && @currency.to_s.length > 3
+        invalid_properties.push('invalid value for "currency", the character length must be smaller than or equal to 3.')
+      end
+
       if !@metadata.nil? && @metadata.length > 100
         invalid_properties.push('invalid value for "metadata", number of items must be less than or equal to 100.')
       end
@@ -252,8 +292,35 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      object_validator = EnumAttributeValidator.new('String', ["order"])
+      return false unless object_validator.valid?(@object)
+      return false if !@currency.nil? && @currency.to_s.length > 3
       return false if !@metadata.nil? && @metadata.length > 100
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["order"])
+      unless validator.valid?(object)
+        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] currency Value to be assigned
+    def currency=(currency)
+      if currency.nil?
+        fail ArgumentError, 'currency cannot be nil'
+      end
+
+      if currency.to_s.length > 3
+        fail ArgumentError, 'invalid value for "currency", the character length must be smaller than or equal to 3.'
+      end
+
+      @currency = currency
     end
 
     # Custom attribute writer method with validation
@@ -275,27 +342,28 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          amount == o.amount &&
-          amount_refunded == o.amount_refunded &&
-          channel == o.channel &&
-          charges == o.charges &&
-          checkout == o.checkout &&
-          created_at == o.created_at &&
-          currency == o.currency &&
-          customer_info == o.customer_info &&
-          discount_lines == o.discount_lines &&
-          fiscal_entity == o.fiscal_entity &&
           id == o.id &&
-          is_refundable == o.is_refundable &&
-          line_items == o.line_items &&
-          livemode == o.livemode &&
-          metadata == o.metadata &&
-          next_action == o.next_action &&
           object == o.object &&
+          livemode == o.livemode &&
+          amount == o.amount &&
+          currency == o.currency &&
           payment_status == o.payment_status &&
-          processing_mode == o.processing_mode &&
+          amount_refunded == o.amount_refunded &&
+          split_payment == o.split_payment &&
+          metadata == o.metadata &&
+          is_refundable == o.is_refundable &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at &&
+          customer_info == o.customer_info &&
           shipping_contact == o.shipping_contact &&
-          updated_at == o.updated_at
+          channel == o.channel &&
+          fiscal_entity == o.fiscal_entity &&
+          checkout == o.checkout &&
+          line_items == o.line_items &&
+          discount_lines == o.discount_lines &&
+          charges == o.charges &&
+          partial_reference == o.partial_reference &&
+          payments_info == o.payments_info
     end
 
     # @see the `==` method
@@ -307,7 +375,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, amount_refunded, channel, charges, checkout, created_at, currency, customer_info, discount_lines, fiscal_entity, id, is_refundable, line_items, livemode, metadata, next_action, object, payment_status, processing_mode, shipping_contact, updated_at].hash
+      [id, object, livemode, amount, currency, payment_status, amount_refunded, split_payment, metadata, is_refundable, created_at, updated_at, customer_info, shipping_contact, channel, fiscal_entity, checkout, line_items, discount_lines, charges, partial_reference, payments_info].hash
     end
 
     # Builds the object from hash

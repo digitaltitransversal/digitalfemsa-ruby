@@ -14,55 +14,89 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # The Transaction object represents the actions or steps of an order. Statuses can be: unprocessed, pending, available, owen, paid_out, voided, capture, capture_reversal, liquidation, liquidation_reversal, payout, payout_reversal, refund, refund_reversal, chargeback, chargeback_reversal, rounding_adjustment, won_chargeback, transferred, and transferred.
+  # Transaction object.
   class TransactionResponse
-    # The amount of the transaction.
-    attr_accessor :amount
-
-    # Randomly assigned unique order identifier associated with the charge.
-    attr_accessor :charge
-
-    # Date and time of creation of the transaction in Unix format.
-    attr_accessor :created_at
-
-    # The currency of the transaction. It uses the 3-letter code of the [International Standard ISO 4217.](https://es.wikipedia.org/wiki/ISO_4217)
-    attr_accessor :currency
-
-    # The amount to be deducted for taxes and commissions.
-    attr_accessor :fee
-
     # Unique identifier of the transaction.
     attr_accessor :id
-
-    # Indicates whether the transaction was created in live mode or test mode.
-    attr_accessor :livemode
-
-    # The net amount after deducting commissions and taxes.
-    attr_accessor :net
 
     # Object name, which is transaction.
     attr_accessor :object
 
+    # The amount of the transaction.
+    attr_accessor :amount
+
+    # The amount to be deducted for taxes and commissions.
+    attr_accessor :fee
+
+    # The net amount after deducting commissions and taxes.
+    attr_accessor :net
+
+    # The currency of the transaction. It uses the 3-letter code of ISO 4217.
+    attr_accessor :currency
+
     # Code indicating transaction status.
     attr_accessor :status
 
-    # Transaction Type
+    # Transaction type.
     attr_accessor :type
+
+    # Date and time of creation of the transaction in Unix format.
+    attr_accessor :created_at
+
+    # Indicates whether the transaction was created in live mode or test mode.
+    attr_accessor :livemode
+
+    # Charge ID associated with the transaction (present only if the transaction belongs to a charge).
+    attr_accessor :charge
+
+    # Transfer ID associated with the transaction (present only if the transaction belongs to a transfer).
+    attr_accessor :transfer
+
+    # Date and time when the transaction was transferred, in Unix format.
+    attr_accessor :transferred_at
+
+    # Transaction fee formula identifier (if available).
+    attr_accessor :formula
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'amount' => :'amount',
-        :'charge' => :'charge',
-        :'created_at' => :'created_at',
-        :'currency' => :'currency',
-        :'fee' => :'fee',
         :'id' => :'id',
-        :'livemode' => :'livemode',
-        :'net' => :'net',
         :'object' => :'object',
+        :'amount' => :'amount',
+        :'fee' => :'fee',
+        :'net' => :'net',
+        :'currency' => :'currency',
         :'status' => :'status',
-        :'type' => :'type'
+        :'type' => :'type',
+        :'created_at' => :'created_at',
+        :'livemode' => :'livemode',
+        :'charge' => :'charge',
+        :'transfer' => :'transfer',
+        :'transferred_at' => :'transferred_at',
+        :'formula' => :'formula'
       }
     end
 
@@ -74,23 +108,30 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'amount' => :'Integer',
-        :'charge' => :'String',
-        :'created_at' => :'Integer',
-        :'currency' => :'String',
-        :'fee' => :'Integer',
         :'id' => :'String',
-        :'livemode' => :'Boolean',
-        :'net' => :'Integer',
         :'object' => :'String',
+        :'amount' => :'Integer',
+        :'fee' => :'Integer',
+        :'net' => :'Integer',
+        :'currency' => :'String',
         :'status' => :'String',
-        :'type' => :'String'
+        :'type' => :'String',
+        :'created_at' => :'Integer',
+        :'livemode' => :'Boolean',
+        :'charge' => :'String',
+        :'transfer' => :'String',
+        :'transferred_at' => :'Integer',
+        :'formula' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'charge',
+        :'transfer',
+        :'transferred_at',
+        :'formula'
       ])
     end
 
@@ -109,28 +150,22 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      else
+        self.id = nil
+      end
+
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
+      else
+        self.object = nil
+      end
+
       if attributes.key?(:'amount')
         self.amount = attributes[:'amount']
       else
         self.amount = nil
-      end
-
-      if attributes.key?(:'charge')
-        self.charge = attributes[:'charge']
-      else
-        self.charge = nil
-      end
-
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      else
-        self.created_at = nil
-      end
-
-      if attributes.key?(:'currency')
-        self.currency = attributes[:'currency']
-      else
-        self.currency = nil
       end
 
       if attributes.key?(:'fee')
@@ -139,28 +174,16 @@ module DigitalFemsa
         self.fee = nil
       end
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      else
-        self.id = nil
-      end
-
-      if attributes.key?(:'livemode')
-        self.livemode = attributes[:'livemode']
-      else
-        self.livemode = nil
-      end
-
       if attributes.key?(:'net')
         self.net = attributes[:'net']
       else
         self.net = nil
       end
 
-      if attributes.key?(:'object')
-        self.object = attributes[:'object']
+      if attributes.key?(:'currency')
+        self.currency = attributes[:'currency']
       else
-        self.object = nil
+        self.currency = nil
       end
 
       if attributes.key?(:'status')
@@ -174,6 +197,34 @@ module DigitalFemsa
       else
         self.type = nil
       end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      else
+        self.created_at = nil
+      end
+
+      if attributes.key?(:'livemode')
+        self.livemode = attributes[:'livemode']
+      else
+        self.livemode = nil
+      end
+
+      if attributes.key?(:'charge')
+        self.charge = attributes[:'charge']
+      end
+
+      if attributes.key?(:'transfer')
+        self.transfer = attributes[:'transfer']
+      end
+
+      if attributes.key?(:'transferred_at')
+        self.transferred_at = attributes[:'transferred_at']
+      end
+
+      if attributes.key?(:'formula')
+        self.formula = attributes[:'formula']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -181,16 +232,24 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @object.nil?
+        invalid_properties.push('invalid value for "object", object cannot be nil.')
+      end
+
       if @amount.nil?
         invalid_properties.push('invalid value for "amount", amount cannot be nil.')
       end
 
-      if @charge.nil?
-        invalid_properties.push('invalid value for "charge", charge cannot be nil.')
+      if @fee.nil?
+        invalid_properties.push('invalid value for "fee", fee cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @net.nil?
+        invalid_properties.push('invalid value for "net", net cannot be nil.')
       end
 
       if @currency.nil?
@@ -201,32 +260,20 @@ module DigitalFemsa
         invalid_properties.push('invalid value for "currency", the character length must be smaller than or equal to 3.')
       end
 
-      if @fee.nil?
-        invalid_properties.push('invalid value for "fee", fee cannot be nil.')
-      end
-
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @livemode.nil?
-        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
-      end
-
-      if @net.nil?
-        invalid_properties.push('invalid value for "net", net cannot be nil.')
-      end
-
-      if @object.nil?
-        invalid_properties.push('invalid value for "object", object cannot be nil.')
-      end
-
       if @status.nil?
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       if @type.nil?
         invalid_properties.push('invalid value for "type", type cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @livemode.nil?
+        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
       end
 
       invalid_properties
@@ -236,18 +283,21 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @id.nil?
+      return false if @object.nil?
       return false if @amount.nil?
-      return false if @charge.nil?
-      return false if @created_at.nil?
+      return false if @fee.nil?
+      return false if @net.nil?
       return false if @currency.nil?
       return false if @currency.to_s.length > 3
-      return false if @fee.nil?
-      return false if @id.nil?
-      return false if @livemode.nil?
-      return false if @net.nil?
-      return false if @object.nil?
       return false if @status.nil?
+      status_validator = EnumAttributeValidator.new('String', ["unprocessed", "pending", "available", "owing", "paid_out", "on_hold", "retained", "voided"])
+      return false unless status_validator.valid?(@status)
       return false if @type.nil?
+      type_validator = EnumAttributeValidator.new('String', ["capture", "capture_reversal", "liquidation", "liquidation_reversal", "payout", "payout_reversal", "refund", "refund_reversal", "rounding_adjustment", "transfer", "transferred", "retention", "temporary_retention", "cashout_retention", "cashout_confirmation", "cashout_cancelation", "autofund_capture"])
+      return false unless type_validator.valid?(@type)
+      return false if @created_at.nil?
+      return false if @livemode.nil?
       true
     end
 
@@ -265,22 +315,45 @@ module DigitalFemsa
       @currency = currency
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] status Object to be assigned
+    def status=(status)
+      validator = EnumAttributeValidator.new('String', ["unprocessed", "pending", "available", "owing", "paid_out", "on_hold", "retained", "voided"])
+      unless validator.valid?(status)
+        fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
+      end
+      @status = status
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      validator = EnumAttributeValidator.new('String', ["capture", "capture_reversal", "liquidation", "liquidation_reversal", "payout", "payout_reversal", "refund", "refund_reversal", "rounding_adjustment", "transfer", "transferred", "retention", "temporary_retention", "cashout_retention", "cashout_confirmation", "cashout_cancelation", "autofund_capture"])
+      unless validator.valid?(type)
+        fail ArgumentError, "invalid value for \"type\", must be one of #{validator.allowable_values}."
+      end
+      @type = type
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          amount == o.amount &&
-          charge == o.charge &&
-          created_at == o.created_at &&
-          currency == o.currency &&
-          fee == o.fee &&
           id == o.id &&
-          livemode == o.livemode &&
-          net == o.net &&
           object == o.object &&
+          amount == o.amount &&
+          fee == o.fee &&
+          net == o.net &&
+          currency == o.currency &&
           status == o.status &&
-          type == o.type
+          type == o.type &&
+          created_at == o.created_at &&
+          livemode == o.livemode &&
+          charge == o.charge &&
+          transfer == o.transfer &&
+          transferred_at == o.transferred_at &&
+          formula == o.formula
     end
 
     # @see the `==` method
@@ -292,7 +365,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, charge, created_at, currency, fee, id, livemode, net, object, status, type].hash
+      [id, object, amount, fee, net, currency, status, type, created_at, livemode, charge, transfer, transferred_at, formula].hash
     end
 
     # Builds the object from hash

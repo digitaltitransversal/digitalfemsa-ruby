@@ -15,64 +15,88 @@ require 'time'
 
 module DigitalFemsa
   class ChargesDataResponse
-    attr_accessor :amount
+    attr_accessor :id
 
-    attr_accessor :channel
+    attr_accessor :livemode
 
     attr_accessor :created_at
 
     attr_accessor :currency
 
-    attr_accessor :customer_id
-
-    attr_accessor :description
-
-    attr_accessor :device_fingerprint
-
     attr_accessor :failure_code
 
     attr_accessor :failure_message
 
-    attr_accessor :id
-
-    attr_accessor :livemode
-
-    attr_accessor :object
-
-    attr_accessor :order_id
-
-    attr_accessor :paid_at
+    attr_accessor :channel
 
     attr_accessor :payment_method
 
-    # Reference ID of the charge
+    attr_accessor :object
+
+    attr_accessor :device_fingerprint
+
+    attr_accessor :description
+
+    attr_accessor :is_refundable
+
     attr_accessor :reference_id
+
+    attr_accessor :status
+
+    attr_accessor :amount
+
+    attr_accessor :paid_at
+
+    attr_accessor :customer_id
+
+    attr_accessor :order_id
 
     attr_accessor :refunds
 
-    attr_accessor :status
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'amount' => :'amount',
-        :'channel' => :'channel',
-        :'created_at' => :'created_at',
-        :'currency' => :'currency',
-        :'customer_id' => :'customer_id',
-        :'description' => :'description',
-        :'device_fingerprint' => :'device_fingerprint',
-        :'failure_code' => :'failure_code',
-        :'failure_message' => :'failure_message',
         :'id' => :'id',
         :'livemode' => :'livemode',
-        :'object' => :'object',
-        :'order_id' => :'order_id',
-        :'paid_at' => :'paid_at',
+        :'created_at' => :'created_at',
+        :'currency' => :'currency',
+        :'failure_code' => :'failure_code',
+        :'failure_message' => :'failure_message',
+        :'channel' => :'channel',
         :'payment_method' => :'payment_method',
+        :'object' => :'object',
+        :'device_fingerprint' => :'device_fingerprint',
+        :'description' => :'description',
+        :'is_refundable' => :'is_refundable',
         :'reference_id' => :'reference_id',
-        :'refunds' => :'refunds',
-        :'status' => :'status'
+        :'status' => :'status',
+        :'amount' => :'amount',
+        :'paid_at' => :'paid_at',
+        :'customer_id' => :'customer_id',
+        :'order_id' => :'order_id',
+        :'refunds' => :'refunds'
       }
     end
 
@@ -84,33 +108,36 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'amount' => :'Integer',
-        :'channel' => :'ChargeResponseChannel',
-        :'created_at' => :'Integer',
-        :'currency' => :'String',
-        :'customer_id' => :'String',
-        :'description' => :'String',
-        :'device_fingerprint' => :'String',
-        :'failure_code' => :'String',
-        :'failure_message' => :'String',
         :'id' => :'String',
         :'livemode' => :'Boolean',
-        :'object' => :'String',
-        :'order_id' => :'String',
-        :'paid_at' => :'Integer',
+        :'created_at' => :'Integer',
+        :'currency' => :'String',
+        :'failure_code' => :'String',
+        :'failure_message' => :'String',
+        :'channel' => :'ChargeResponseChannel',
         :'payment_method' => :'ChargeResponsePaymentMethod',
+        :'object' => :'String',
+        :'device_fingerprint' => :'String',
+        :'description' => :'String',
+        :'is_refundable' => :'Boolean',
         :'reference_id' => :'String',
-        :'refunds' => :'ChargeResponseRefunds',
-        :'status' => :'String'
+        :'status' => :'String',
+        :'amount' => :'Integer',
+        :'paid_at' => :'Integer',
+        :'customer_id' => :'String',
+        :'order_id' => :'String',
+        :'refunds' => :'ChargeResponseRefunds'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'paid_at',
+        :'failure_code',
+        :'failure_message',
         :'reference_id',
-        :'refunds',
+        :'paid_at',
+        :'refunds'
       ])
     end
 
@@ -136,32 +163,28 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'amount')
-        self.amount = attributes[:'amount']
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      else
+        self.id = nil
       end
 
-      if attributes.key?(:'channel')
-        self.channel = attributes[:'channel']
+      if attributes.key?(:'livemode')
+        self.livemode = attributes[:'livemode']
+      else
+        self.livemode = nil
       end
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
+      else
+        self.created_at = nil
       end
 
       if attributes.key?(:'currency')
         self.currency = attributes[:'currency']
-      end
-
-      if attributes.key?(:'customer_id')
-        self.customer_id = attributes[:'customer_id']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
-      end
-
-      if attributes.key?(:'device_fingerprint')
-        self.device_fingerprint = attributes[:'device_fingerprint']
+      else
+        self.currency = nil
       end
 
       if attributes.key?(:'failure_code')
@@ -172,40 +195,64 @@ module DigitalFemsa
         self.failure_message = attributes[:'failure_message']
       end
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      end
-
-      if attributes.key?(:'livemode')
-        self.livemode = attributes[:'livemode']
-      end
-
-      if attributes.key?(:'object')
-        self.object = attributes[:'object']
-      end
-
-      if attributes.key?(:'order_id')
-        self.order_id = attributes[:'order_id']
-      end
-
-      if attributes.key?(:'paid_at')
-        self.paid_at = attributes[:'paid_at']
+      if attributes.key?(:'channel')
+        self.channel = attributes[:'channel']
       end
 
       if attributes.key?(:'payment_method')
         self.payment_method = attributes[:'payment_method']
+      else
+        self.payment_method = nil
+      end
+
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
+      else
+        self.object = nil
+      end
+
+      if attributes.key?(:'device_fingerprint')
+        self.device_fingerprint = attributes[:'device_fingerprint']
+      end
+
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
+      if attributes.key?(:'is_refundable')
+        self.is_refundable = attributes[:'is_refundable']
       end
 
       if attributes.key?(:'reference_id')
         self.reference_id = attributes[:'reference_id']
       end
 
-      if attributes.key?(:'refunds')
-        self.refunds = attributes[:'refunds']
-      end
-
       if attributes.key?(:'status')
         self.status = attributes[:'status']
+      else
+        self.status = nil
+      end
+
+      if attributes.key?(:'amount')
+        self.amount = attributes[:'amount']
+      else
+        self.amount = nil
+      end
+
+      if attributes.key?(:'paid_at')
+        self.paid_at = attributes[:'paid_at']
+      end
+
+      if attributes.key?(:'customer_id')
+        self.customer_id = attributes[:'customer_id']
+      end
+
+      if attributes.key?(:'order_id')
+        self.order_id = attributes[:'order_id']
+      end
+
+      if attributes.key?(:'refunds')
+        self.refunds = attributes[:'refunds']
       end
     end
 
@@ -214,6 +261,38 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @livemode.nil?
+        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @currency.nil?
+        invalid_properties.push('invalid value for "currency", currency cannot be nil.')
+      end
+
+      if @payment_method.nil?
+        invalid_properties.push('invalid value for "payment_method", payment_method cannot be nil.')
+      end
+
+      if @object.nil?
+        invalid_properties.push('invalid value for "object", object cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @amount.nil?
+        invalid_properties.push('invalid value for "amount", amount cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -221,7 +300,27 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @id.nil?
+      return false if @livemode.nil?
+      return false if @created_at.nil?
+      return false if @currency.nil?
+      return false if @payment_method.nil?
+      return false if @object.nil?
+      object_validator = EnumAttributeValidator.new('String', ["charge"])
+      return false unless object_validator.valid?(@object)
+      return false if @status.nil?
+      return false if @amount.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["charge"])
+      unless validator.valid?(object)
+        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
     end
 
     # Checks equality by comparing each attribute.
@@ -229,24 +328,25 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          amount == o.amount &&
-          channel == o.channel &&
-          created_at == o.created_at &&
-          currency == o.currency &&
-          customer_id == o.customer_id &&
-          description == o.description &&
-          device_fingerprint == o.device_fingerprint &&
-          failure_code == o.failure_code &&
-          failure_message == o.failure_message &&
           id == o.id &&
           livemode == o.livemode &&
-          object == o.object &&
-          order_id == o.order_id &&
-          paid_at == o.paid_at &&
+          created_at == o.created_at &&
+          currency == o.currency &&
+          failure_code == o.failure_code &&
+          failure_message == o.failure_message &&
+          channel == o.channel &&
           payment_method == o.payment_method &&
+          object == o.object &&
+          device_fingerprint == o.device_fingerprint &&
+          description == o.description &&
+          is_refundable == o.is_refundable &&
           reference_id == o.reference_id &&
-          refunds == o.refunds &&
-          status == o.status
+          status == o.status &&
+          amount == o.amount &&
+          paid_at == o.paid_at &&
+          customer_id == o.customer_id &&
+          order_id == o.order_id &&
+          refunds == o.refunds
     end
 
     # @see the `==` method
@@ -258,7 +358,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, channel, created_at, currency, customer_id, description, device_fingerprint, failure_code, failure_message, id, livemode, object, order_id, paid_at, payment_method, reference_id, refunds, status].hash
+      [id, livemode, created_at, currency, failure_code, failure_message, channel, payment_method, object, device_fingerprint, description, is_refundable, reference_id, status, amount, paid_at, customer_id, order_id, refunds].hash
     end
 
     # Builds the object from hash

@@ -4,12 +4,13 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **active** | **Boolean** | Indicates if the webhook key is active | [optional] |
-| **created_at** | **Integer** | Unix timestamp in seconds with the creation date of the webhook key | [optional] |
-| **deleted** | **Boolean** | Indicates if the webhook key is deleted | [optional] |
-| **id** | **String** | Unique identifier of the webhook key | [optional] |
-| **livemode** | **Boolean** | Indicates if the webhook key is in live mode | [optional] |
-| **object** | **String** | Object name, value is webhook_key | [optional] |
+| **id** | **String** | Unique identifier of the webhook key |  |
+| **object** | **String** | Object name, value is webhook_key |  |
+| **active** | **Boolean** | Indicates if the webhook key is active |  |
+| **livemode** | **Boolean** | Indicates if the webhook key is in live mode |  |
+| **created_at** | **Integer** | Unix timestamp in seconds with the creation date of the webhook key |  |
+| **deactivated_at** | **Integer** | Unix timestamp in seconds when the webhook key was deactivated (if applicable). | [optional] |
+| **deleted** | **Boolean** | Indicates if the webhook key is deleted |  |
 
 ## Example
 
@@ -17,12 +18,13 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::WebhookKeyDeleteResponse.new(
-  active: true,
-  created_at: 1577836800,
-  deleted: true,
   id: 62730ba6fb7dfd6a712f118e,
+  object: webhook_key,
+  active: true,
   livemode: false,
-  object: webhook_key
+  created_at: 1577836800,
+  deactivated_at: 1577836800,
+  deleted: true
 )
 ```
 

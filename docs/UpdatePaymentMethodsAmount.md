@@ -1,4 +1,4 @@
-# DigitalFemsa::CheckoutOrderTemplateCustomerInfo
+# DigitalFemsa::UpdatePaymentMethodsAmount
 
 ## Class instance methods
 
@@ -11,11 +11,11 @@ Returns the list of classes defined in oneOf.
 ```ruby
 require 'digital_femsa'
 
-DigitalFemsa::CheckoutOrderTemplateCustomerInfo.openapi_one_of
+DigitalFemsa::UpdatePaymentMethodsAmount.openapi_one_of
 # =>
 # [
-#   :'CustomerInfo',
-#   :'CustomerInfoJustCustomerId'
+#   :'Integer',
+#   :'String'
 # ]
 ```
 
@@ -28,10 +28,10 @@ Find the appropriate object from the `openapi_one_of` list and casts the data in
 ```ruby
 require 'digital_femsa'
 
-DigitalFemsa::CheckoutOrderTemplateCustomerInfo.build(data)
-# => #<CustomerInfo:0x00007fdd4aab02a0>
+DigitalFemsa::UpdatePaymentMethodsAmount.build(data)
+# => #<Integer:0x00007fdd4aab02a0>
 
-DigitalFemsa::CheckoutOrderTemplateCustomerInfo.build(data_that_doesnt_match)
+DigitalFemsa::UpdatePaymentMethodsAmount.build(data_that_doesnt_match)
 # => nil
 ```
 
@@ -43,7 +43,7 @@ DigitalFemsa::CheckoutOrderTemplateCustomerInfo.build(data_that_doesnt_match)
 
 #### Return type
 
-- `CustomerInfo`
-- `CustomerInfoJustCustomerId`
+- `Integer`
+- `String`
 - `nil` (if no type matches)
 

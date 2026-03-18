@@ -14,41 +14,69 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # webhooks model
+  # Represents a webhook endpoint configured to receive event notifications.
   class WebhookResponse
-    attr_accessor :deleted
-
-    attr_accessor :development_enabled
-
+    # Unique identifier of the webhook.
     attr_accessor :id
 
-    attr_accessor :livemode
-
+    # Object name, which is webhook.
     attr_accessor :object
 
-    attr_accessor :production_enabled
+    # The URL where events will be delivered.
+    attr_accessor :url
 
+    # Current delivery status of the webhook.
     attr_accessor :status
 
+    # List of event types the webhook is subscribed to.
     attr_accessor :subscribed_events
 
+    # Indicates whether the webhook uses synchronous delivery behavior.
     attr_accessor :synchronous
 
-    attr_accessor :url
+    # Optional description of the webhook.
+    attr_accessor :description
+
+    # Indicates whether the webhook is in live mode or test mode.
+    attr_accessor :livemode
+
+    # Indicates whether the webhook is active.
+    attr_accessor :active
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'deleted' => :'deleted',
-        :'development_enabled' => :'development_enabled',
         :'id' => :'id',
-        :'livemode' => :'livemode',
         :'object' => :'object',
-        :'production_enabled' => :'production_enabled',
+        :'url' => :'url',
         :'status' => :'status',
         :'subscribed_events' => :'subscribed_events',
         :'synchronous' => :'synchronous',
-        :'url' => :'url'
+        :'description' => :'description',
+        :'livemode' => :'livemode',
+        :'active' => :'active'
       }
     end
 
@@ -60,23 +88,22 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'deleted' => :'Boolean',
-        :'development_enabled' => :'Boolean',
         :'id' => :'String',
-        :'livemode' => :'Boolean',
         :'object' => :'String',
-        :'production_enabled' => :'Boolean',
+        :'url' => :'String',
         :'status' => :'String',
         :'subscribed_events' => :'Array<String>',
         :'synchronous' => :'Boolean',
-        :'url' => :'String'
+        :'description' => :'String',
+        :'livemode' => :'Boolean',
+        :'active' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'deleted',
+        :'description',
       ])
     end
 
@@ -95,46 +122,58 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'deleted')
-        self.deleted = attributes[:'deleted']
-      end
-
-      if attributes.key?(:'development_enabled')
-        self.development_enabled = attributes[:'development_enabled']
-      end
-
       if attributes.key?(:'id')
         self.id = attributes[:'id']
-      end
-
-      if attributes.key?(:'livemode')
-        self.livemode = attributes[:'livemode']
+      else
+        self.id = nil
       end
 
       if attributes.key?(:'object')
         self.object = attributes[:'object']
+      else
+        self.object = nil
       end
 
-      if attributes.key?(:'production_enabled')
-        self.production_enabled = attributes[:'production_enabled']
+      if attributes.key?(:'url')
+        self.url = attributes[:'url']
+      else
+        self.url = nil
       end
 
       if attributes.key?(:'status')
         self.status = attributes[:'status']
+      else
+        self.status = nil
       end
 
       if attributes.key?(:'subscribed_events')
         if (value = attributes[:'subscribed_events']).is_a?(Array)
           self.subscribed_events = value
         end
+      else
+        self.subscribed_events = nil
       end
 
       if attributes.key?(:'synchronous')
         self.synchronous = attributes[:'synchronous']
+      else
+        self.synchronous = nil
       end
 
-      if attributes.key?(:'url')
-        self.url = attributes[:'url']
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
+      if attributes.key?(:'livemode')
+        self.livemode = attributes[:'livemode']
+      else
+        self.livemode = nil
+      end
+
+      if attributes.key?(:'active')
+        self.active = attributes[:'active']
+      else
+        self.active = nil
       end
     end
 
@@ -143,6 +182,38 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @object.nil?
+        invalid_properties.push('invalid value for "object", object cannot be nil.')
+      end
+
+      if @url.nil?
+        invalid_properties.push('invalid value for "url", url cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @subscribed_events.nil?
+        invalid_properties.push('invalid value for "subscribed_events", subscribed_events cannot be nil.')
+      end
+
+      if @synchronous.nil?
+        invalid_properties.push('invalid value for "synchronous", synchronous cannot be nil.')
+      end
+
+      if @livemode.nil?
+        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
+      end
+
+      if @active.nil?
+        invalid_properties.push('invalid value for "active", active cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -150,7 +221,27 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @id.nil?
+      return false if @object.nil?
+      return false if @url.nil?
+      return false if @status.nil?
+      status_validator = EnumAttributeValidator.new('String', ["being_pinged", "listening", "intermittent_errors", "unresponsive", "error", "disabled"])
+      return false unless status_validator.valid?(@status)
+      return false if @subscribed_events.nil?
+      return false if @synchronous.nil?
+      return false if @livemode.nil?
+      return false if @active.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] status Object to be assigned
+    def status=(status)
+      validator = EnumAttributeValidator.new('String', ["being_pinged", "listening", "intermittent_errors", "unresponsive", "error", "disabled"])
+      unless validator.valid?(status)
+        fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
+      end
+      @status = status
     end
 
     # Checks equality by comparing each attribute.
@@ -158,16 +249,15 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          deleted == o.deleted &&
-          development_enabled == o.development_enabled &&
           id == o.id &&
-          livemode == o.livemode &&
           object == o.object &&
-          production_enabled == o.production_enabled &&
+          url == o.url &&
           status == o.status &&
           subscribed_events == o.subscribed_events &&
           synchronous == o.synchronous &&
-          url == o.url
+          description == o.description &&
+          livemode == o.livemode &&
+          active == o.active
     end
 
     # @see the `==` method
@@ -179,7 +269,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [deleted, development_enabled, id, livemode, object, production_enabled, status, subscribed_events, synchronous, url].hash
+      [id, object, url, status, subscribed_events, synchronous, description, livemode, active].hash
     end
 
     # Builds the object from hash

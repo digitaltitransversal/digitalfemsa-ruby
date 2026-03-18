@@ -16,66 +16,91 @@ require 'time'
 module DigitalFemsa
   # customer response
   class CustomerResponse
-    attr_accessor :antifraud_info
-
-    # true if the customer is a company
-    attr_accessor :corporate
-
-    # Creation date of the object
-    attr_accessor :created_at
-
-    # Custom reference
-    attr_accessor :custom_reference
-
-    attr_accessor :default_fiscal_entity_id
-
-    attr_accessor :default_shipping_contact_id
-
-    attr_accessor :default_payment_source_id
-
-    attr_accessor :email
-
-    attr_accessor :fiscal_entities
-
     # Customer's ID
     attr_accessor :id
 
-    # true if the object exists in live mode or the value false if the object exists in test mode
+    attr_accessor :object
+
+    # Creation date of the object (Unix timestamp)
+    attr_accessor :created_at
+
+    # true if the object exists in live mode or false if the object exists in test mode
     attr_accessor :livemode
 
     # Customer's name
     attr_accessor :name
 
-    attr_accessor :metadata
-
-    attr_accessor :object
-
-    attr_accessor :payment_sources
+    attr_accessor :email
 
     # Customer's phone number
     attr_accessor :phone
 
+    # true if the customer is a company
+    attr_accessor :corporate
+
+    # Custom reference
+    attr_accessor :custom_reference
+
+    # Referrer information (if available)
+    attr_accessor :referrer
+
+    # Vertical-specific information (shape depends on integration)
+    attr_accessor :vertical_info
+
+    attr_accessor :default_fiscal_entity_id
+
+    attr_accessor :default_shipping_contact_id
+
+    # Customer metadata (maps to contextual_data in backend)
+    attr_accessor :metadata
+
+    attr_accessor :payment_sources
+
+    attr_accessor :fiscal_entities
+
     attr_accessor :shipping_contacts
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'antifraud_info' => :'antifraud_info',
-        :'corporate' => :'corporate',
-        :'created_at' => :'created_at',
-        :'custom_reference' => :'custom_reference',
-        :'default_fiscal_entity_id' => :'default_fiscal_entity_id',
-        :'default_shipping_contact_id' => :'default_shipping_contact_id',
-        :'default_payment_source_id' => :'default_payment_source_id',
-        :'email' => :'email',
-        :'fiscal_entities' => :'fiscal_entities',
         :'id' => :'id',
+        :'object' => :'object',
+        :'created_at' => :'created_at',
         :'livemode' => :'livemode',
         :'name' => :'name',
-        :'metadata' => :'metadata',
-        :'object' => :'object',
-        :'payment_sources' => :'payment_sources',
+        :'email' => :'email',
         :'phone' => :'phone',
+        :'corporate' => :'corporate',
+        :'custom_reference' => :'custom_reference',
+        :'referrer' => :'referrer',
+        :'vertical_info' => :'vertical_info',
+        :'default_fiscal_entity_id' => :'default_fiscal_entity_id',
+        :'default_shipping_contact_id' => :'default_shipping_contact_id',
+        :'metadata' => :'metadata',
+        :'payment_sources' => :'payment_sources',
+        :'fiscal_entities' => :'fiscal_entities',
         :'shipping_contacts' => :'shipping_contacts'
       }
     end
@@ -88,22 +113,22 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'antifraud_info' => :'CustomerAntifraudInfoResponse',
-        :'corporate' => :'Boolean',
-        :'created_at' => :'Integer',
-        :'custom_reference' => :'String',
-        :'default_fiscal_entity_id' => :'String',
-        :'default_shipping_contact_id' => :'String',
-        :'default_payment_source_id' => :'String',
-        :'email' => :'String',
-        :'fiscal_entities' => :'CustomerFiscalEntitiesResponse',
         :'id' => :'String',
+        :'object' => :'String',
+        :'created_at' => :'Integer',
         :'livemode' => :'Boolean',
         :'name' => :'String',
-        :'metadata' => :'Hash<String, Object>',
-        :'object' => :'String',
-        :'payment_sources' => :'CustomerPaymentMethodsResponse',
+        :'email' => :'String',
         :'phone' => :'String',
+        :'corporate' => :'Boolean',
+        :'custom_reference' => :'String',
+        :'referrer' => :'String',
+        :'vertical_info' => :'Hash<String, Object>',
+        :'default_fiscal_entity_id' => :'String',
+        :'default_shipping_contact_id' => :'String',
+        :'metadata' => :'Hash<String, Object>',
+        :'payment_sources' => :'CustomerPaymentMethodsResponse',
+        :'fiscal_entities' => :'CustomerFiscalEntitiesResponse',
         :'shipping_contacts' => :'CustomerResponseShippingContacts'
       }
     end
@@ -111,9 +136,15 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'antifraud_info',
+        :'name',
+        :'email',
+        :'phone',
+        :'custom_reference',
+        :'referrer',
+        :'vertical_info',
         :'default_fiscal_entity_id',
-        :'default_payment_source_id',
+        :'default_shipping_contact_id',
+        :'metadata',
       ])
     end
 
@@ -132,48 +163,22 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'antifraud_info')
-        self.antifraud_info = attributes[:'antifraud_info']
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      else
+        self.id = nil
       end
 
-      if attributes.key?(:'corporate')
-        self.corporate = attributes[:'corporate']
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
+      else
+        self.object = nil
       end
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       else
         self.created_at = nil
-      end
-
-      if attributes.key?(:'custom_reference')
-        self.custom_reference = attributes[:'custom_reference']
-      end
-
-      if attributes.key?(:'default_fiscal_entity_id')
-        self.default_fiscal_entity_id = attributes[:'default_fiscal_entity_id']
-      end
-
-      if attributes.key?(:'default_shipping_contact_id')
-        self.default_shipping_contact_id = attributes[:'default_shipping_contact_id']
-      end
-
-      if attributes.key?(:'default_payment_source_id')
-        self.default_payment_source_id = attributes[:'default_payment_source_id']
-      end
-
-      if attributes.key?(:'email')
-        self.email = attributes[:'email']
-      end
-
-      if attributes.key?(:'fiscal_entities')
-        self.fiscal_entities = attributes[:'fiscal_entities']
-      end
-
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      else
-        self.id = nil
       end
 
       if attributes.key?(:'livemode')
@@ -184,8 +189,40 @@ module DigitalFemsa
 
       if attributes.key?(:'name')
         self.name = attributes[:'name']
-      else
-        self.name = nil
+      end
+
+      if attributes.key?(:'email')
+        self.email = attributes[:'email']
+      end
+
+      if attributes.key?(:'phone')
+        self.phone = attributes[:'phone']
+      end
+
+      if attributes.key?(:'corporate')
+        self.corporate = attributes[:'corporate']
+      end
+
+      if attributes.key?(:'custom_reference')
+        self.custom_reference = attributes[:'custom_reference']
+      end
+
+      if attributes.key?(:'referrer')
+        self.referrer = attributes[:'referrer']
+      end
+
+      if attributes.key?(:'vertical_info')
+        if (value = attributes[:'vertical_info']).is_a?(Hash)
+          self.vertical_info = value
+        end
+      end
+
+      if attributes.key?(:'default_fiscal_entity_id')
+        self.default_fiscal_entity_id = attributes[:'default_fiscal_entity_id']
+      end
+
+      if attributes.key?(:'default_shipping_contact_id')
+        self.default_shipping_contact_id = attributes[:'default_shipping_contact_id']
       end
 
       if attributes.key?(:'metadata')
@@ -194,18 +231,12 @@ module DigitalFemsa
         end
       end
 
-      if attributes.key?(:'object')
-        self.object = attributes[:'object']
-      else
-        self.object = nil
-      end
-
       if attributes.key?(:'payment_sources')
         self.payment_sources = attributes[:'payment_sources']
       end
 
-      if attributes.key?(:'phone')
-        self.phone = attributes[:'phone']
+      if attributes.key?(:'fiscal_entities')
+        self.fiscal_entities = attributes[:'fiscal_entities']
       end
 
       if attributes.key?(:'shipping_contacts')
@@ -218,28 +249,24 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @object.nil?
+        invalid_properties.push('invalid value for "object", object cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       if @livemode.nil?
         invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
       end
 
-      if @name.nil?
-        invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
       if !@metadata.nil? && @metadata.length > 100
         invalid_properties.push('invalid value for "metadata", number of items must be less than or equal to 100.')
-      end
-
-      if @object.nil?
-        invalid_properties.push('invalid value for "object", object cannot be nil.')
       end
 
       invalid_properties
@@ -249,23 +276,30 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @created_at.nil?
       return false if @id.nil?
-      return false if @livemode.nil?
-      return false if @name.nil?
-      return false if !@metadata.nil? && @metadata.length > 100
       return false if @object.nil?
+      object_validator = EnumAttributeValidator.new('String', ["customer"])
+      return false unless object_validator.valid?(@object)
+      return false if @created_at.nil?
+      return false if @livemode.nil?
+      return false if !@metadata.nil? && @metadata.length > 100
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["customer"])
+      unless validator.valid?(object)
+        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
     end
 
     # Custom attribute writer method with validation
     # @param [Object] metadata Value to be assigned
     def metadata=(metadata)
-      if metadata.nil?
-        fail ArgumentError, 'metadata cannot be nil'
-      end
-
-      if metadata.length > 100
+      if !metadata.nil? && metadata.length > 100
         fail ArgumentError, 'invalid value for "metadata", number of items must be less than or equal to 100.'
       end
 
@@ -277,22 +311,22 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          antifraud_info == o.antifraud_info &&
-          corporate == o.corporate &&
-          created_at == o.created_at &&
-          custom_reference == o.custom_reference &&
-          default_fiscal_entity_id == o.default_fiscal_entity_id &&
-          default_shipping_contact_id == o.default_shipping_contact_id &&
-          default_payment_source_id == o.default_payment_source_id &&
-          email == o.email &&
-          fiscal_entities == o.fiscal_entities &&
           id == o.id &&
+          object == o.object &&
+          created_at == o.created_at &&
           livemode == o.livemode &&
           name == o.name &&
-          metadata == o.metadata &&
-          object == o.object &&
-          payment_sources == o.payment_sources &&
+          email == o.email &&
           phone == o.phone &&
+          corporate == o.corporate &&
+          custom_reference == o.custom_reference &&
+          referrer == o.referrer &&
+          vertical_info == o.vertical_info &&
+          default_fiscal_entity_id == o.default_fiscal_entity_id &&
+          default_shipping_contact_id == o.default_shipping_contact_id &&
+          metadata == o.metadata &&
+          payment_sources == o.payment_sources &&
+          fiscal_entities == o.fiscal_entities &&
           shipping_contacts == o.shipping_contacts
     end
 
@@ -305,7 +339,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [antifraud_info, corporate, created_at, custom_reference, default_fiscal_entity_id, default_shipping_contact_id, default_payment_source_id, email, fiscal_entities, id, livemode, name, metadata, object, payment_sources, phone, shipping_contacts].hash
+      [id, object, created_at, livemode, name, email, phone, corporate, custom_reference, referrer, vertical_info, default_fiscal_entity_id, default_shipping_contact_id, metadata, payment_sources, fiscal_entities, shipping_contacts].hash
     end
 
     # Builds the object from hash

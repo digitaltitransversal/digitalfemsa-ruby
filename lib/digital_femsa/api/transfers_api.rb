@@ -19,8 +19,8 @@ module DigitalFemsa
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Get Transfer
-    # Get the details of a Transfer
+    # Get transfer
+    # Retrieves the details of a transfer by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -31,8 +31,8 @@ module DigitalFemsa
       data
     end
 
-    # Get Transfer
-    # Get the details of a Transfer
+    # Get transfer
+    # Retrieves the details of a transfer by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -92,8 +92,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get a list of transfers
-    # Get transfers details in the form of a list
+    # List transfers
+    # Returns a paginated list of transfers (payouts/dispersions).  A transfer represents a payout of funds to the merchant (where the money is sent and the payout status). Transfers typically aggregate multiple transactions.  If you need movement-level details (amount/fee/net per operation) or to reconcile charges, use GET /transactions. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -107,8 +107,8 @@ module DigitalFemsa
       data
     end
 
-    # Get a list of transfers
-    # Get transfers details in the form of a list
+    # List transfers
+    # Returns a paginated list of transfers (payouts/dispersions).  A transfer represents a payout of funds to the merchant (where the money is sent and the payout status). Transfers typically aggregate multiple transactions.  If you need movement-level details (amount/fee/net per operation) or to reconcile charges, use GET /transactions. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

@@ -15,56 +15,78 @@ require 'time'
 
 module DigitalFemsa
   class ApiKeyCreateResponse
-    # Indicates if the api key is active
-    attr_accessor :active
-
-    # Unix timestamp in seconds of when the api key was created
-    attr_accessor :created_at
-
-    # Unix timestamp in seconds of when the api key was last updated
-    attr_accessor :updated_at
-
-    # Unix timestamp in seconds of when the api key was deleted
-    attr_accessor :deactivated_at
-
-    # A name or brief explanation of what this api key is used for
-    attr_accessor :description
-
-    # Unique identifier of the api key
+    # Unique identifier of the API key
     attr_accessor :id
-
-    # Indicates if the api key is in production
-    attr_accessor :livemode
-
-    # Indicates if the api key was deleted
-    attr_accessor :deleted
 
     # Object name, value is 'api_key'
     attr_accessor :object
 
+    # Indicates if the API key is active
+    attr_accessor :active
+
+    # Indicates if the API key is in production
+    attr_accessor :livemode
+
+    # Indicates if the API key is private or public
+    attr_accessor :role
+
+    # A name or brief explanation of what this API key is used for
+    attr_accessor :description
+
     # The first few characters of the authentication_token
     attr_accessor :prefix
 
-    # Indicates if the api key is private or public
-    attr_accessor :role
+    # Unix timestamp in seconds of when the API key was created
+    attr_accessor :created_at
 
-    # It is occupied as a user when authenticated with basic authentication, with a blank password. This value will only appear once, in the request to create a new key. Copy and save it in a safe place.
+    # Unix timestamp in seconds of when the API key was last updated
+    attr_accessor :updated_at
+
+    # Unix timestamp in seconds of when the API key was deactivated
+    attr_accessor :deactivated_at
+
+    # Indicates if the API key was deleted
+    attr_accessor :deleted
+
+    # Used as the username for Basic Authentication, with a blank password. This value is shown only once (when the key is created). Copy and store it securely. 
     attr_accessor :authentication_token
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'id' => :'id',
+        :'object' => :'object',
         :'active' => :'active',
+        :'livemode' => :'livemode',
+        :'role' => :'role',
+        :'description' => :'description',
+        :'prefix' => :'prefix',
         :'created_at' => :'created_at',
         :'updated_at' => :'updated_at',
         :'deactivated_at' => :'deactivated_at',
-        :'description' => :'description',
-        :'id' => :'id',
-        :'livemode' => :'livemode',
         :'deleted' => :'deleted',
-        :'object' => :'object',
-        :'prefix' => :'prefix',
-        :'role' => :'role',
         :'authentication_token' => :'authentication_token'
       }
     end
@@ -77,17 +99,17 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'id' => :'String',
+        :'object' => :'String',
         :'active' => :'Boolean',
+        :'livemode' => :'Boolean',
+        :'role' => :'String',
+        :'description' => :'String',
+        :'prefix' => :'String',
         :'created_at' => :'Integer',
         :'updated_at' => :'Integer',
         :'deactivated_at' => :'Integer',
-        :'description' => :'String',
-        :'id' => :'String',
-        :'livemode' => :'Boolean',
         :'deleted' => :'Boolean',
-        :'object' => :'String',
-        :'prefix' => :'String',
-        :'role' => :'String',
         :'authentication_token' => :'String'
       }
     end
@@ -95,6 +117,7 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'description',
         :'deactivated_at',
       ])
     end
@@ -121,48 +144,64 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      else
+        self.id = nil
+      end
+
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
+      else
+        self.object = nil
+      end
+
       if attributes.key?(:'active')
         self.active = attributes[:'active']
+      else
+        self.active = nil
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'livemode')
+        self.livemode = attributes[:'livemode']
+      else
+        self.livemode = nil
       end
 
-      if attributes.key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
-      end
-
-      if attributes.key?(:'deactivated_at')
-        self.deactivated_at = attributes[:'deactivated_at']
+      if attributes.key?(:'role')
+        self.role = attributes[:'role']
+      else
+        self.role = nil
       end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
       end
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
+      if attributes.key?(:'prefix')
+        self.prefix = attributes[:'prefix']
+      else
+        self.prefix = nil
       end
 
-      if attributes.key?(:'livemode')
-        self.livemode = attributes[:'livemode']
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      else
+        self.created_at = nil
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      else
+        self.updated_at = nil
+      end
+
+      if attributes.key?(:'deactivated_at')
+        self.deactivated_at = attributes[:'deactivated_at']
       end
 
       if attributes.key?(:'deleted')
         self.deleted = attributes[:'deleted']
-      end
-
-      if attributes.key?(:'object')
-        self.object = attributes[:'object']
-      end
-
-      if attributes.key?(:'prefix')
-        self.prefix = attributes[:'prefix']
-      end
-
-      if attributes.key?(:'role')
-        self.role = attributes[:'role']
       end
 
       if attributes.key?(:'authentication_token')
@@ -175,6 +214,38 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @object.nil?
+        invalid_properties.push('invalid value for "object", object cannot be nil.')
+      end
+
+      if @active.nil?
+        invalid_properties.push('invalid value for "active", active cannot be nil.')
+      end
+
+      if @livemode.nil?
+        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
+      end
+
+      if @role.nil?
+        invalid_properties.push('invalid value for "role", role cannot be nil.')
+      end
+
+      if @prefix.nil?
+        invalid_properties.push('invalid value for "prefix", prefix cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -182,7 +253,39 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @id.nil?
+      return false if @object.nil?
+      object_validator = EnumAttributeValidator.new('String', ["api_key"])
+      return false unless object_validator.valid?(@object)
+      return false if @active.nil?
+      return false if @livemode.nil?
+      return false if @role.nil?
+      role_validator = EnumAttributeValidator.new('String', ["private", "public"])
+      return false unless role_validator.valid?(@role)
+      return false if @prefix.nil?
+      return false if @created_at.nil?
+      return false if @updated_at.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["api_key"])
+      unless validator.valid?(object)
+        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] role Object to be assigned
+    def role=(role)
+      validator = EnumAttributeValidator.new('String', ["private", "public"])
+      unless validator.valid?(role)
+        fail ArgumentError, "invalid value for \"role\", must be one of #{validator.allowable_values}."
+      end
+      @role = role
     end
 
     # Checks equality by comparing each attribute.
@@ -190,17 +293,17 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          id == o.id &&
+          object == o.object &&
           active == o.active &&
+          livemode == o.livemode &&
+          role == o.role &&
+          description == o.description &&
+          prefix == o.prefix &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           deactivated_at == o.deactivated_at &&
-          description == o.description &&
-          id == o.id &&
-          livemode == o.livemode &&
           deleted == o.deleted &&
-          object == o.object &&
-          prefix == o.prefix &&
-          role == o.role &&
           authentication_token == o.authentication_token
     end
 
@@ -213,7 +316,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [active, created_at, updated_at, deactivated_at, description, id, livemode, deleted, object, prefix, role, authentication_token].hash
+      [id, object, active, livemode, role, description, prefix, created_at, updated_at, deactivated_at, deleted, authentication_token].hash
     end
 
     # Builds the object from hash

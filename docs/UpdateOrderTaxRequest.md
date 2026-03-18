@@ -4,8 +4,8 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **amount** | **Integer** | The amount to be collected for tax in cents | [optional] |
-| **description** | **String** | description or tax&#39;s name | [optional] |
+| **amount** | **Integer** | The amount to be collected for tax in cents |  |
+| **description** | **String** | Description or tax name |  |
 | **metadata** | **Hash&lt;String, Object&gt;** |  | [optional] |
 
 ## Example
@@ -15,8 +15,8 @@ require 'digital_femsa'
 
 instance = DigitalFemsa::UpdateOrderTaxRequest.new(
   amount: 100,
-  description: testing,
-  metadata: null
+  description: VAT,
+  metadata: {&quot;key&quot;:&quot;value&quot;}
 )
 ```
 

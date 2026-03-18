@@ -14,9 +14,9 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # Contains details of the payment methods that the customer has active or has used in Femsa
+  # Payment method data to attach to a customer.
   class CustomerPaymentMethodRequest
-    # Type of payment method
+    # Type of payment method.
     attr_accessor :type
 
     # Attribute mapping from ruby-style variable name to JSON key.

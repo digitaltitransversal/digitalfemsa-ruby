@@ -4,8 +4,8 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**get_charges**](ChargesApi.md#get_charges) | **GET** /charges | Get A List of Charges |
-| [**orders_create_charge**](ChargesApi.md#orders_create_charge) | **POST** /orders/{id}/charges | Create charge |
+| [**get_charges**](ChargesApi.md#get_charges) | **GET** /charges | List charges |
+| [**orders_create_charge**](ChargesApi.md#orders_create_charge) | **POST** /orders/{id}/charges | Create a charge for an order |
 | [**update_charge**](ChargesApi.md#update_charge) | **PUT** /charges/{id} | Update a charge |
 
 
@@ -13,7 +13,9 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 > <GetChargesResponse> get_charges(opts)
 
-Get A List of Charges
+List charges
+
+Retrieves a paginated list of charges for the authenticated account.  Use the pagination parameters (`limit`, `next_page`, `previous_page`) to navigate through results. Use `search` to filter charges (for example by id or reference). 
 
 ### Examples
 
@@ -31,13 +33,13 @@ opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af', # String | In the case of a holding company, the company id of the child company to which will process the request.
   limit: 56, # Integer | The numbers of items to return, the maximum value is 250
-  search: 'search_example', # String | General order search, e.g. by mail, reference etc.
   _next: '_next_example', # String | next page
-  previous: 'previous_example' # String | previous page
+  previous: 'previous_example', # String | previous page
+  search: 'search_example' # String | General order search, e.g. by mail, reference etc.
 }
 
 begin
-  # Get A List of Charges
+  # List charges
   result = api_instance.get_charges(opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -53,7 +55,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get A List of Charges
+  # List charges
   data, status_code, headers = api_instance.get_charges_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -70,9 +72,9 @@ end
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 | **limit** | **Integer** | The numbers of items to return, the maximum value is 250 | [optional][default to 20] |
-| **search** | **String** | General order search, e.g. by mail, reference etc. | [optional] |
 | **_next** | **String** | next page | [optional] |
 | **previous** | **String** | previous page | [optional] |
+| **search** | **String** | General order search, e.g. by mail, reference etc. | [optional] |
 
 ### Return type
 
@@ -92,9 +94,9 @@ end
 
 > <ChargeOrderResponse> orders_create_charge(id, charge_request, opts)
 
-Create charge
+Create a charge for an order
 
-Create charge for an existing orden
+Creates a new charge associated with an existing order.  Notes: - The charge is created for the order identified by the path parameter `id`. - Depending on the payment method, the charge may be created in a non-final status (for example, pending). - If the order does not meet the required conditions, the API may respond with **428 Precondition Required**. 
 
 ### Examples
 
@@ -116,7 +118,7 @@ opts = {
 }
 
 begin
-  # Create charge
+  # Create a charge for an order
   result = api_instance.orders_create_charge(id, charge_request, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -132,7 +134,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Create charge
+  # Create a charge for an order
   data, status_code, headers = api_instance.orders_create_charge_with_http_info(id, charge_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -170,6 +172,8 @@ end
 > <ChargeResponse> update_charge(id, charge_update_request, opts)
 
 Update a charge
+
+Updates an existing charge. Only `reference_id` can be updated.
 
 ### Examples
 
