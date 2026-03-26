@@ -23,7 +23,6 @@ module DigitalFemsa
     # Creates a new webhook signing key for the current company.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
-    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [WebhookKeyRequest] :webhook_key_request 
     # @return [WebhookKeyCreateResponse]
     def create_webhook_key(opts = {})
@@ -35,7 +34,6 @@ module DigitalFemsa
     # Creates a new webhook signing key for the current company.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
-    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [WebhookKeyRequest] :webhook_key_request 
     # @return [Array<(WebhookKeyCreateResponse, Integer, Hash)>] WebhookKeyCreateResponse data, response status code and response headers
     def create_webhook_key_with_http_info(opts = {})
@@ -62,7 +60,6 @@ module DigitalFemsa
           header_params['Content-Type'] = content_type
       end
       header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
-      header_params[:'X-Child-Company-Id'] = opts[:'x_child_company_id'] if !opts[:'x_child_company_id'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -237,7 +234,7 @@ module DigitalFemsa
     end
 
     # Get List of Webhook Keys
-    # Consume the list of webhook keys you have, each environment supports 10 webhook keys (For production and testing)
+    # Consume the list of webhook keys you have
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -252,7 +249,7 @@ module DigitalFemsa
     end
 
     # Get List of Webhook Keys
-    # Consume the list of webhook keys you have, each environment supports 10 webhook keys (For production and testing)
+    # Consume the list of webhook keys you have
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -365,7 +362,7 @@ module DigitalFemsa
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/vnd.app-v2.1.0+json'])
       # HTTP header 'Content-Type'
-      content_type = @api_client.select_header_content_type(['application/vnd.app-v2.1.0+json'])
+      content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
           header_params['Content-Type'] = content_type
       end

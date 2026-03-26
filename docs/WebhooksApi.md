@@ -4,10 +4,10 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**create_webhook**](WebhooksApi.md#create_webhook) | **POST** /webhooks | Create webhook |
+| [**create_webhook**](WebhooksApi.md#create_webhook) | **POST** /webhooks | Create Webhook |
 | [**delete_webhook**](WebhooksApi.md#delete_webhook) | **DELETE** /webhooks/{id} | Delete webhook |
 | [**get_webhook**](WebhooksApi.md#get_webhook) | **GET** /webhooks/{id} | Get webhook |
-| [**get_webhooks**](WebhooksApi.md#get_webhooks) | **GET** /webhooks | Get webhooks |
+| [**get_webhooks**](WebhooksApi.md#get_webhooks) | **GET** /webhooks | Get List of Webhooks |
 | [**test_webhook**](WebhooksApi.md#test_webhook) | **POST** /webhooks/{id}/test | Test webhook |
 | [**update_webhook**](WebhooksApi.md#update_webhook) | **PUT** /webhooks/{id} | Update webhook |
 
@@ -16,9 +16,9 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 > <WebhookResponse> create_webhook(webhook_request, opts)
 
-Create webhook
+Create Webhook
 
-Creates a webhook and subscribes it to events so your system can receive notifications when those events occur.
+What we do at Femsa translates into events. For example, an event of interest to us occurs at the time a payment is successfully processed. At that moment we will be interested in doing several things: Send an email to the buyer, generate an invoice, start the process of shipping the product, etc.
 
 ### Examples
 
@@ -32,14 +32,13 @@ DigitalFemsa.configure do |config|
 end
 
 api_instance = DigitalFemsa::WebhooksApi.new
-webhook_request = DigitalFemsa::WebhookRequest.new({url: 'https://webhook.site/89277eaa-a8e4-4306-8dc5-f55c80703dc8'}) # WebhookRequest | Webhook creation/update request payload.
+webhook_request = DigitalFemsa::WebhookRequest.new({url: 'https://webhook.site/89277eaa-a8e4-4306-8dc5-f55c80703dc8', synchronous: false}) # WebhookRequest | Webhook creation/update request payload.
 opts = {
-  accept_language: 'es', # String | Use for knowing which language to use
-  x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
+  accept_language: 'es' # String | Use for knowing which language to use
 }
 
 begin
-  # Create webhook
+  # Create Webhook
   result = api_instance.create_webhook(webhook_request, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -55,7 +54,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Create webhook
+  # Create Webhook
   data, status_code, headers = api_instance.create_webhook_with_http_info(webhook_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -71,7 +70,6 @@ end
 | ---- | ---- | ----------- | ----- |
 | **webhook_request** | [**WebhookRequest**](WebhookRequest.md) | Webhook creation/update request payload. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
-| **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 
 ### Return type
 
@@ -237,9 +235,9 @@ end
 
 ## get_webhooks
 
-> <GetWebhooksResponse> get_webhooks(webhook_request, opts)
+> <GetWebhooksResponse> get_webhooks(opts)
 
-Get webhooks
+Get List of Webhooks
 
 Consume the list of webhooks you have, each environment supports 10 webhooks (For production and testing)
 
@@ -255,7 +253,6 @@ DigitalFemsa.configure do |config|
 end
 
 api_instance = DigitalFemsa::WebhooksApi.new
-webhook_request = DigitalFemsa::WebhookRequest.new({url: 'https://webhook.site/89277eaa-a8e4-4306-8dc5-f55c80703dc8'}) # WebhookRequest | Webhook creation/update request payload.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af', # String | In the case of a holding company, the company id of the child company to which will process the request.
@@ -267,8 +264,8 @@ opts = {
 }
 
 begin
-  # Get webhooks
-  result = api_instance.get_webhooks(webhook_request, opts)
+  # Get List of Webhooks
+  result = api_instance.get_webhooks(opts)
   p result
 rescue DigitalFemsa::ApiError => e
   puts "Error when calling WebhooksApi->get_webhooks: #{e}"
@@ -279,12 +276,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWebhooksResponse>, Integer, Hash)> get_webhooks_with_http_info(webhook_request, opts)
+> <Array(<GetWebhooksResponse>, Integer, Hash)> get_webhooks_with_http_info(opts)
 
 ```ruby
 begin
-  # Get webhooks
-  data, status_code, headers = api_instance.get_webhooks_with_http_info(webhook_request, opts)
+  # Get List of Webhooks
+  data, status_code, headers = api_instance.get_webhooks_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWebhooksResponse>
@@ -297,7 +294,6 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **webhook_request** | [**WebhookRequest**](WebhookRequest.md) | Webhook creation/update request payload. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 | **limit** | **Integer** | The numbers of items to return, the maximum value is 250 | [optional][default to 20] |
@@ -316,7 +312,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/vnd.app-v2.1.0+json
 
 
@@ -414,7 +410,7 @@ end
 
 api_instance = DigitalFemsa::WebhooksApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
-webhook_update_request = DigitalFemsa::WebhookUpdateRequest.new # WebhookUpdateRequest | Webhook update request payload.
+webhook_update_request = DigitalFemsa::WebhookUpdateRequest.new({url: 'https://webhook.site/89277eaa-a8e4-4306-8dc5-f55c80703dc8'}) # WebhookUpdateRequest | Webhook update request payload.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.

@@ -502,7 +502,7 @@ module DigitalFemsa
     # Update Fiscal Entity resource that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param fiscal_entities_id [String] identifier
-    # @param customer_update_fiscal_entities_request [CustomerUpdateFiscalEntitiesRequest] requested field for customer update fiscal entities
+    # @param customer_update_fiscal_entities_request [CustomerUpdateFiscalEntitiesRequest] Request body for updating a customer fiscal entity.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -516,7 +516,7 @@ module DigitalFemsa
     # Update Fiscal Entity resource that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param fiscal_entities_id [String] identifier
-    # @param customer_update_fiscal_entities_request [CustomerUpdateFiscalEntitiesRequest] requested field for customer update fiscal entities
+    # @param customer_update_fiscal_entities_request [CustomerUpdateFiscalEntitiesRequest] Request body for updating a customer fiscal entity.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

@@ -19,24 +19,22 @@ module DigitalFemsa
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Create webhook
-    # Creates a webhook and subscribes it to events so your system can receive notifications when those events occur.
+    # Create Webhook
+    # What we do at Femsa translates into events. For example, an event of interest to us occurs at the time a payment is successfully processed. At that moment we will be interested in doing several things: Send an email to the buyer, generate an invoice, start the process of shipping the product, etc.
     # @param webhook_request [WebhookRequest] Webhook creation/update request payload.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
-    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @return [WebhookResponse]
     def create_webhook(webhook_request, opts = {})
       data, _status_code, _headers = create_webhook_with_http_info(webhook_request, opts)
       data
     end
 
-    # Create webhook
-    # Creates a webhook and subscribes it to events so your system can receive notifications when those events occur.
+    # Create Webhook
+    # What we do at Femsa translates into events. For example, an event of interest to us occurs at the time a payment is successfully processed. At that moment we will be interested in doing several things: Send an email to the buyer, generate an invoice, start the process of shipping the product, etc.
     # @param webhook_request [WebhookRequest] Webhook creation/update request payload.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
-    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @return [Array<(WebhookResponse, Integer, Hash)>] WebhookResponse data, response status code and response headers
     def create_webhook_with_http_info(webhook_request, opts = {})
       if @api_client.config.debugging
@@ -66,7 +64,6 @@ module DigitalFemsa
           header_params['Content-Type'] = content_type
       end
       header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
-      header_params[:'X-Child-Company-Id'] = opts[:'x_child_company_id'] if !opts[:'x_child_company_id'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -240,9 +237,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get webhooks
+    # Get List of Webhooks
     # Consume the list of webhooks you have, each environment supports 10 webhooks (For production and testing)
-    # @param webhook_request [WebhookRequest] Webhook creation/update request payload.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -252,14 +248,13 @@ module DigitalFemsa
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
     # @return [GetWebhooksResponse]
-    def get_webhooks(webhook_request, opts = {})
-      data, _status_code, _headers = get_webhooks_with_http_info(webhook_request, opts)
+    def get_webhooks(opts = {})
+      data, _status_code, _headers = get_webhooks_with_http_info(opts)
       data
     end
 
-    # Get webhooks
+    # Get List of Webhooks
     # Consume the list of webhooks you have, each environment supports 10 webhooks (For production and testing)
-    # @param webhook_request [WebhookRequest] Webhook creation/update request payload.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -269,13 +264,9 @@ module DigitalFemsa
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
     # @return [Array<(GetWebhooksResponse, Integer, Hash)>] GetWebhooksResponse data, response status code and response headers
-    def get_webhooks_with_http_info(webhook_request, opts = {})
+    def get_webhooks_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.get_webhooks ...'
-      end
-      # verify the required parameter 'webhook_request' is set
-      if @api_client.config.client_side_validation && webhook_request.nil?
-        fail ArgumentError, "Missing the required parameter 'webhook_request' when calling WebhooksApi.get_webhooks"
       end
       allowable_values = ["es", "en"]
       if @api_client.config.client_side_validation && opts[:'accept_language'] && !allowable_values.include?(opts[:'accept_language'])
@@ -304,11 +295,6 @@ module DigitalFemsa
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/vnd.app-v2.1.0+json'])
-      # HTTP header 'Content-Type'
-      content_type = @api_client.select_header_content_type(['application/json'])
-      if !content_type.nil?
-          header_params['Content-Type'] = content_type
-      end
       header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
       header_params[:'X-Child-Company-Id'] = opts[:'x_child_company_id'] if !opts[:'x_child_company_id'].nil?
 
@@ -316,7 +302,7 @@ module DigitalFemsa
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(webhook_request)
+      post_body = opts[:debug_body]
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWebhooksResponse'

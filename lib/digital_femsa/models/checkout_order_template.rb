@@ -14,17 +14,17 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # It maintains the attributes with which the order will be created when receiving a new payment.
+  # Attributes used to create the order when a new payment is received.
   class CheckoutOrderTemplate
-    # It is the currency in which the order will be created. It must be a valid ISO 4217 currency code.
+    # ISO 4217 currency code for the order.
     attr_accessor :currency
 
     attr_accessor :customer_info
 
-    # They are the products to buy. Each contains the \"unit price\" and \"quantity\" parameters that are used to calculate the total amount of the order.
+    # Products to buy. Each contains unit price and quantity used to calculate the order total.
     attr_accessor :line_items
 
-    # It is a set of key-value pairs that you can attach to the order. It can be used to store additional information about the order in a structured format.
+    # Arbitrary key-value data attached to the order for internal use.
     attr_accessor :metadata
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -46,7 +46,7 @@ module DigitalFemsa
     def self.openapi_types
       {
         :'currency' => :'String',
-        :'customer_info' => :'CustomerInfo',
+        :'customer_info' => :'CheckoutOrderTemplateCustomerInfo',
         :'line_items' => :'Array<Product>',
         :'metadata' => :'Hash<String, Object>'
       }

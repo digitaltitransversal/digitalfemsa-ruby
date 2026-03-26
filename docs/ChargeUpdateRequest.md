@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **reference_id** | **String** | Custom reference ID. | [optional] |
+| **reference_id** | **String** | custom reference id | [optional] |
 
 ## Example
 

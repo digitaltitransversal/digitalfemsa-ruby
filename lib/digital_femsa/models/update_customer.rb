@@ -25,19 +25,16 @@ module DigitalFemsa
     # Customer phone number.
     attr_accessor :phone
 
-    # Indicates whether the customer email is corporate.
+    # True if the customer represents a company.
     attr_accessor :corporate
 
     # Merchant-defined reference used to identify the customer in your system.
     attr_accessor :custom_reference
 
-    # Referrer value (if applicable).
-    attr_accessor :referrer
-
     # Arbitrary metadata associated with the customer.
     attr_accessor :metadata
 
-    # Contains details of the payment methods that the customer has active or has used in Femsa
+    # Customer payment sources to create/attach (offline recurrent references).
     attr_accessor :payment_sources
 
     # Sets the default payment source for the customer (must be an existing payment source on the customer).
@@ -57,7 +54,6 @@ module DigitalFemsa
         :'phone' => :'phone',
         :'corporate' => :'corporate',
         :'custom_reference' => :'custom_reference',
-        :'referrer' => :'referrer',
         :'metadata' => :'metadata',
         :'payment_sources' => :'payment_sources',
         :'default_payment_source_id' => :'default_payment_source_id',
@@ -79,7 +75,6 @@ module DigitalFemsa
         :'phone' => :'String',
         :'corporate' => :'Boolean',
         :'custom_reference' => :'String',
-        :'referrer' => :'String',
         :'metadata' => :'Hash<String, Object>',
         :'payment_sources' => :'Array<CustomerPaymentMethodsRequest>',
         :'default_payment_source_id' => :'String',
@@ -91,10 +86,6 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'phone',
-        :'custom_reference',
-        :'referrer',
-        :'payment_sources',
       ])
     end
 
@@ -127,16 +118,10 @@ module DigitalFemsa
 
       if attributes.key?(:'corporate')
         self.corporate = attributes[:'corporate']
-      else
-        self.corporate = false
       end
 
       if attributes.key?(:'custom_reference')
         self.custom_reference = attributes[:'custom_reference']
-      end
-
-      if attributes.key?(:'referrer')
-        self.referrer = attributes[:'referrer']
       end
 
       if attributes.key?(:'metadata')
@@ -169,10 +154,6 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if !@phone.nil? && @phone.to_s.length > 19
-        invalid_properties.push('invalid value for "phone", the character length must be smaller than or equal to 19.')
-      end
-
       invalid_properties
     end
 
@@ -180,18 +161,7 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if !@phone.nil? && @phone.to_s.length > 19
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] phone Value to be assigned
-    def phone=(phone)
-      if !phone.nil? && phone.to_s.length > 19
-        fail ArgumentError, 'invalid value for "phone", the character length must be smaller than or equal to 19.'
-      end
-
-      @phone = phone
     end
 
     # Checks equality by comparing each attribute.
@@ -204,7 +174,6 @@ module DigitalFemsa
           phone == o.phone &&
           corporate == o.corporate &&
           custom_reference == o.custom_reference &&
-          referrer == o.referrer &&
           metadata == o.metadata &&
           payment_sources == o.payment_sources &&
           default_payment_source_id == o.default_payment_source_id &&
@@ -221,7 +190,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, email, phone, corporate, custom_reference, referrer, metadata, payment_sources, default_payment_source_id, default_fiscal_entity_id, default_shipping_contact_id].hash
+      [name, email, phone, corporate, custom_reference, metadata, payment_sources, default_payment_source_id, default_fiscal_entity_id, default_shipping_contact_id].hash
     end
 
     # Builds the object from hash

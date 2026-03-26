@@ -24,7 +24,7 @@ instance = DigitalFemsa::CustomerAddress.new(
   postal_code: 06100,
   city: Ciudad de Mexico,
   state: Ciudad de Mexico,
-  country: mx,
+  country: MX,
   residential: true,
   external_number: string
 )

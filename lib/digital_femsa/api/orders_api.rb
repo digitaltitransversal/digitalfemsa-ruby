@@ -92,165 +92,6 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Cancel Refund
-    # Cancels a refund previously created for an order. This operation is only available when the refund is still cancellable according to its current status and the payment method rules. If the refund cannot be cancelled, the API returns an error response.
-    # @param id [String] Identifier of the resource
-    # @param refund_id [String] refund identifier
-    # @param [Hash] opts the optional parameters
-    # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
-    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
-    # @return [OrderResponse]
-    def cancel_order_refund(id, refund_id, opts = {})
-      data, _status_code, _headers = cancel_order_refund_with_http_info(id, refund_id, opts)
-      data
-    end
-
-    # Cancel Refund
-    # Cancels a refund previously created for an order. This operation is only available when the refund is still cancellable according to its current status and the payment method rules. If the refund cannot be cancelled, the API returns an error response.
-    # @param id [String] Identifier of the resource
-    # @param refund_id [String] refund identifier
-    # @param [Hash] opts the optional parameters
-    # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
-    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
-    # @return [Array<(OrderResponse, Integer, Hash)>] OrderResponse data, response status code and response headers
-    def cancel_order_refund_with_http_info(id, refund_id, opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: OrdersApi.cancel_order_refund ...'
-      end
-      # verify the required parameter 'id' is set
-      if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.cancel_order_refund"
-      end
-      # verify the required parameter 'refund_id' is set
-      if @api_client.config.client_side_validation && refund_id.nil?
-        fail ArgumentError, "Missing the required parameter 'refund_id' when calling OrdersApi.cancel_order_refund"
-      end
-      allowable_values = ["es", "en"]
-      if @api_client.config.client_side_validation && opts[:'accept_language'] && !allowable_values.include?(opts[:'accept_language'])
-        fail ArgumentError, "invalid value for \"accept_language\", must be one of #{allowable_values}"
-      end
-      # resource path
-      local_var_path = '/orders/{id}/refunds/{refund_id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'refund_id' + '}', CGI.escape(refund_id.to_s))
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/vnd.app-v2.1.0+json'])
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
-      header_params[:'X-Child-Company-Id'] = opts[:'x_child_company_id'] if !opts[:'x_child_company_id'].nil?
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body]
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'OrderResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['bearerAuth']
-
-      new_options = opts.merge(
-        :operation => :"OrdersApi.cancel_order_refund",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: OrdersApi#cancel_order_refund\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
-    # Capture Order
-    # Captures (finalizes) an order that has been previously authorized. Use this endpoint to capture a specific amount. The captured amount must be greater than 0 and must comply with the order and charge constraints enforced by the API.
-    # @param id [String] Identifier of the resource
-    # @param [Hash] opts the optional parameters
-    # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
-    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
-    # @option opts [OrderCaptureRequest] :order_capture_request Requested fields for capturing an order
-    # @return [OrderResponse]
-    def capture_order(id, opts = {})
-      data, _status_code, _headers = capture_order_with_http_info(id, opts)
-      data
-    end
-
-    # Capture Order
-    # Captures (finalizes) an order that has been previously authorized. Use this endpoint to capture a specific amount. The captured amount must be greater than 0 and must comply with the order and charge constraints enforced by the API.
-    # @param id [String] Identifier of the resource
-    # @param [Hash] opts the optional parameters
-    # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
-    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
-    # @option opts [OrderCaptureRequest] :order_capture_request Requested fields for capturing an order
-    # @return [Array<(OrderResponse, Integer, Hash)>] OrderResponse data, response status code and response headers
-    def capture_order_with_http_info(id, opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: OrdersApi.capture_order ...'
-      end
-      # verify the required parameter 'id' is set
-      if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.capture_order"
-      end
-      allowable_values = ["es", "en"]
-      if @api_client.config.client_side_validation && opts[:'accept_language'] && !allowable_values.include?(opts[:'accept_language'])
-        fail ArgumentError, "invalid value for \"accept_language\", must be one of #{allowable_values}"
-      end
-      # resource path
-      local_var_path = '/orders/{id}/capture'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/vnd.app-v2.1.0+json'])
-      # HTTP header 'Content-Type'
-      content_type = @api_client.select_header_content_type(['application/json'])
-      if !content_type.nil?
-          header_params['Content-Type'] = content_type
-      end
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
-      header_params[:'X-Child-Company-Id'] = opts[:'x_child_company_id'] if !opts[:'x_child_company_id'].nil?
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'order_capture_request'])
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'OrderResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['bearerAuth']
-
-      new_options = opts.merge(
-        :operation => :"OrdersApi.capture_order",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: OrdersApi#capture_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
     # Create order
     # Creates a new order (products + amounts + customer data).  Minimum required fields: - `currency` - `line_items` - `customer_info`  About `customer_info`: - You can reference an existing customer using `customer_info.customer_id`, or - You can provide customer details at minimum `customer_info.name` and `customer_info.email` to create the order with customer context.  How to create the order: - Create an order only (no payment): send only the order data. - Create an order and create the first payment charge: include `charges`. - Create an order with a checkout configuration (for a hosted payment flow): include `checkout`.  Important rules: - You cannot send `charges` and `checkout` in the same request (they are mutually exclusive). - If you send `shipping_contact_id` and/or `fiscal_entity_id`, you must also send `customer_info.customer_id` so the API can validate those IDs against that customer. 
     # @param order_request [OrderRequest] requested field for order
@@ -489,6 +330,85 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
+    # Cancel Refund
+    # Cancels a refund previously created for an order. This operation is only available when the refund is still cancellable according to its current status and the payment method rules. If the refund cannot be cancelled, the API returns an error response.
+    # @param id [String] Identifier of the resource
+    # @param refund_id [String] refund identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
+    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
+    # @return [OrderResponse]
+    def order_cancel_refund(id, refund_id, opts = {})
+      data, _status_code, _headers = order_cancel_refund_with_http_info(id, refund_id, opts)
+      data
+    end
+
+    # Cancel Refund
+    # Cancels a refund previously created for an order. This operation is only available when the refund is still cancellable according to its current status and the payment method rules. If the refund cannot be cancelled, the API returns an error response.
+    # @param id [String] Identifier of the resource
+    # @param refund_id [String] refund identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
+    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
+    # @return [Array<(OrderResponse, Integer, Hash)>] OrderResponse data, response status code and response headers
+    def order_cancel_refund_with_http_info(id, refund_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.order_cancel_refund ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.order_cancel_refund"
+      end
+      # verify the required parameter 'refund_id' is set
+      if @api_client.config.client_side_validation && refund_id.nil?
+        fail ArgumentError, "Missing the required parameter 'refund_id' when calling OrdersApi.order_cancel_refund"
+      end
+      allowable_values = ["es", "en"]
+      if @api_client.config.client_side_validation && opts[:'accept_language'] && !allowable_values.include?(opts[:'accept_language'])
+        fail ArgumentError, "invalid value for \"accept_language\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/orders/{id}/refunds/{refund_id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'refund_id' + '}', CGI.escape(refund_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/vnd.app-v2.1.0+json'])
+      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
+      header_params[:'X-Child-Company-Id'] = opts[:'x_child_company_id'] if !opts[:'x_child_company_id'].nil?
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'OrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['bearerAuth']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.order_cancel_refund",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#order_cancel_refund\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Refund Order
     # Creates a refund for an order. This operation is used to refund a previously paid order (fully or partially, depending on the request body). The API will validate the order and its related charges before processing the refund. If the refund cannot be created due to business rules or state, an error response is returned.
     # @param id [String] Identifier of the resource
@@ -569,6 +489,86 @@ module DigitalFemsa
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#order_refund\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Capture Order
+    # Captures (finalizes) an order that has been previously authorized. Use this endpoint to capture a specific amount. The captured amount must be greater than 0 and must comply with the order and charge constraints enforced by the API.
+    # @param id [String] Identifier of the resource
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
+    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
+    # @option opts [OrderCaptureRequest] :order_capture_request Requested fields for capturing an order
+    # @return [OrderResponse]
+    def orders_create_capture(id, opts = {})
+      data, _status_code, _headers = orders_create_capture_with_http_info(id, opts)
+      data
+    end
+
+    # Capture Order
+    # Captures (finalizes) an order that has been previously authorized. Use this endpoint to capture a specific amount. The captured amount must be greater than 0 and must comply with the order and charge constraints enforced by the API.
+    # @param id [String] Identifier of the resource
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
+    # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
+    # @option opts [OrderCaptureRequest] :order_capture_request Requested fields for capturing an order
+    # @return [Array<(OrderResponse, Integer, Hash)>] OrderResponse data, response status code and response headers
+    def orders_create_capture_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.orders_create_capture ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.orders_create_capture"
+      end
+      allowable_values = ["es", "en"]
+      if @api_client.config.client_side_validation && opts[:'accept_language'] && !allowable_values.include?(opts[:'accept_language'])
+        fail ArgumentError, "invalid value for \"accept_language\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/orders/{id}/capture'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/vnd.app-v2.1.0+json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
+      header_params[:'X-Child-Company-Id'] = opts[:'x_child_company_id'] if !opts[:'x_child_company_id'].nil?
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'order_capture_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'OrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['bearerAuth']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.orders_create_capture",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#orders_create_capture\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

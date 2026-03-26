@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Get Log
-    # Returns a single log by its ID. Logs can be used for troubleshooting and auditing requests and internal operations. 
+    # Get the details of a specific log
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -32,7 +32,7 @@ module DigitalFemsa
     end
 
     # Get Log
-    # Returns a single log by its ID. Logs can be used for troubleshooting and auditing requests and internal operations. 
+    # Get the details of a specific log
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')

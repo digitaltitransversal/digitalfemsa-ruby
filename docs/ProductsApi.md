@@ -30,7 +30,7 @@ end
 
 api_instance = DigitalFemsa::ProductsApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
-product = DigitalFemsa::Product.new({name: 'Box of Cohiba S1s', quantity: 1, unit_price: 20000}) # Product | Fields required to create a new product (line item) for an existing order. This request adds a new item to the order.
+product = DigitalFemsa::Product.new({name: 'Box of Cohiba', unit_price: 20000, quantity: 1}) # Product | Fields required to create a new product (line item) for an existing order. This request adds a new item to the order.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.

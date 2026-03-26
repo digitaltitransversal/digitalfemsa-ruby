@@ -27,7 +27,6 @@ module DigitalFemsa
     # Customer ID that owns this shipping contact.
     attr_accessor :parent_id
 
-    # True if this is the customer's default shipping contact.
     attr_accessor :default
 
     attr_accessor :id
@@ -85,7 +84,6 @@ module DigitalFemsa
     def self.openapi_nullable
       Set.new([
         :'between_streets',
-        :'deleted'
       ])
     end
 

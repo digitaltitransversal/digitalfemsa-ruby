@@ -111,8 +111,6 @@ module DigitalFemsa
         if (value = attributes[:'data']).is_a?(Array)
           self.data = value
         end
-      else
-        self.data = nil
       end
     end
 
@@ -129,10 +127,6 @@ module DigitalFemsa
         invalid_properties.push('invalid value for "object", object cannot be nil.')
       end
 
-      if @data.nil?
-        invalid_properties.push('invalid value for "data", data cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -142,7 +136,6 @@ module DigitalFemsa
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @has_more.nil?
       return false if @object.nil?
-      return false if @data.nil?
       true
     end
 

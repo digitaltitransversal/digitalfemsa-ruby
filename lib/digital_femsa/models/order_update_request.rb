@@ -16,61 +16,60 @@ require 'time'
 module DigitalFemsa
   # Order update payload. Only supported fields can be modified.
   class OrderUpdateRequest
-    # Order status update. Allowed values depend on server-side validations.
-    attr_accessor :status
-
-    # Currency used for the order. Uses ISO 4217 (3-letter code). Allowed values depend on server-side validations.
+    # Currency code in ISO 4217 (3-letter uppercase).
     attr_accessor :currency
 
     attr_accessor :customer_info
 
-    # List of products sold in the order.
+    # List of [products](https://developers.femsa.com/v2.1.0/reference/orderscreateproduct) that are sold in the order. You must have at least one product.
     attr_accessor :line_items
 
-    # List of shipping costs applied to the order.
-    attr_accessor :shipping_lines
+    attr_accessor :charges
+
+    # List of [discounts](https://developers.femsa.com/v2.1.0/reference/orderscreatediscountline) that are applied to the order. You must have at least one discount.
+    attr_accessor :discount_lines
 
     attr_accessor :tax_lines
 
-    # List of discounts applied to the order.
-    attr_accessor :discount_lines
-
-    # Additional information attached to the order.
-    attr_accessor :metadata
-
-    # URL to redirect the customer after completing the flow (when applicable).
-    attr_accessor :return_url
-
-    # Add new charges to the order. Subject to server-side validations (for example, maximum charges rules). 
-    attr_accessor :charges
-
-    # References an existing customer shipping contact.
+    # Existing shipping contact id from the customer to link to this order.
     attr_accessor :shipping_contact_id
 
     attr_accessor :shipping_contact
 
-    # References an existing customer fiscal entity.
+    # List of [shipping costs](https://developers.femsa.com/v2.1.0/reference/orderscreateshipping). If the online store offers digital products.
+    attr_accessor :shipping_lines
+
+    # Existing fiscal entity id from the customer to link to this order.
     attr_accessor :fiscal_entity_id
 
     attr_accessor :fiscal_entity
 
+    # URL where the customer should be redirected after completing a payment flow (if applicable).
+    attr_accessor :return_url
+
+    # Arbitrary key-value data that you can attach to the order for your internal use. It is not used for payment processing. Keys should be strings; values can be any JSON value. 
+    attr_accessor :metadata
+
+    # Order status update (only allowed transitions will be accepted).
+    attr_accessor :status
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'status' => :'status',
         :'currency' => :'currency',
         :'customer_info' => :'customer_info',
         :'line_items' => :'line_items',
-        :'shipping_lines' => :'shipping_lines',
-        :'tax_lines' => :'tax_lines',
-        :'discount_lines' => :'discount_lines',
-        :'metadata' => :'metadata',
-        :'return_url' => :'return_url',
         :'charges' => :'charges',
+        :'discount_lines' => :'discount_lines',
+        :'tax_lines' => :'tax_lines',
         :'shipping_contact_id' => :'shipping_contact_id',
         :'shipping_contact' => :'shipping_contact',
+        :'shipping_lines' => :'shipping_lines',
         :'fiscal_entity_id' => :'fiscal_entity_id',
-        :'fiscal_entity' => :'fiscal_entity'
+        :'fiscal_entity' => :'fiscal_entity',
+        :'return_url' => :'return_url',
+        :'metadata' => :'metadata',
+        :'status' => :'status'
       }
     end
 
@@ -82,20 +81,20 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'status' => :'String',
         :'currency' => :'String',
-        :'customer_info' => :'CustomerInfo',
+        :'customer_info' => :'OrderUpdateRequestCustomerInfo',
         :'line_items' => :'Array<Product>',
-        :'shipping_lines' => :'Array<ShippingRequest>',
-        :'tax_lines' => :'Array<OrderTaxRequest>',
-        :'discount_lines' => :'Array<OrderDiscountLinesRequest>',
-        :'metadata' => :'Hash<String, Object>',
-        :'return_url' => :'String',
         :'charges' => :'Array<ChargeRequest>',
+        :'discount_lines' => :'Array<OrderDiscountLinesRequest>',
+        :'tax_lines' => :'Array<OrderTaxRequest>',
         :'shipping_contact_id' => :'String',
         :'shipping_contact' => :'CustomerShippingContacts',
+        :'shipping_lines' => :'Array<ShippingRequest>',
         :'fiscal_entity_id' => :'String',
-        :'fiscal_entity' => :'OrderUpdateFiscalEntityRequest'
+        :'fiscal_entity' => :'OrderUpdateFiscalEntityRequest',
+        :'return_url' => :'String',
+        :'metadata' => :'Hash<String, Object>',
+        :'status' => :'String'
       }
     end
 
@@ -122,10 +121,6 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'currency')
         self.currency = attributes[:'currency']
       end
@@ -140,15 +135,9 @@ module DigitalFemsa
         end
       end
 
-      if attributes.key?(:'shipping_lines')
-        if (value = attributes[:'shipping_lines']).is_a?(Array)
-          self.shipping_lines = value
-        end
-      end
-
-      if attributes.key?(:'tax_lines')
-        if (value = attributes[:'tax_lines']).is_a?(Array)
-          self.tax_lines = value
+      if attributes.key?(:'charges')
+        if (value = attributes[:'charges']).is_a?(Array)
+          self.charges = value
         end
       end
 
@@ -158,19 +147,9 @@ module DigitalFemsa
         end
       end
 
-      if attributes.key?(:'metadata')
-        if (value = attributes[:'metadata']).is_a?(Hash)
-          self.metadata = value
-        end
-      end
-
-      if attributes.key?(:'return_url')
-        self.return_url = attributes[:'return_url']
-      end
-
-      if attributes.key?(:'charges')
-        if (value = attributes[:'charges']).is_a?(Array)
-          self.charges = value
+      if attributes.key?(:'tax_lines')
+        if (value = attributes[:'tax_lines']).is_a?(Array)
+          self.tax_lines = value
         end
       end
 
@@ -182,12 +161,32 @@ module DigitalFemsa
         self.shipping_contact = attributes[:'shipping_contact']
       end
 
+      if attributes.key?(:'shipping_lines')
+        if (value = attributes[:'shipping_lines']).is_a?(Array)
+          self.shipping_lines = value
+        end
+      end
+
       if attributes.key?(:'fiscal_entity_id')
         self.fiscal_entity_id = attributes[:'fiscal_entity_id']
       end
 
       if attributes.key?(:'fiscal_entity')
         self.fiscal_entity = attributes[:'fiscal_entity']
+      end
+
+      if attributes.key?(:'return_url')
+        self.return_url = attributes[:'return_url']
+      end
+
+      if attributes.key?(:'metadata')
+        if (value = attributes[:'metadata']).is_a?(Hash)
+          self.metadata = value
+        end
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
     end
 
@@ -200,6 +199,10 @@ module DigitalFemsa
         invalid_properties.push('invalid value for "currency", the character length must be smaller than or equal to 3.')
       end
 
+      if !@metadata.nil? && @metadata.length > 100
+        invalid_properties.push('invalid value for "metadata", number of items must be less than or equal to 100.')
+      end
+
       invalid_properties
     end
 
@@ -208,6 +211,7 @@ module DigitalFemsa
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if !@currency.nil? && @currency.to_s.length > 3
+      return false if !@metadata.nil? && @metadata.length > 100
       true
     end
 
@@ -225,25 +229,39 @@ module DigitalFemsa
       @currency = currency
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] metadata Value to be assigned
+    def metadata=(metadata)
+      if metadata.nil?
+        fail ArgumentError, 'metadata cannot be nil'
+      end
+
+      if metadata.length > 100
+        fail ArgumentError, 'invalid value for "metadata", number of items must be less than or equal to 100.'
+      end
+
+      @metadata = metadata
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          status == o.status &&
           currency == o.currency &&
           customer_info == o.customer_info &&
           line_items == o.line_items &&
-          shipping_lines == o.shipping_lines &&
-          tax_lines == o.tax_lines &&
-          discount_lines == o.discount_lines &&
-          metadata == o.metadata &&
-          return_url == o.return_url &&
           charges == o.charges &&
+          discount_lines == o.discount_lines &&
+          tax_lines == o.tax_lines &&
           shipping_contact_id == o.shipping_contact_id &&
           shipping_contact == o.shipping_contact &&
+          shipping_lines == o.shipping_lines &&
           fiscal_entity_id == o.fiscal_entity_id &&
-          fiscal_entity == o.fiscal_entity
+          fiscal_entity == o.fiscal_entity &&
+          return_url == o.return_url &&
+          metadata == o.metadata &&
+          status == o.status
     end
 
     # @see the `==` method
@@ -255,7 +273,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [status, currency, customer_info, line_items, shipping_lines, tax_lines, discount_lines, metadata, return_url, charges, shipping_contact_id, shipping_contact, fiscal_entity_id, fiscal_entity].hash
+      [currency, customer_info, line_items, charges, discount_lines, tax_lines, shipping_contact_id, shipping_contact, shipping_lines, fiscal_entity_id, fiscal_entity, return_url, metadata, status].hash
     end
 
     # Builds the object from hash

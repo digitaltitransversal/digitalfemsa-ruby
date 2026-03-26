@@ -109,7 +109,7 @@ opts = {
   limit: 56, # Integer | The numbers of items to return, the maximum value is 250
   _next: '_next_example', # String | next page
   previous: 'previous_example', # String | previous page
-  search: 'search_example', # String | General order search, e.g. by mail, reference etc.
+  id: '65412a893cd69a0001c25892', # String | id of the object to be retrieved
   charge_id: '65412a893cd69a0001c25892', # String | id of the charge used for filtering
   type: 'capture', # String | type of the object to be retrieved
   currency: 'MXN' # String | currency of the object to be retrieved
@@ -151,7 +151,7 @@ end
 | **limit** | **Integer** | The numbers of items to return, the maximum value is 250 | [optional][default to 20] |
 | **_next** | **String** | next page | [optional] |
 | **previous** | **String** | previous page | [optional] |
-| **search** | **String** | General order search, e.g. by mail, reference etc. | [optional] |
+| **id** | **String** | id of the object to be retrieved | [optional] |
 | **charge_id** | **String** | id of the charge used for filtering | [optional] |
 | **type** | **String** | type of the object to be retrieved | [optional] |
 | **currency** | **String** | currency of the object to be retrieved | [optional] |

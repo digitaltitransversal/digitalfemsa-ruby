@@ -25,8 +25,6 @@ module DigitalFemsa
 
     attr_accessor :corporate
 
-    attr_accessor :object
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -34,8 +32,7 @@ module DigitalFemsa
         :'name' => :'name',
         :'email' => :'email',
         :'phone' => :'phone',
-        :'corporate' => :'corporate',
-        :'object' => :'object'
+        :'corporate' => :'corporate'
       }
     end
 
@@ -51,8 +48,7 @@ module DigitalFemsa
         :'name' => :'String',
         :'email' => :'String',
         :'phone' => :'String',
-        :'corporate' => :'Boolean',
-        :'object' => :'String'
+        :'corporate' => :'Boolean'
       }
     end
 
@@ -95,16 +91,10 @@ module DigitalFemsa
 
       if attributes.key?(:'phone')
         self.phone = attributes[:'phone']
-      else
-        self.phone = nil
       end
 
       if attributes.key?(:'corporate')
         self.corporate = attributes[:'corporate']
-      end
-
-      if attributes.key?(:'object')
-        self.object = attributes[:'object']
       end
     end
 
@@ -121,10 +111,6 @@ module DigitalFemsa
         invalid_properties.push('invalid value for "email", email cannot be nil.')
       end
 
-      if @phone.nil?
-        invalid_properties.push('invalid value for "phone", phone cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -134,7 +120,6 @@ module DigitalFemsa
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @name.nil?
       return false if @email.nil?
-      return false if @phone.nil?
       true
     end
 
@@ -147,8 +132,7 @@ module DigitalFemsa
           name == o.name &&
           email == o.email &&
           phone == o.phone &&
-          corporate == o.corporate &&
-          object == o.object
+          corporate == o.corporate
     end
 
     # @see the `==` method
@@ -160,7 +144,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [customer_id, name, email, phone, corporate, object].hash
+      [customer_id, name, email, phone, corporate].hash
     end
 
     # Builds the object from hash

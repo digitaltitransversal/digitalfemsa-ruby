@@ -45,7 +45,6 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'expires_at'
       ])
     end
 

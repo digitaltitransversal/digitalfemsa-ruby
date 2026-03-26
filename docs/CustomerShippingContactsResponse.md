@@ -9,7 +9,7 @@
 | **between_streets** | **String** |  | [optional] |
 | **address** | [**CustomerShippingContactsResponseAddress**](CustomerShippingContactsResponseAddress.md) |  | [optional] |
 | **parent_id** | **String** | Customer ID that owns this shipping contact. | [optional] |
-| **default** | **Boolean** | True if this is the customer&#39;s default shipping contact. | [optional] |
+| **default** | **Boolean** |  | [optional] |
 | **id** | **String** |  | [optional] |
 | **created_at** | **Integer** |  | [optional] |
 | **metadata** | **Hash&lt;String, Object&gt;** | Metadata associated with the shipping contact | [optional] |

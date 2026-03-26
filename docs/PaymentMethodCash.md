@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **type** | **String** | Cash payment type | [optional] |
+| **type** | **String** |  | [optional] |
 | **object** | **String** |  |  |
 | **auth_code** | **String** |  | [optional] |
 | **cashier_id** | **String** |  | [optional] |
@@ -21,8 +21,8 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::PaymentMethodCash.new(
-  type: oxxo,
-  object: cash_payment,
+  type: null,
+  object: payment_source,
   auth_code: 542563,
   cashier_id: OINM01010,
   reference: 93000262276908,

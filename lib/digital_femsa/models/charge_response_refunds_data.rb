@@ -36,28 +36,6 @@ module DigitalFemsa
     # payout reference for oxxo stores
     attr_accessor :reference
 
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -96,11 +74,6 @@ module DigitalFemsa
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'auth_code',
-        :'expires_at',
-        :'status',
-        :'payout_id',
-        :'reference'
       ])
     end
 
@@ -196,19 +169,7 @@ module DigitalFemsa
       return false if @created_at.nil?
       return false if @id.nil?
       return false if @object.nil?
-      object_validator = EnumAttributeValidator.new('String', ["refund"])
-      return false unless object_validator.valid?(@object)
       true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] object Object to be assigned
-    def object=(object)
-      validator = EnumAttributeValidator.new('String', ["refund"])
-      unless validator.valid?(object)
-        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
-      end
-      @object = object
     end
 
     # Checks equality by comparing each attribute.

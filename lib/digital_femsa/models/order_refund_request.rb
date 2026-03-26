@@ -127,10 +127,6 @@ module DigitalFemsa
         invalid_properties.push('invalid value for "amount", amount cannot be nil.')
       end
 
-      if @amount < 1
-        invalid_properties.push('invalid value for "amount", must be greater than or equal to 1.')
-      end
-
       if @reason.nil?
         invalid_properties.push('invalid value for "reason", reason cannot be nil.')
       end
@@ -143,25 +139,10 @@ module DigitalFemsa
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @amount.nil?
-      return false if @amount < 1
       return false if @reason.nil?
       reason_validator = EnumAttributeValidator.new('String', ["requested_by_client", "cannot_be_fulfilled", "duplicated_transaction", "suspected_fraud", "other"])
       return false unless reason_validator.valid?(@reason)
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] amount Value to be assigned
-    def amount=(amount)
-      if amount.nil?
-        fail ArgumentError, 'amount cannot be nil'
-      end
-
-      if amount < 1
-        fail ArgumentError, 'invalid value for "amount", must be greater than or equal to 1.'
-      end
-
-      @amount = amount
     end
 
     # Custom attribute writer method checking allowed values (enum).

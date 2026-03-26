@@ -109,7 +109,7 @@ end
 
 api_instance = DigitalFemsa::CustomersApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
-customer_fiscal_entities_request = DigitalFemsa::CustomerFiscalEntitiesRequest.new({address: DigitalFemsa::CustomerAddress.new({street1: 'Nuevo Leon 254', postal_code: '06100', city: 'Ciudad de Mexico', country: 'mx'})}) # CustomerFiscalEntitiesRequest | requested field for customer fiscal entities
+customer_fiscal_entities_request = DigitalFemsa::CustomerFiscalEntitiesRequest.new({address: DigitalFemsa::CustomerAddress.new({street1: 'Nuevo Leon 254', postal_code: '06100', city: 'Ciudad de Mexico', country: 'MX'})}) # CustomerFiscalEntitiesRequest | requested field for customer fiscal entities
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
@@ -495,7 +495,7 @@ end
 api_instance = DigitalFemsa::CustomersApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
 fiscal_entities_id = 'fis_ent_2tQ8HkkfbauaKP9Ho' # String | identifier
-customer_update_fiscal_entities_request = DigitalFemsa::CustomerUpdateFiscalEntitiesRequest.new # CustomerUpdateFiscalEntitiesRequest | requested field for customer update fiscal entities
+customer_update_fiscal_entities_request = DigitalFemsa::CustomerUpdateFiscalEntitiesRequest.new # CustomerUpdateFiscalEntitiesRequest | Request body for updating a customer fiscal entity.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
@@ -534,7 +534,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Identifier of the resource |  |
 | **fiscal_entities_id** | **String** | identifier |  |
-| **customer_update_fiscal_entities_request** | [**CustomerUpdateFiscalEntitiesRequest**](CustomerUpdateFiscalEntitiesRequest.md) | requested field for customer update fiscal entities |  |
+| **customer_update_fiscal_entities_request** | [**CustomerUpdateFiscalEntitiesRequest**](CustomerUpdateFiscalEntitiesRequest.md) | Request body for updating a customer fiscal entity. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 

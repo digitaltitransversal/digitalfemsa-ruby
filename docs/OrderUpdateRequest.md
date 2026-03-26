@@ -4,20 +4,20 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **status** | **String** | Order status update. Allowed values depend on server-side validations. | [optional] |
-| **currency** | **String** | Currency used for the order. Uses ISO 4217 (3-letter code). Allowed values depend on server-side validations. | [optional] |
-| **customer_info** | [**CustomerInfo**](CustomerInfo.md) |  | [optional] |
-| **line_items** | [**Array&lt;Product&gt;**](Product.md) | List of products sold in the order. | [optional] |
-| **shipping_lines** | [**Array&lt;ShippingRequest&gt;**](ShippingRequest.md) | List of shipping costs applied to the order. | [optional] |
+| **currency** | **String** | Currency code in ISO 4217 (3-letter uppercase). | [optional] |
+| **customer_info** | [**OrderUpdateRequestCustomerInfo**](OrderUpdateRequestCustomerInfo.md) |  | [optional] |
+| **line_items** | [**Array&lt;Product&gt;**](Product.md) | List of [products](https://developers.femsa.com/v2.1.0/reference/orderscreateproduct) that are sold in the order. You must have at least one product. | [optional] |
+| **charges** | [**Array&lt;ChargeRequest&gt;**](ChargeRequest.md) |  | [optional] |
+| **discount_lines** | [**Array&lt;OrderDiscountLinesRequest&gt;**](OrderDiscountLinesRequest.md) | List of [discounts](https://developers.femsa.com/v2.1.0/reference/orderscreatediscountline) that are applied to the order. You must have at least one discount. | [optional] |
 | **tax_lines** | [**Array&lt;OrderTaxRequest&gt;**](OrderTaxRequest.md) |  | [optional] |
-| **discount_lines** | [**Array&lt;OrderDiscountLinesRequest&gt;**](OrderDiscountLinesRequest.md) | List of discounts applied to the order. | [optional] |
-| **metadata** | **Hash&lt;String, Object&gt;** | Additional information attached to the order. | [optional] |
-| **return_url** | **String** | URL to redirect the customer after completing the flow (when applicable). | [optional] |
-| **charges** | [**Array&lt;ChargeRequest&gt;**](ChargeRequest.md) | Add new charges to the order. Subject to server-side validations (for example, maximum charges rules).  | [optional] |
-| **shipping_contact_id** | **String** | References an existing customer shipping contact. | [optional] |
+| **shipping_contact_id** | **String** | Existing shipping contact id from the customer to link to this order. | [optional] |
 | **shipping_contact** | [**CustomerShippingContacts**](CustomerShippingContacts.md) |  | [optional] |
-| **fiscal_entity_id** | **String** | References an existing customer fiscal entity. | [optional] |
+| **shipping_lines** | [**Array&lt;ShippingRequest&gt;**](ShippingRequest.md) | List of [shipping costs](https://developers.femsa.com/v2.1.0/reference/orderscreateshipping). If the online store offers digital products. | [optional] |
+| **fiscal_entity_id** | **String** | Existing fiscal entity id from the customer to link to this order. | [optional] |
 | **fiscal_entity** | [**OrderUpdateFiscalEntityRequest**](OrderUpdateFiscalEntityRequest.md) |  | [optional] |
+| **return_url** | **String** | URL where the customer should be redirected after completing a payment flow (if applicable). | [optional] |
+| **metadata** | **Hash&lt;String, Object&gt;** | Arbitrary key-value data that you can attach to the order for your internal use. It is not used for payment processing. Keys should be strings; values can be any JSON value.  | [optional] |
+| **status** | **String** | Order status update (only allowed transitions will be accepted). | [optional] |
 
 ## Example
 
@@ -25,20 +25,20 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::OrderUpdateRequest.new(
-  status: null,
   currency: MXN,
   customer_info: null,
   line_items: null,
-  shipping_lines: null,
-  tax_lines: null,
-  discount_lines: null,
-  metadata: null,
-  return_url: https://example.com/return,
   charges: null,
+  discount_lines: null,
+  tax_lines: null,
   shipping_contact_id: null,
   shipping_contact: null,
+  shipping_lines: null,
   fiscal_entity_id: null,
-  fiscal_entity: null
+  fiscal_entity: null,
+  return_url: null,
+  metadata: null,
+  status: null
 )
 ```
 

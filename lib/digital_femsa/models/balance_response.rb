@@ -19,46 +19,46 @@ module DigitalFemsa
     # Amounts currently available, grouped by currency.
     attr_accessor :available
 
-    # Amounts pending settlement, grouped by currency.
-    attr_accessor :pending
+    # The balance's cashout retention amount
+    attr_accessor :cashout_retention_amount
 
-    # Retention amount applied, grouped by currency.
-    attr_accessor :retention_amount
-
-    # Amounts currently retained, grouped by currency.
-    attr_accessor :retained
-
-    # Amounts temporarily retained, grouped by currency.
-    attr_accessor :temporarily_retained
-
-    # Target retention amount, grouped by currency.
-    attr_accessor :target_retention_amount
-
-    # Target temporary retention amount, grouped by currency.
-    attr_accessor :target_temporary_retention_amount
-
-    # Target collateral amount, grouped by currency.
-    attr_accessor :target_collateral_amount
+    # The balance's Femsa retention
+    attr_accessor :conekta_retention
 
     # Gateway balance amounts, grouped by currency.
     attr_accessor :gateway
 
-    # Cashout retention debited amounts, grouped by currency.
-    attr_accessor :cashout_retention_debited
+    # Amounts pending settlement, grouped by currency.
+    attr_accessor :pending
+
+    # Amounts currently retained, grouped by currency.
+    attr_accessor :retained
+
+    # Retention amount applied, grouped by currency.
+    attr_accessor :retention_amount
+
+    # Target collateral amount, grouped by currency.
+    attr_accessor :target_collateral_amount
+
+    # Target retention amount, grouped by currency.
+    attr_accessor :target_retention_amount
+
+    # Amounts temporarily retained
+    attr_accessor :temporarily_retained
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'available' => :'available',
-        :'pending' => :'pending',
-        :'retention_amount' => :'retention_amount',
-        :'retained' => :'retained',
-        :'temporarily_retained' => :'temporarily_retained',
-        :'target_retention_amount' => :'target_retention_amount',
-        :'target_temporary_retention_amount' => :'target_temporary_retention_amount',
-        :'target_collateral_amount' => :'target_collateral_amount',
+        :'cashout_retention_amount' => :'cashout_retention_amount',
+        :'conekta_retention' => :'conekta_retention',
         :'gateway' => :'gateway',
-        :'cashout_retention_debited' => :'cashout_retention_debited'
+        :'pending' => :'pending',
+        :'retained' => :'retained',
+        :'retention_amount' => :'retention_amount',
+        :'target_collateral_amount' => :'target_collateral_amount',
+        :'target_retention_amount' => :'target_retention_amount',
+        :'temporarily_retained' => :'temporarily_retained'
       }
     end
 
@@ -71,15 +71,15 @@ module DigitalFemsa
     def self.openapi_types
       {
         :'available' => :'Array<BalanceCommonField>',
-        :'pending' => :'Array<BalanceCommonField>',
-        :'retention_amount' => :'Array<BalanceCommonField>',
-        :'retained' => :'Array<BalanceCommonField>',
-        :'temporarily_retained' => :'Array<BalanceCommonField>',
-        :'target_retention_amount' => :'Array<BalanceCommonField>',
-        :'target_temporary_retention_amount' => :'Array<BalanceCommonField>',
-        :'target_collateral_amount' => :'Array<BalanceCommonField>',
+        :'cashout_retention_amount' => :'Array<BalanceCommonField>',
+        :'conekta_retention' => :'Array<BalanceCommonField>',
         :'gateway' => :'Array<BalanceCommonField>',
-        :'cashout_retention_debited' => :'Array<BalanceCommonField>'
+        :'pending' => :'Array<BalanceCommonField>',
+        :'retained' => :'Array<BalanceCommonField>',
+        :'retention_amount' => :'Array<BalanceCommonField>',
+        :'target_collateral_amount' => :'Object',
+        :'target_retention_amount' => :'Array<BalanceCommonField>',
+        :'temporarily_retained' => :'Array<BalanceCommonField>'
       }
     end
 
@@ -108,80 +108,58 @@ module DigitalFemsa
         if (value = attributes[:'available']).is_a?(Array)
           self.available = value
         end
-      else
-        self.available = nil
       end
 
-      if attributes.key?(:'pending')
-        if (value = attributes[:'pending']).is_a?(Array)
-          self.pending = value
+      if attributes.key?(:'cashout_retention_amount')
+        if (value = attributes[:'cashout_retention_amount']).is_a?(Array)
+          self.cashout_retention_amount = value
         end
-      else
-        self.pending = nil
       end
 
-      if attributes.key?(:'retention_amount')
-        if (value = attributes[:'retention_amount']).is_a?(Array)
-          self.retention_amount = value
+      if attributes.key?(:'conekta_retention')
+        if (value = attributes[:'conekta_retention']).is_a?(Array)
+          self.conekta_retention = value
         end
-      else
-        self.retention_amount = nil
-      end
-
-      if attributes.key?(:'retained')
-        if (value = attributes[:'retained']).is_a?(Array)
-          self.retained = value
-        end
-      else
-        self.retained = nil
-      end
-
-      if attributes.key?(:'temporarily_retained')
-        if (value = attributes[:'temporarily_retained']).is_a?(Array)
-          self.temporarily_retained = value
-        end
-      else
-        self.temporarily_retained = nil
-      end
-
-      if attributes.key?(:'target_retention_amount')
-        if (value = attributes[:'target_retention_amount']).is_a?(Array)
-          self.target_retention_amount = value
-        end
-      else
-        self.target_retention_amount = nil
-      end
-
-      if attributes.key?(:'target_temporary_retention_amount')
-        if (value = attributes[:'target_temporary_retention_amount']).is_a?(Array)
-          self.target_temporary_retention_amount = value
-        end
-      else
-        self.target_temporary_retention_amount = nil
-      end
-
-      if attributes.key?(:'target_collateral_amount')
-        if (value = attributes[:'target_collateral_amount']).is_a?(Array)
-          self.target_collateral_amount = value
-        end
-      else
-        self.target_collateral_amount = nil
       end
 
       if attributes.key?(:'gateway')
         if (value = attributes[:'gateway']).is_a?(Array)
           self.gateway = value
         end
-      else
-        self.gateway = nil
       end
 
-      if attributes.key?(:'cashout_retention_debited')
-        if (value = attributes[:'cashout_retention_debited']).is_a?(Array)
-          self.cashout_retention_debited = value
+      if attributes.key?(:'pending')
+        if (value = attributes[:'pending']).is_a?(Array)
+          self.pending = value
         end
-      else
-        self.cashout_retention_debited = nil
+      end
+
+      if attributes.key?(:'retained')
+        if (value = attributes[:'retained']).is_a?(Array)
+          self.retained = value
+        end
+      end
+
+      if attributes.key?(:'retention_amount')
+        if (value = attributes[:'retention_amount']).is_a?(Array)
+          self.retention_amount = value
+        end
+      end
+
+      if attributes.key?(:'target_collateral_amount')
+        self.target_collateral_amount = attributes[:'target_collateral_amount']
+      end
+
+      if attributes.key?(:'target_retention_amount')
+        if (value = attributes[:'target_retention_amount']).is_a?(Array)
+          self.target_retention_amount = value
+        end
+      end
+
+      if attributes.key?(:'temporarily_retained')
+        if (value = attributes[:'temporarily_retained']).is_a?(Array)
+          self.temporarily_retained = value
+        end
       end
     end
 
@@ -190,46 +168,6 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @available.nil?
-        invalid_properties.push('invalid value for "available", available cannot be nil.')
-      end
-
-      if @pending.nil?
-        invalid_properties.push('invalid value for "pending", pending cannot be nil.')
-      end
-
-      if @retention_amount.nil?
-        invalid_properties.push('invalid value for "retention_amount", retention_amount cannot be nil.')
-      end
-
-      if @retained.nil?
-        invalid_properties.push('invalid value for "retained", retained cannot be nil.')
-      end
-
-      if @temporarily_retained.nil?
-        invalid_properties.push('invalid value for "temporarily_retained", temporarily_retained cannot be nil.')
-      end
-
-      if @target_retention_amount.nil?
-        invalid_properties.push('invalid value for "target_retention_amount", target_retention_amount cannot be nil.')
-      end
-
-      if @target_temporary_retention_amount.nil?
-        invalid_properties.push('invalid value for "target_temporary_retention_amount", target_temporary_retention_amount cannot be nil.')
-      end
-
-      if @target_collateral_amount.nil?
-        invalid_properties.push('invalid value for "target_collateral_amount", target_collateral_amount cannot be nil.')
-      end
-
-      if @gateway.nil?
-        invalid_properties.push('invalid value for "gateway", gateway cannot be nil.')
-      end
-
-      if @cashout_retention_debited.nil?
-        invalid_properties.push('invalid value for "cashout_retention_debited", cashout_retention_debited cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -237,16 +175,6 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @available.nil?
-      return false if @pending.nil?
-      return false if @retention_amount.nil?
-      return false if @retained.nil?
-      return false if @temporarily_retained.nil?
-      return false if @target_retention_amount.nil?
-      return false if @target_temporary_retention_amount.nil?
-      return false if @target_collateral_amount.nil?
-      return false if @gateway.nil?
-      return false if @cashout_retention_debited.nil?
       true
     end
 
@@ -256,15 +184,15 @@ module DigitalFemsa
       return true if self.equal?(o)
       self.class == o.class &&
           available == o.available &&
-          pending == o.pending &&
-          retention_amount == o.retention_amount &&
-          retained == o.retained &&
-          temporarily_retained == o.temporarily_retained &&
-          target_retention_amount == o.target_retention_amount &&
-          target_temporary_retention_amount == o.target_temporary_retention_amount &&
-          target_collateral_amount == o.target_collateral_amount &&
+          cashout_retention_amount == o.cashout_retention_amount &&
+          conekta_retention == o.conekta_retention &&
           gateway == o.gateway &&
-          cashout_retention_debited == o.cashout_retention_debited
+          pending == o.pending &&
+          retained == o.retained &&
+          retention_amount == o.retention_amount &&
+          target_collateral_amount == o.target_collateral_amount &&
+          target_retention_amount == o.target_retention_amount &&
+          temporarily_retained == o.temporarily_retained
     end
 
     # @see the `==` method
@@ -276,7 +204,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [available, pending, retention_amount, retained, temporarily_retained, target_retention_amount, target_temporary_retention_amount, target_collateral_amount, gateway, cashout_retention_debited].hash
+      [available, cashout_retention_amount, conekta_retention, gateway, pending, retained, retention_amount, target_collateral_amount, target_retention_amount, temporarily_retained].hash
     end
 
     # Builds the object from hash

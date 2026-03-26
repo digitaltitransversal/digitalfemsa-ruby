@@ -4,9 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **expires_at** | [**UpdatePaymentMethodsExpiresAt**](UpdatePaymentMethodsExpiresAt.md) |  | [optional] |
-| **amount** | [**UpdatePaymentMethodsAmount**](UpdatePaymentMethodsAmount.md) |  | [optional] |
-| **type** | **String** |  | [optional] |
+| **name** | **String** |  | [optional] |
 
 ## Example
 
@@ -14,9 +12,7 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::UpdatePaymentMethods.new(
-  expires_at: null,
-  amount: null,
-  type: oxxo_recurrent
+  name: name of person
 )
 ```
 

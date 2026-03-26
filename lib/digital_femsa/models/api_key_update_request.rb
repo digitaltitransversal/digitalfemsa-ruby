@@ -15,10 +15,10 @@ require 'time'
 
 module DigitalFemsa
   class ApiKeyUpdateRequest
-    # Indicates whether the API key is active.
+    # Indicates if the webhook key is active
     attr_accessor :active
 
-    # A name or brief explanation of what this API key is used for.
+    # A name or brief explanation of what this api key is used for
     attr_accessor :description
 
     # Attribute mapping from ruby-style variable name to JSON key.

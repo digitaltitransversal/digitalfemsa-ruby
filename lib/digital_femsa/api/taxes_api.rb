@@ -186,7 +186,7 @@ module DigitalFemsa
     # Updates an existing tax line for an order. The tax line identified by `tax_id` belongs to the order identified by `id`. Only the fields provided in the request body are updated.
     # @param id [String] Identifier of the resource
     # @param tax_id [String] identifier
-    # @param update_order_tax_request [UpdateOrderTaxRequest] Request body for creating a tax line.
+    # @param update_order_tax_request [UpdateOrderTaxRequest] Request body for updating a tax line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -200,7 +200,7 @@ module DigitalFemsa
     # Updates an existing tax line for an order. The tax line identified by &#x60;tax_id&#x60; belongs to the order identified by &#x60;id&#x60;. Only the fields provided in the request body are updated.
     # @param id [String] Identifier of the resource
     # @param tax_id [String] identifier
-    # @param update_order_tax_request [UpdateOrderTaxRequest] Request body for creating a tax line.
+    # @param update_order_tax_request [UpdateOrderTaxRequest] Request body for updating a tax line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

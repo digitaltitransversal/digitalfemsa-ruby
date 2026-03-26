@@ -19,13 +19,13 @@ module DigitalFemsa
 
     attr_accessor :tax_id
 
+    attr_accessor :name
+
     attr_accessor :email
 
     attr_accessor :phone
 
     attr_accessor :metadata
-
-    attr_accessor :company_name
 
     attr_accessor :id
 
@@ -42,10 +42,10 @@ module DigitalFemsa
       {
         :'address' => :'address',
         :'tax_id' => :'tax_id',
+        :'name' => :'name',
         :'email' => :'email',
         :'phone' => :'phone',
         :'metadata' => :'metadata',
-        :'company_name' => :'company_name',
         :'id' => :'id',
         :'object' => :'object',
         :'created_at' => :'created_at',
@@ -64,10 +64,10 @@ module DigitalFemsa
       {
         :'address' => :'CustomerAddress',
         :'tax_id' => :'String',
+        :'name' => :'String',
         :'email' => :'String',
         :'phone' => :'String',
         :'metadata' => :'Hash<String, Object>',
-        :'company_name' => :'String',
         :'id' => :'String',
         :'object' => :'String',
         :'created_at' => :'Integer',
@@ -114,6 +114,10 @@ module DigitalFemsa
         self.tax_id = attributes[:'tax_id']
       end
 
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
+      end
+
       if attributes.key?(:'email')
         self.email = attributes[:'email']
       end
@@ -126,10 +130,6 @@ module DigitalFemsa
         if (value = attributes[:'metadata']).is_a?(Hash)
           self.metadata = value
         end
-      end
-
-      if attributes.key?(:'company_name')
-        self.company_name = attributes[:'company_name']
       end
 
       if attributes.key?(:'id')
@@ -201,10 +201,10 @@ module DigitalFemsa
       self.class == o.class &&
           address == o.address &&
           tax_id == o.tax_id &&
+          name == o.name &&
           email == o.email &&
           phone == o.phone &&
           metadata == o.metadata &&
-          company_name == o.company_name &&
           id == o.id &&
           object == o.object &&
           created_at == o.created_at &&
@@ -221,7 +221,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [address, tax_id, email, phone, metadata, company_name, id, object, created_at, parent_id, default].hash
+      [address, tax_id, name, email, phone, metadata, id, object, created_at, parent_id, default].hash
     end
 
     # Builds the object from hash

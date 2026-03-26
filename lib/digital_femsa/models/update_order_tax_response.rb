@@ -30,9 +30,6 @@ module DigitalFemsa
 
     attr_accessor :parent_id
 
-    # Present only when the tax line was deleted.
-    attr_accessor :deleted
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -41,8 +38,7 @@ module DigitalFemsa
         :'metadata' => :'metadata',
         :'id' => :'id',
         :'object' => :'object',
-        :'parent_id' => :'parent_id',
-        :'deleted' => :'deleted'
+        :'parent_id' => :'parent_id'
       }
     end
 
@@ -59,15 +55,13 @@ module DigitalFemsa
         :'metadata' => :'Hash<String, Object>',
         :'id' => :'String',
         :'object' => :'String',
-        :'parent_id' => :'String',
-        :'deleted' => :'Boolean'
+        :'parent_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'deleted'
       ])
     end
 
@@ -123,10 +117,6 @@ module DigitalFemsa
 
       if attributes.key?(:'parent_id')
         self.parent_id = attributes[:'parent_id']
-      end
-
-      if attributes.key?(:'deleted')
-        self.deleted = attributes[:'deleted']
       end
     end
 
@@ -227,8 +217,7 @@ module DigitalFemsa
           metadata == o.metadata &&
           id == o.id &&
           object == o.object &&
-          parent_id == o.parent_id &&
-          deleted == o.deleted
+          parent_id == o.parent_id
     end
 
     # @see the `==` method
@@ -240,7 +229,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, description, metadata, id, object, parent_id, deleted].hash
+      [amount, description, metadata, id, object, parent_id].hash
     end
 
     # Builds the object from hash

@@ -16,33 +16,20 @@ require 'time'
 module DigitalFemsa
   # Parameters used to update a webhook. All fields are optional; send only the fields you want to change.
   class WebhookUpdateRequest
-    # Webhook endpoint URL. Local URLs are not allowed.
+    # Here you must place the URL of your Webhook remember that you must program what you will do with the events received. Also do not forget to handle the HTTPS protocol for greater security.
     attr_accessor :url
 
-    # List of event types the webhook is subscribed to.
-    attr_accessor :subscribed_events
-
-    # Alias for subscribed_events.
-    attr_accessor :events
-
-    # Indicates whether the webhook uses synchronous delivery behavior.
+    # It is a value that allows to decide if the events will be synchronous or asynchronous. We recommend asynchronous = false
     attr_accessor :synchronous
 
-    # Activates or deactivates the webhook.
-    attr_accessor :active
-
-    # Optional description of the webhook.
-    attr_accessor :description
+    attr_accessor :events
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'url' => :'url',
-        :'subscribed_events' => :'subscribed_events',
-        :'events' => :'events',
         :'synchronous' => :'synchronous',
-        :'active' => :'active',
-        :'description' => :'description'
+        :'events' => :'events'
       }
     end
 
@@ -55,18 +42,14 @@ module DigitalFemsa
     def self.openapi_types
       {
         :'url' => :'String',
-        :'subscribed_events' => :'Array<String>',
-        :'events' => :'Array<String>',
         :'synchronous' => :'Boolean',
-        :'active' => :'Boolean',
-        :'description' => :'String'
+        :'events' => :'Array<String>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'description'
       ])
     end
 
@@ -87,18 +70,8 @@ module DigitalFemsa
 
       if attributes.key?(:'url')
         self.url = attributes[:'url']
-      end
-
-      if attributes.key?(:'subscribed_events')
-        if (value = attributes[:'subscribed_events']).is_a?(Array)
-          self.subscribed_events = value
-        end
-      end
-
-      if attributes.key?(:'events')
-        if (value = attributes[:'events']).is_a?(Array)
-          self.events = value
-        end
+      else
+        self.url = nil
       end
 
       if attributes.key?(:'synchronous')
@@ -107,12 +80,10 @@ module DigitalFemsa
         self.synchronous = false
       end
 
-      if attributes.key?(:'active')
-        self.active = attributes[:'active']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
+      if attributes.key?(:'events')
+        if (value = attributes[:'events']).is_a?(Array)
+          self.events = value
+        end
       end
     end
 
@@ -121,8 +92,12 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @url.nil?
+        invalid_properties.push('invalid value for "url", url cannot be nil.')
+      end
+
       pattern = Regexp.new(/^(?!.*(localhost|127\.0\.0\.1)).*$/)
-      if !@url.nil? && @url !~ pattern
+      if @url !~ pattern
         invalid_properties.push("invalid value for \"url\", must conform to the pattern #{pattern}.")
       end
 
@@ -133,7 +108,8 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if !@url.nil? && @url !~ Regexp.new(/^(?!.*(localhost|127\.0\.0\.1)).*$/)
+      return false if @url.nil?
+      return false if @url !~ Regexp.new(/^(?!.*(localhost|127\.0\.0\.1)).*$/)
       true
     end
 
@@ -158,11 +134,8 @@ module DigitalFemsa
       return true if self.equal?(o)
       self.class == o.class &&
           url == o.url &&
-          subscribed_events == o.subscribed_events &&
-          events == o.events &&
           synchronous == o.synchronous &&
-          active == o.active &&
-          description == o.description
+          events == o.events
     end
 
     # @see the `==` method
@@ -174,7 +147,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, subscribed_events, events, synchronous, active, description].hash
+      [url, synchronous, events].hash
     end
 
     # Builds the object from hash

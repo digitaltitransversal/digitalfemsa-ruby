@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # It is the information of the customer who will be created when receiving a new payment.
+  # Customer information used when creating the order.
   module CheckoutOrderTemplateCustomerInfo
     class << self
       # List of class defined in oneOf (OpenAPI v3)

@@ -31,20 +31,17 @@ module DigitalFemsa
     # Merchant-defined reference used to identify the customer in your system.
     attr_accessor :custom_reference
 
-    # Referrer value (if applicable).
-    attr_accessor :referrer
-
     # Arbitrary metadata associated with the customer.
     attr_accessor :metadata
+
+    # Customer payment sources to be created with the customer (optional).
+    attr_accessor :payment_sources
 
     # Customer fiscal entities to be created with the customer (optional).
     attr_accessor :fiscal_entities
 
     # Customer shipping contacts to be created with the customer (optional).
     attr_accessor :shipping_contacts
-
-    # Customer payment sources to be created with the customer (optional).
-    attr_accessor :payment_sources
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -54,11 +51,10 @@ module DigitalFemsa
         :'phone' => :'phone',
         :'corporate' => :'corporate',
         :'custom_reference' => :'custom_reference',
-        :'referrer' => :'referrer',
         :'metadata' => :'metadata',
+        :'payment_sources' => :'payment_sources',
         :'fiscal_entities' => :'fiscal_entities',
-        :'shipping_contacts' => :'shipping_contacts',
-        :'payment_sources' => :'payment_sources'
+        :'shipping_contacts' => :'shipping_contacts'
       }
     end
 
@@ -75,11 +71,10 @@ module DigitalFemsa
         :'phone' => :'String',
         :'corporate' => :'Boolean',
         :'custom_reference' => :'String',
-        :'referrer' => :'String',
         :'metadata' => :'Hash<String, Object>',
+        :'payment_sources' => :'Array<CustomerPaymentMethodsRequest>',
         :'fiscal_entities' => :'Array<CustomerFiscalEntitiesRequest>',
-        :'shipping_contacts' => :'Array<CustomerShippingContacts>',
-        :'payment_sources' => :'Array<CustomerPaymentSourcesInner>'
+        :'shipping_contacts' => :'Array<CustomerShippingContacts>'
       }
     end
 
@@ -87,11 +82,6 @@ module DigitalFemsa
     def self.openapi_nullable
       Set.new([
         :'phone',
-        :'custom_reference',
-        :'referrer',
-        :'fiscal_entities',
-        :'shipping_contacts',
-        :'payment_sources'
       ])
     end
 
@@ -136,13 +126,15 @@ module DigitalFemsa
         self.custom_reference = attributes[:'custom_reference']
       end
 
-      if attributes.key?(:'referrer')
-        self.referrer = attributes[:'referrer']
-      end
-
       if attributes.key?(:'metadata')
         if (value = attributes[:'metadata']).is_a?(Hash)
           self.metadata = value
+        end
+      end
+
+      if attributes.key?(:'payment_sources')
+        if (value = attributes[:'payment_sources']).is_a?(Array)
+          self.payment_sources = value
         end
       end
 
@@ -155,12 +147,6 @@ module DigitalFemsa
       if attributes.key?(:'shipping_contacts')
         if (value = attributes[:'shipping_contacts']).is_a?(Array)
           self.shipping_contacts = value
-        end
-      end
-
-      if attributes.key?(:'payment_sources')
-        if (value = attributes[:'payment_sources']).is_a?(Array)
-          self.payment_sources = value
         end
       end
     end
@@ -215,11 +201,10 @@ module DigitalFemsa
           phone == o.phone &&
           corporate == o.corporate &&
           custom_reference == o.custom_reference &&
-          referrer == o.referrer &&
           metadata == o.metadata &&
+          payment_sources == o.payment_sources &&
           fiscal_entities == o.fiscal_entities &&
-          shipping_contacts == o.shipping_contacts &&
-          payment_sources == o.payment_sources
+          shipping_contacts == o.shipping_contacts
     end
 
     # @see the `==` method
@@ -231,7 +216,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, email, phone, corporate, custom_reference, referrer, metadata, fiscal_entities, shipping_contacts, payment_sources].hash
+      [name, email, phone, corporate, custom_reference, metadata, payment_sources, fiscal_entities, shipping_contacts].hash
     end
 
     # Builds the object from hash

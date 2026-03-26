@@ -7,9 +7,8 @@
 | **customer_id** | **String** |  | [optional] |
 | **name** | **String** |  |  |
 | **email** | **String** |  |  |
-| **phone** | **String** |  |  |
+| **phone** | **String** |  | [optional] |
 | **corporate** | **Boolean** |  | [optional] |
-| **object** | **String** |  | [optional] |
 
 ## Example
 
@@ -21,8 +20,7 @@ instance = DigitalFemsa::CustomerInfo.new(
   name: DevTest,
   email: test@femsa.com,
   phone: 5522997233,
-  corporate: null,
-  object: customer_info
+  corporate: null
 )
 ```
 

@@ -30,6 +30,21 @@ require 'digital_femsa'
 DigitalFemsa::ChargeResponsePaymentMethod.openapi_discriminator_name
 # => :'object'
 ```
+
+### `openapi_discriminator_name`
+
+Returns the discriminator's mapping.
+
+#### Example
+
+```ruby
+require 'digital_femsa'
+
+DigitalFemsa::ChargeResponsePaymentMethod.openapi_discriminator_mapping
+# =>
+# {
+#   :'cash_payment' => :'PaymentMethodCash'
+# }
 ```
 
 ### build

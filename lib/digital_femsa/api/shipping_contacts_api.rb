@@ -103,8 +103,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Delete shipping contact
-    # Deletes an existing shipping contact for a customer. The shipping contact identified by `shipping_contacts_id` belongs to the customer identified by `id`. The response includes the deleted resource with `deleted: true`.
+    # Delete shipping contacts
+    # Delete shipping contact that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param shipping_contacts_id [String] identifier
     # @param [Hash] opts the optional parameters
@@ -116,8 +116,8 @@ module DigitalFemsa
       data
     end
 
-    # Delete shipping contact
-    # Deletes an existing shipping contact for a customer. The shipping contact identified by &#x60;shipping_contacts_id&#x60; belongs to the customer identified by &#x60;id&#x60;. The response includes the deleted resource with &#x60;deleted: true&#x60;.
+    # Delete shipping contacts
+    # Delete shipping contact that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param shipping_contacts_id [String] identifier
     # @param [Hash] opts the optional parameters
@@ -182,8 +182,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Update shipping contact
-    # Updates an existing shipping contact for a customer. The shipping contact identified by `shipping_contacts_id` belongs to the customer identified by `id`. Only the fields provided in the request body are updated.
+    # Update shipping contacts
+    # Update shipping contact that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param shipping_contacts_id [String] identifier
     # @param customer_update_shipping_contacts [CustomerUpdateShippingContacts] Request body for updating a customer shipping contact.
@@ -196,8 +196,8 @@ module DigitalFemsa
       data
     end
 
-    # Update shipping contact
-    # Updates an existing shipping contact for a customer. The shipping contact identified by &#x60;shipping_contacts_id&#x60; belongs to the customer identified by &#x60;id&#x60;. Only the fields provided in the request body are updated.
+    # Update shipping contacts
+    # Update shipping contact that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param shipping_contacts_id [String] identifier
     # @param customer_update_shipping_contacts [CustomerUpdateShippingContacts] Request body for updating a customer shipping contact.

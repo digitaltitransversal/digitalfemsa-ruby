@@ -97,8 +97,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Delete API key
-    # Deletes an API key by its ID. 
+    # Delete Api Key
+    # Deletes a api key that corresponds to a api key ID
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -108,8 +108,8 @@ module DigitalFemsa
       data
     end
 
-    # Delete API key
-    # Deletes an API key by its ID. 
+    # Delete Api Key
+    # Deletes a api key that corresponds to a api key ID
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -167,8 +167,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get API key
-    # Retrieves the details of an API key by its ID. 
+    # Get Api Key
+    # Gets a api key that corresponds to a api key ID
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -179,8 +179,8 @@ module DigitalFemsa
       data
     end
 
-    # Get API key
-    # Retrieves the details of an API key by its ID. 
+    # Get Api Key
+    # Gets a api key that corresponds to a api key ID
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -248,7 +248,7 @@ module DigitalFemsa
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
-    # @option opts [String] :search General search, e.g. by id or description
+    # @option opts [String] :search General search, e.g. by id, description, prefix
     # @return [GetApiKeysResponse]
     def get_api_keys(opts = {})
       data, _status_code, _headers = get_api_keys_with_http_info(opts)
@@ -263,7 +263,7 @@ module DigitalFemsa
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
-    # @option opts [String] :search General search, e.g. by id or description
+    # @option opts [String] :search General search, e.g. by id, description, prefix
     # @return [Array<(GetApiKeysResponse, Integer, Hash)>] GetApiKeysResponse data, response status code and response headers
     def get_api_keys_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -327,8 +327,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Update API key
-    # Updates an existing API key by its ID.  Use this endpoint to change the key's status (active/inactive) or update its description. 
+    # Update Api Key
+    # Update an existing api key
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -339,8 +339,8 @@ module DigitalFemsa
       data
     end
 
-    # Update API key
-    # Updates an existing API key by its ID.  Use this endpoint to change the key&#39;s status (active/inactive) or update its description. 
+    # Update Api Key
+    # Update an existing api key
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')

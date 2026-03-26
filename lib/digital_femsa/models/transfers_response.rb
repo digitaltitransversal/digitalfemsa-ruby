@@ -16,92 +16,48 @@ require 'time'
 module DigitalFemsa
   # A transfer represents the action of sending an amount to a business bank account including the status, amount and destination used to make the transfer.
   class TransfersResponse
-    # Unique identifier of the transfer.
-    attr_accessor :id
-
-    # Object name, which is transfer.
-    attr_accessor :object
-
     # Amount in cents of the transfer.
     attr_accessor :amount
 
-    # Date and time of creation of the transfer in Unix format.
+    # Date and time of creation of the transfer.
     attr_accessor :created_at
 
-    # The currency of the transfer. It uses the 3-letter code of ISO 4217.
+    # The currency of the transfer. It uses the 3-letter code of the [International Standard ISO 4217.](https://es.wikipedia.org/wiki/ISO_4217)
     attr_accessor :currency
+
+    # Unique identifier of the transfer.
+    attr_accessor :id
 
     # Indicates whether the transfer was created in live mode or test mode.
     attr_accessor :livemode
 
-    # Code indicating transfer status.
-    attr_accessor :status
+    attr_accessor :method
 
-    # Reference number of the transfer.
-    attr_accessor :statement_reference
+    # Object name, which is transfer.
+    attr_accessor :object
 
     # Description of the transfer.
     attr_accessor :statement_description
 
-    attr_accessor :destination
+    # Reference number of the transfer.
+    attr_accessor :statement_reference
 
-    # Total fee for the transfer (present only when requesting the 'details' expansion).
-    attr_accessor :fee
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :capture_amount
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :capture_fee
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :capture_net
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :refund_amount
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :refund_fee
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :refund_net
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :payout_amount
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :payout_fee
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :payout_net
-
-    # Present only when requesting the 'details' expansion.
-    attr_accessor :transactions
+    # Code indicating transfer status.
+    attr_accessor :status
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'id' => :'id',
-        :'object' => :'object',
         :'amount' => :'amount',
         :'created_at' => :'created_at',
         :'currency' => :'currency',
+        :'id' => :'id',
         :'livemode' => :'livemode',
-        :'status' => :'status',
-        :'statement_reference' => :'statement_reference',
+        :'method' => :'method',
+        :'object' => :'object',
         :'statement_description' => :'statement_description',
-        :'destination' => :'destination',
-        :'fee' => :'fee',
-        :'capture_amount' => :'capture_amount',
-        :'capture_fee' => :'capture_fee',
-        :'capture_net' => :'capture_net',
-        :'refund_amount' => :'refund_amount',
-        :'refund_fee' => :'refund_fee',
-        :'refund_net' => :'refund_net',
-        :'payout_amount' => :'payout_amount',
-        :'payout_fee' => :'payout_fee',
-        :'payout_net' => :'payout_net',
-        :'transactions' => :'transactions'
+        :'statement_reference' => :'statement_reference',
+        :'status' => :'status'
       }
     end
 
@@ -113,44 +69,22 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'id' => :'String',
-        :'object' => :'String',
         :'amount' => :'Integer',
         :'created_at' => :'Integer',
         :'currency' => :'String',
+        :'id' => :'String',
         :'livemode' => :'Boolean',
-        :'status' => :'String',
-        :'statement_reference' => :'String',
+        :'method' => :'TransferMethodResponse',
+        :'object' => :'String',
         :'statement_description' => :'String',
-        :'destination' => :'TransfersResponseDestination',
-        :'fee' => :'Integer',
-        :'capture_amount' => :'Integer',
-        :'capture_fee' => :'Integer',
-        :'capture_net' => :'Integer',
-        :'refund_amount' => :'Integer',
-        :'refund_fee' => :'Integer',
-        :'refund_net' => :'Integer',
-        :'payout_amount' => :'Integer',
-        :'payout_fee' => :'Integer',
-        :'payout_net' => :'Integer',
-        :'transactions' => :'Array<Object>'
+        :'statement_reference' => :'String',
+        :'status' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'fee',
-        :'capture_amount',
-        :'capture_fee',
-        :'capture_net',
-        :'refund_amount',
-        :'refund_fee',
-        :'refund_net',
-        :'payout_amount',
-        :'payout_fee',
-        :'payout_net',
-        :'transactions'
       ])
     end
 
@@ -169,110 +103,44 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      else
-        self.id = nil
-      end
-
-      if attributes.key?(:'object')
-        self.object = attributes[:'object']
-      else
-        self.object = nil
-      end
-
       if attributes.key?(:'amount')
         self.amount = attributes[:'amount']
-      else
-        self.amount = nil
       end
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
-      else
-        self.created_at = nil
       end
 
       if attributes.key?(:'currency')
         self.currency = attributes[:'currency']
-      else
-        self.currency = nil
+      end
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
       end
 
       if attributes.key?(:'livemode')
         self.livemode = attributes[:'livemode']
-      else
-        self.livemode = nil
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      else
-        self.status = nil
+      if attributes.key?(:'method')
+        self.method = attributes[:'method']
       end
 
-      if attributes.key?(:'statement_reference')
-        self.statement_reference = attributes[:'statement_reference']
-      else
-        self.statement_reference = nil
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
       end
 
       if attributes.key?(:'statement_description')
         self.statement_description = attributes[:'statement_description']
-      else
-        self.statement_description = nil
       end
 
-      if attributes.key?(:'destination')
-        self.destination = attributes[:'destination']
-      else
-        self.destination = nil
+      if attributes.key?(:'statement_reference')
+        self.statement_reference = attributes[:'statement_reference']
       end
 
-      if attributes.key?(:'fee')
-        self.fee = attributes[:'fee']
-      end
-
-      if attributes.key?(:'capture_amount')
-        self.capture_amount = attributes[:'capture_amount']
-      end
-
-      if attributes.key?(:'capture_fee')
-        self.capture_fee = attributes[:'capture_fee']
-      end
-
-      if attributes.key?(:'capture_net')
-        self.capture_net = attributes[:'capture_net']
-      end
-
-      if attributes.key?(:'refund_amount')
-        self.refund_amount = attributes[:'refund_amount']
-      end
-
-      if attributes.key?(:'refund_fee')
-        self.refund_fee = attributes[:'refund_fee']
-      end
-
-      if attributes.key?(:'refund_net')
-        self.refund_net = attributes[:'refund_net']
-      end
-
-      if attributes.key?(:'payout_amount')
-        self.payout_amount = attributes[:'payout_amount']
-      end
-
-      if attributes.key?(:'payout_fee')
-        self.payout_fee = attributes[:'payout_fee']
-      end
-
-      if attributes.key?(:'payout_net')
-        self.payout_net = attributes[:'payout_net']
-      end
-
-      if attributes.key?(:'transactions')
-        if (value = attributes[:'transactions']).is_a?(Array)
-          self.transactions = value
-        end
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
     end
 
@@ -281,48 +149,8 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @object.nil?
-        invalid_properties.push('invalid value for "object", object cannot be nil.')
-      end
-
-      if @amount.nil?
-        invalid_properties.push('invalid value for "amount", amount cannot be nil.')
-      end
-
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @currency.nil?
-        invalid_properties.push('invalid value for "currency", currency cannot be nil.')
-      end
-
-      if @currency.to_s.length > 3
+      if !@currency.nil? && @currency.to_s.length > 3
         invalid_properties.push('invalid value for "currency", the character length must be smaller than or equal to 3.')
-      end
-
-      if @livemode.nil?
-        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @statement_reference.nil?
-        invalid_properties.push('invalid value for "statement_reference", statement_reference cannot be nil.')
-      end
-
-      if @statement_description.nil?
-        invalid_properties.push('invalid value for "statement_description", statement_description cannot be nil.')
-      end
-
-      if @destination.nil?
-        invalid_properties.push('invalid value for "destination", destination cannot be nil.')
       end
 
       invalid_properties
@@ -332,17 +160,7 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @id.nil?
-      return false if @object.nil?
-      return false if @amount.nil?
-      return false if @created_at.nil?
-      return false if @currency.nil?
-      return false if @currency.to_s.length > 3
-      return false if @livemode.nil?
-      return false if @status.nil?
-      return false if @statement_reference.nil?
-      return false if @statement_description.nil?
-      return false if @destination.nil?
+      return false if !@currency.nil? && @currency.to_s.length > 3
       true
     end
 
@@ -365,27 +183,16 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          id == o.id &&
-          object == o.object &&
           amount == o.amount &&
           created_at == o.created_at &&
           currency == o.currency &&
+          id == o.id &&
           livemode == o.livemode &&
-          status == o.status &&
-          statement_reference == o.statement_reference &&
+          method == o.method &&
+          object == o.object &&
           statement_description == o.statement_description &&
-          destination == o.destination &&
-          fee == o.fee &&
-          capture_amount == o.capture_amount &&
-          capture_fee == o.capture_fee &&
-          capture_net == o.capture_net &&
-          refund_amount == o.refund_amount &&
-          refund_fee == o.refund_fee &&
-          refund_net == o.refund_net &&
-          payout_amount == o.payout_amount &&
-          payout_fee == o.payout_fee &&
-          payout_net == o.payout_net &&
-          transactions == o.transactions
+          statement_reference == o.statement_reference &&
+          status == o.status
     end
 
     # @see the `==` method
@@ -397,7 +204,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, object, amount, created_at, currency, livemode, status, statement_reference, statement_description, destination, fee, capture_amount, capture_fee, capture_net, refund_amount, refund_fee, refund_net, payout_amount, payout_fee, payout_net, transactions].hash
+      [amount, created_at, currency, id, livemode, method, object, statement_description, statement_reference, status].hash
     end
 
     # Builds the object from hash

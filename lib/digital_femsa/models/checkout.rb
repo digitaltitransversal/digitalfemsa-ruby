@@ -14,42 +14,50 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # It is a sub-resource of the Order model that can be stipulated in order to configure its corresponding checkout
+  # Creates a Payment Link. This is a sub-resource related to an Order template: each time a customer pays using the link, the API will create an Order using `order_template`. 
   class Checkout
-    # Those are the payment methods that will be available for the link
-    attr_accessor :allowed_payment_methods
-
-    # It is the time when the link will expire. It is expressed in seconds since the Unix epoch. The valid range is from 2 to 365 days (the valid range will be taken from the next day of the creation date at 00:01 hrs) 
-    attr_accessor :expires_at
-
-    # Payment link name
+    # Payment link name.
     attr_accessor :name
 
-    # This flag allows you to fill in the shipping information at checkout.
-    attr_accessor :needs_shipping_contact
-
-    attr_accessor :order_template
-
-    # It is the number of payments that can be made through the link.
-    attr_accessor :payments_limit_count
+    # Checkout type.
+    attr_accessor :type
 
     # false: single use. true: multiple payments
     attr_accessor :recurrent
 
-    # It is the type of link that will be created. It must be a valid type.
-    attr_accessor :type
+    # Required when `recurrent` is true. Maximum number of payments allowed through the link.
+    attr_accessor :payments_limit_count
+
+    # Payment methods available in the payment link.
+    attr_accessor :allowed_payment_methods
+
+    # This flag allows you to fill in the shipping information at checkout.
+    attr_accessor :needs_shipping_contact
+
+    # Start time for the link. Unix timestamp in seconds.
+    attr_accessor :starts_at
+
+    # Expiration time for the link (Unix timestamp in seconds). Valid range is between 2 and 365 days (calculated from the next day of creation at 00:01). 
+    attr_accessor :expires_at
+
+    # If true, the link does not expire.
+    attr_accessor :can_not_expire
+
+    attr_accessor :order_template
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'allowed_payment_methods' => :'allowed_payment_methods',
-        :'expires_at' => :'expires_at',
         :'name' => :'name',
-        :'needs_shipping_contact' => :'needs_shipping_contact',
-        :'order_template' => :'order_template',
-        :'payments_limit_count' => :'payments_limit_count',
+        :'type' => :'type',
         :'recurrent' => :'recurrent',
-        :'type' => :'type'
+        :'payments_limit_count' => :'payments_limit_count',
+        :'allowed_payment_methods' => :'allowed_payment_methods',
+        :'needs_shipping_contact' => :'needs_shipping_contact',
+        :'starts_at' => :'starts_at',
+        :'expires_at' => :'expires_at',
+        :'can_not_expire' => :'can_not_expire',
+        :'order_template' => :'order_template'
       }
     end
 
@@ -61,14 +69,16 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'allowed_payment_methods' => :'Array<String>',
-        :'expires_at' => :'Integer',
         :'name' => :'String',
-        :'needs_shipping_contact' => :'Boolean',
-        :'order_template' => :'CheckoutOrderTemplate',
-        :'payments_limit_count' => :'Integer',
+        :'type' => :'String',
         :'recurrent' => :'Boolean',
-        :'type' => :'String'
+        :'payments_limit_count' => :'Integer',
+        :'allowed_payment_methods' => :'Array<String>',
+        :'needs_shipping_contact' => :'Boolean',
+        :'starts_at' => :'Integer',
+        :'expires_at' => :'Integer',
+        :'can_not_expire' => :'Boolean',
+        :'order_template' => :'CheckoutOrderTemplate'
       }
     end
 
@@ -93,38 +103,16 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'allowed_payment_methods')
-        if (value = attributes[:'allowed_payment_methods']).is_a?(Array)
-          self.allowed_payment_methods = value
-        end
-      else
-        self.allowed_payment_methods = nil
-      end
-
-      if attributes.key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
-      else
-        self.expires_at = nil
-      end
-
       if attributes.key?(:'name')
         self.name = attributes[:'name']
       else
         self.name = nil
       end
 
-      if attributes.key?(:'needs_shipping_contact')
-        self.needs_shipping_contact = attributes[:'needs_shipping_contact']
-      end
-
-      if attributes.key?(:'order_template')
-        self.order_template = attributes[:'order_template']
+      if attributes.key?(:'type')
+        self.type = attributes[:'type']
       else
-        self.order_template = nil
-      end
-
-      if attributes.key?(:'payments_limit_count')
-        self.payments_limit_count = attributes[:'payments_limit_count']
+        self.type = nil
       end
 
       if attributes.key?(:'recurrent')
@@ -133,10 +121,42 @@ module DigitalFemsa
         self.recurrent = nil
       end
 
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
+      if attributes.key?(:'payments_limit_count')
+        self.payments_limit_count = attributes[:'payments_limit_count']
+      end
+
+      if attributes.key?(:'allowed_payment_methods')
+        if (value = attributes[:'allowed_payment_methods']).is_a?(Array)
+          self.allowed_payment_methods = value
+        end
       else
-        self.type = nil
+        self.allowed_payment_methods = nil
+      end
+
+      if attributes.key?(:'needs_shipping_contact')
+        self.needs_shipping_contact = attributes[:'needs_shipping_contact']
+      else
+        self.needs_shipping_contact = nil
+      end
+
+      if attributes.key?(:'starts_at')
+        self.starts_at = attributes[:'starts_at']
+      end
+
+      if attributes.key?(:'expires_at')
+        self.expires_at = attributes[:'expires_at']
+      else
+        self.expires_at = nil
+      end
+
+      if attributes.key?(:'can_not_expire')
+        self.can_not_expire = attributes[:'can_not_expire']
+      end
+
+      if attributes.key?(:'order_template')
+        self.order_template = attributes[:'order_template']
+      else
+        self.order_template = nil
       end
     end
 
@@ -145,28 +165,32 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @allowed_payment_methods.nil?
-        invalid_properties.push('invalid value for "allowed_payment_methods", allowed_payment_methods cannot be nil.')
-      end
-
-      if @expires_at.nil?
-        invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
-      end
-
       if @name.nil?
         invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
-      if @order_template.nil?
-        invalid_properties.push('invalid value for "order_template", order_template cannot be nil.')
+      if @type.nil?
+        invalid_properties.push('invalid value for "type", type cannot be nil.')
       end
 
       if @recurrent.nil?
         invalid_properties.push('invalid value for "recurrent", recurrent cannot be nil.')
       end
 
-      if @type.nil?
-        invalid_properties.push('invalid value for "type", type cannot be nil.')
+      if @allowed_payment_methods.nil?
+        invalid_properties.push('invalid value for "allowed_payment_methods", allowed_payment_methods cannot be nil.')
+      end
+
+      if @needs_shipping_contact.nil?
+        invalid_properties.push('invalid value for "needs_shipping_contact", needs_shipping_contact cannot be nil.')
+      end
+
+      if @expires_at.nil?
+        invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
+      end
+
+      if @order_template.nil?
+        invalid_properties.push('invalid value for "order_template", order_template cannot be nil.')
       end
 
       invalid_properties
@@ -176,12 +200,13 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @allowed_payment_methods.nil?
-      return false if @expires_at.nil?
       return false if @name.nil?
-      return false if @order_template.nil?
-      return false if @recurrent.nil?
       return false if @type.nil?
+      return false if @recurrent.nil?
+      return false if @allowed_payment_methods.nil?
+      return false if @needs_shipping_contact.nil?
+      return false if @expires_at.nil?
+      return false if @order_template.nil?
       true
     end
 
@@ -190,14 +215,16 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          allowed_payment_methods == o.allowed_payment_methods &&
-          expires_at == o.expires_at &&
           name == o.name &&
-          needs_shipping_contact == o.needs_shipping_contact &&
-          order_template == o.order_template &&
-          payments_limit_count == o.payments_limit_count &&
+          type == o.type &&
           recurrent == o.recurrent &&
-          type == o.type
+          payments_limit_count == o.payments_limit_count &&
+          allowed_payment_methods == o.allowed_payment_methods &&
+          needs_shipping_contact == o.needs_shipping_contact &&
+          starts_at == o.starts_at &&
+          expires_at == o.expires_at &&
+          can_not_expire == o.can_not_expire &&
+          order_template == o.order_template
     end
 
     # @see the `==` method
@@ -209,7 +236,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [allowed_payment_methods, expires_at, name, needs_shipping_contact, order_template, payments_limit_count, recurrent, type].hash
+      [name, type, recurrent, payments_limit_count, allowed_payment_methods, needs_shipping_contact, starts_at, expires_at, can_not_expire, order_template].hash
     end
 
     # Builds the object from hash

@@ -32,28 +32,6 @@ module DigitalFemsa
 
     attr_accessor :webhook_status
 
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -110,54 +88,38 @@ module DigitalFemsa
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
-      else
-        self.created_at = nil
       end
 
       if attributes.key?(:'data')
         if (value = attributes[:'data']).is_a?(Hash)
           self.data = value
         end
-      else
-        self.data = nil
       end
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
-      else
-        self.id = nil
       end
 
       if attributes.key?(:'livemode')
         self.livemode = attributes[:'livemode']
-      else
-        self.livemode = nil
       end
 
       if attributes.key?(:'object')
         self.object = attributes[:'object']
-      else
-        self.object = nil
       end
 
       if attributes.key?(:'type')
         self.type = attributes[:'type']
-      else
-        self.type = nil
       end
 
       if attributes.key?(:'webhook_logs')
         if (value = attributes[:'webhook_logs']).is_a?(Array)
           self.webhook_logs = value
         end
-      else
-        self.webhook_logs = nil
       end
 
       if attributes.key?(:'webhook_status')
         self.webhook_status = attributes[:'webhook_status']
-      else
-        self.webhook_status = nil
       end
     end
 
@@ -166,40 +128,8 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @data.nil?
-        invalid_properties.push('invalid value for "data", data cannot be nil.')
-      end
-
-      if @data.length > 100
+      if !@data.nil? && @data.length > 100
         invalid_properties.push('invalid value for "data", number of items must be less than or equal to 100.')
-      end
-
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @livemode.nil?
-        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
-      end
-
-      if @object.nil?
-        invalid_properties.push('invalid value for "object", object cannot be nil.')
-      end
-
-      if @type.nil?
-        invalid_properties.push('invalid value for "type", type cannot be nil.')
-      end
-
-      if @webhook_logs.nil?
-        invalid_properties.push('invalid value for "webhook_logs", webhook_logs cannot be nil.')
-      end
-
-      if @webhook_status.nil?
-        invalid_properties.push('invalid value for "webhook_status", webhook_status cannot be nil.')
       end
 
       invalid_properties
@@ -209,17 +139,7 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @created_at.nil?
-      return false if @data.nil?
-      return false if @data.length > 100
-      return false if @id.nil?
-      return false if @livemode.nil?
-      return false if @object.nil?
-      object_validator = EnumAttributeValidator.new('String', ["event"])
-      return false unless object_validator.valid?(@object)
-      return false if @type.nil?
-      return false if @webhook_logs.nil?
-      return false if @webhook_status.nil?
+      return false if !@data.nil? && @data.length > 100
       true
     end
 
@@ -235,16 +155,6 @@ module DigitalFemsa
       end
 
       @data = data
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] object Object to be assigned
-    def object=(object)
-      validator = EnumAttributeValidator.new('String', ["event"])
-      unless validator.valid?(object)
-        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
-      end
-      @object = object
     end
 
     # Checks equality by comparing each attribute.

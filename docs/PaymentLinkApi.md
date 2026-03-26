@@ -5,7 +5,7 @@ All URIs are relative to *https://api.digitalfemsa.io*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**cancel_checkout**](PaymentLinkApi.md#cancel_checkout) | **PUT** /checkouts/{id}/cancel | Cancel Payment Link |
-| [**create_checkout**](PaymentLinkApi.md#create_checkout) | **POST** /checkouts | Create Unique Payment Link |
+| [**create_checkout**](PaymentLinkApi.md#create_checkout) | **POST** /checkouts | Create Payment Link |
 | [**email_checkout**](PaymentLinkApi.md#email_checkout) | **POST** /checkouts/{id}/email | Send an email |
 | [**get_checkout**](PaymentLinkApi.md#get_checkout) | **GET** /checkouts/{id} | Get a payment link by ID |
 | [**get_checkouts**](PaymentLinkApi.md#get_checkouts) | **GET** /checkouts | Get a list of payment links |
@@ -90,9 +90,9 @@ end
 
 > <CheckoutResponse> create_checkout(checkout, opts)
 
-Create Unique Payment Link
+Create Payment Link
 
-Creates a new payment link. The request body defines the payment link type, allowed payment methods, and expiration settings.
+Creates a Payment Link: a shareable URL that lets your customer pay without you building a custom checkout. Configure the link type, allowed payment methods, and expiration. The request also includes an order_template (currency and line items) used to generate an Order when the customer completes a payment. Use recurrent=false for a single-use link, or recurrent=true to allow multiple payments (limited by payments_limit_count).
 
 ### Examples
 
@@ -106,14 +106,14 @@ DigitalFemsa.configure do |config|
 end
 
 api_instance = DigitalFemsa::PaymentLinkApi.new
-checkout = DigitalFemsa::Checkout.new({allowed_payment_methods: ["cash"], expires_at: 1680397724, name: 'Payment Link Name 1594138857', order_template: DigitalFemsa::CheckoutOrderTemplate.new({currency: 'MXN', line_items: [DigitalFemsa::Product.new({name: 'Box of Cohiba S1s', quantity: 1, unit_price: 20000})]}), recurrent: false, type: 'PaymentLink'}) # Checkout | requested field for checkout
+checkout = DigitalFemsa::Checkout.new({name: 'Payment Link Name', type: 'PaymentLink', recurrent: false, allowed_payment_methods: ["cash"], needs_shipping_contact: false, expires_at: 1680397724, order_template: DigitalFemsa::CheckoutOrderTemplate.new({currency: 'MXN', line_items: [DigitalFemsa::Product.new({name: 'Box of Cohiba', unit_price: 20000, quantity: 1})]})}) # Checkout | requested field for checkout
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
 }
 
 begin
-  # Create Unique Payment Link
+  # Create Payment Link
   result = api_instance.create_checkout(checkout, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -129,7 +129,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Create Unique Payment Link
+  # Create Payment Link
   data, status_code, headers = api_instance.create_checkout_with_http_info(checkout, opts)
   p status_code # => 2xx
   p headers # => { ... }

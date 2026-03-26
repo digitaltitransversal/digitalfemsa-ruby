@@ -5,8 +5,8 @@ All URIs are relative to *https://api.digitalfemsa.io*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_customer_shipping_contacts**](ShippingContactsApi.md#create_customer_shipping_contacts) | **POST** /customers/{id}/shipping_contacts | Create a shipping contact |
-| [**delete_customer_shipping_contacts**](ShippingContactsApi.md#delete_customer_shipping_contacts) | **DELETE** /customers/{id}/shipping_contacts/{shipping_contacts_id} | Delete shipping contact |
-| [**update_customer_shipping_contacts**](ShippingContactsApi.md#update_customer_shipping_contacts) | **PUT** /customers/{id}/shipping_contacts/{shipping_contacts_id} | Update shipping contact |
+| [**delete_customer_shipping_contacts**](ShippingContactsApi.md#delete_customer_shipping_contacts) | **DELETE** /customers/{id}/shipping_contacts/{shipping_contacts_id} | Delete shipping contacts |
+| [**update_customer_shipping_contacts**](ShippingContactsApi.md#update_customer_shipping_contacts) | **PUT** /customers/{id}/shipping_contacts/{shipping_contacts_id} | Update shipping contacts |
 
 
 ## create_customer_shipping_contacts
@@ -90,9 +90,9 @@ end
 
 > <CustomerShippingContactsResponse> delete_customer_shipping_contacts(id, shipping_contacts_id, opts)
 
-Delete shipping contact
+Delete shipping contacts
 
-Deletes an existing shipping contact for a customer. The shipping contact identified by `shipping_contacts_id` belongs to the customer identified by `id`. The response includes the deleted resource with `deleted: true`.
+Delete shipping contact that corresponds to a customer ID.
 
 ### Examples
 
@@ -114,7 +114,7 @@ opts = {
 }
 
 begin
-  # Delete shipping contact
+  # Delete shipping contacts
   result = api_instance.delete_customer_shipping_contacts(id, shipping_contacts_id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -130,7 +130,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Delete shipping contact
+  # Delete shipping contacts
   data, status_code, headers = api_instance.delete_customer_shipping_contacts_with_http_info(id, shipping_contacts_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -167,9 +167,9 @@ end
 
 > <CustomerShippingContactsResponse> update_customer_shipping_contacts(id, shipping_contacts_id, customer_update_shipping_contacts, opts)
 
-Update shipping contact
+Update shipping contacts
 
-Updates an existing shipping contact for a customer. The shipping contact identified by `shipping_contacts_id` belongs to the customer identified by `id`. Only the fields provided in the request body are updated.
+Update shipping contact that corresponds to a customer ID.
 
 ### Examples
 
@@ -192,7 +192,7 @@ opts = {
 }
 
 begin
-  # Update shipping contact
+  # Update shipping contacts
   result = api_instance.update_customer_shipping_contacts(id, shipping_contacts_id, customer_update_shipping_contacts, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -208,7 +208,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Update shipping contact
+  # Update shipping contacts
   data, status_code, headers = api_instance.update_customer_shipping_contacts_with_http_info(id, shipping_contacts_id, customer_update_shipping_contacts, opts)
   p status_code # => 2xx
   p headers # => { ... }

@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # [Shipping Contacts](https://developers.femsa.com/v2.1.0/reference/createcustomershippingcontacts) details for updating a customer shipping contact. Only the fields provided in the request body are updated.
+  # [Shipping](https://developers.femsa.com/v2.1.0/reference/createcustomershippingcontacts) details, required in case of sending a shipping. If we do not receive a shipping_contact on the order, the default shipping_contact of the customer will be used.
   class CustomerUpdateShippingContacts
     # Phone contact
     attr_accessor :phone
@@ -27,8 +27,11 @@ module DigitalFemsa
 
     attr_accessor :address
 
-    # Metadata associated with the shipping contact
-    attr_accessor :metadata
+    attr_accessor :parent_id
+
+    attr_accessor :default
+
+    attr_accessor :deleted
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -37,7 +40,9 @@ module DigitalFemsa
         :'receiver' => :'receiver',
         :'between_streets' => :'between_streets',
         :'address' => :'address',
-        :'metadata' => :'metadata'
+        :'parent_id' => :'parent_id',
+        :'default' => :'default',
+        :'deleted' => :'deleted'
       }
     end
 
@@ -53,13 +58,17 @@ module DigitalFemsa
         :'receiver' => :'String',
         :'between_streets' => :'String',
         :'address' => :'CustomerShippingContactsAddress',
-        :'metadata' => :'Hash<String, Object>'
+        :'parent_id' => :'String',
+        :'default' => :'Boolean',
+        :'deleted' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'default',
+        :'deleted'
       ])
     end
 
@@ -94,10 +103,16 @@ module DigitalFemsa
         self.address = attributes[:'address']
       end
 
-      if attributes.key?(:'metadata')
-        if (value = attributes[:'metadata']).is_a?(Hash)
-          self.metadata = value
-        end
+      if attributes.key?(:'parent_id')
+        self.parent_id = attributes[:'parent_id']
+      end
+
+      if attributes.key?(:'default')
+        self.default = attributes[:'default']
+      end
+
+      if attributes.key?(:'deleted')
+        self.deleted = attributes[:'deleted']
       end
     end
 
@@ -106,10 +121,6 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if !@metadata.nil? && @metadata.length > 100
-        invalid_properties.push('invalid value for "metadata", number of items must be less than or equal to 100.')
-      end
-
       invalid_properties
     end
 
@@ -117,22 +128,7 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if !@metadata.nil? && @metadata.length > 100
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] metadata Value to be assigned
-    def metadata=(metadata)
-      if metadata.nil?
-        fail ArgumentError, 'metadata cannot be nil'
-      end
-
-      if metadata.length > 100
-        fail ArgumentError, 'invalid value for "metadata", number of items must be less than or equal to 100.'
-      end
-
-      @metadata = metadata
     end
 
     # Checks equality by comparing each attribute.
@@ -144,7 +140,9 @@ module DigitalFemsa
           receiver == o.receiver &&
           between_streets == o.between_streets &&
           address == o.address &&
-          metadata == o.metadata
+          parent_id == o.parent_id &&
+          default == o.default &&
+          deleted == o.deleted
     end
 
     # @see the `==` method
@@ -156,7 +154,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [phone, receiver, between_streets, address, metadata].hash
+      [phone, receiver, between_streets, address, parent_id, default, deleted].hash
     end
 
     # Builds the object from hash

@@ -41,12 +41,6 @@ module DigitalFemsa
     # Custom reference
     attr_accessor :custom_reference
 
-    # Referrer information (if available)
-    attr_accessor :referrer
-
-    # Vertical-specific information (shape depends on integration)
-    attr_accessor :vertical_info
-
     attr_accessor :default_fiscal_entity_id
 
     attr_accessor :default_shipping_contact_id
@@ -94,8 +88,6 @@ module DigitalFemsa
         :'phone' => :'phone',
         :'corporate' => :'corporate',
         :'custom_reference' => :'custom_reference',
-        :'referrer' => :'referrer',
-        :'vertical_info' => :'vertical_info',
         :'default_fiscal_entity_id' => :'default_fiscal_entity_id',
         :'default_shipping_contact_id' => :'default_shipping_contact_id',
         :'metadata' => :'metadata',
@@ -122,8 +114,6 @@ module DigitalFemsa
         :'phone' => :'String',
         :'corporate' => :'Boolean',
         :'custom_reference' => :'String',
-        :'referrer' => :'String',
-        :'vertical_info' => :'Hash<String, Object>',
         :'default_fiscal_entity_id' => :'String',
         :'default_shipping_contact_id' => :'String',
         :'metadata' => :'Hash<String, Object>',
@@ -139,9 +129,6 @@ module DigitalFemsa
         :'name',
         :'email',
         :'phone',
-        :'custom_reference',
-        :'referrer',
-        :'vertical_info',
         :'default_fiscal_entity_id',
         :'default_shipping_contact_id',
         :'metadata',
@@ -205,16 +192,6 @@ module DigitalFemsa
 
       if attributes.key?(:'custom_reference')
         self.custom_reference = attributes[:'custom_reference']
-      end
-
-      if attributes.key?(:'referrer')
-        self.referrer = attributes[:'referrer']
-      end
-
-      if attributes.key?(:'vertical_info')
-        if (value = attributes[:'vertical_info']).is_a?(Hash)
-          self.vertical_info = value
-        end
       end
 
       if attributes.key?(:'default_fiscal_entity_id')
@@ -320,8 +297,6 @@ module DigitalFemsa
           phone == o.phone &&
           corporate == o.corporate &&
           custom_reference == o.custom_reference &&
-          referrer == o.referrer &&
-          vertical_info == o.vertical_info &&
           default_fiscal_entity_id == o.default_fiscal_entity_id &&
           default_shipping_contact_id == o.default_shipping_contact_id &&
           metadata == o.metadata &&
@@ -339,7 +314,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, object, created_at, livemode, name, email, phone, corporate, custom_reference, referrer, vertical_info, default_fiscal_entity_id, default_shipping_contact_id, metadata, payment_sources, fiscal_entities, shipping_contacts].hash
+      [id, object, created_at, livemode, name, email, phone, corporate, custom_reference, default_fiscal_entity_id, default_shipping_contact_id, metadata, payment_sources, fiscal_entities, shipping_contacts].hash
     end
 
     # Builds the object from hash

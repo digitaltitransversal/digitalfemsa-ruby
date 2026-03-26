@@ -28,13 +28,24 @@ module DigitalFemsa
         :'object'
       end
 
+      # Discriminator's mapping (OpenAPI v3)
+      def openapi_discriminator_mapping
+        {
+          :'cash_payment' => :'PaymentMethodCash'
+        }
+      end
+
       # Builds the object
       # @param [Mixed] Data to be matched against the list of oneOf items
       # @return [Object] Returns the model or the data itself
       def build(data)
         discriminator_value = data[openapi_discriminator_name]
         return nil if discriminator_value.nil?
-        DigitalFemsa.const_get(discriminator_value).build_from_hash(data)
+
+        klass = openapi_discriminator_mapping[discriminator_value.to_s.to_sym]
+        return nil unless klass
+
+        DigitalFemsa.const_get(klass).build_from_hash(data)
       end
     end
   end

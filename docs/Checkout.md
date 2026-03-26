@@ -4,14 +4,16 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **allowed_payment_methods** | **Array&lt;String&gt;** | Those are the payment methods that will be available for the link |  |
-| **expires_at** | **Integer** | It is the time when the link will expire. It is expressed in seconds since the Unix epoch. The valid range is from 2 to 365 days (the valid range will be taken from the next day of the creation date at 00:01 hrs)  |  |
-| **name** | **String** | Payment link name |  |
-| **needs_shipping_contact** | **Boolean** | This flag allows you to fill in the shipping information at checkout. | [optional] |
-| **order_template** | [**CheckoutOrderTemplate**](CheckoutOrderTemplate.md) |  |  |
-| **payments_limit_count** | **Integer** | It is the number of payments that can be made through the link. | [optional] |
+| **name** | **String** | Payment link name. |  |
+| **type** | **String** | Checkout type. |  |
 | **recurrent** | **Boolean** | false: single use. true: multiple payments |  |
-| **type** | **String** | It is the type of link that will be created. It must be a valid type. |  |
+| **payments_limit_count** | **Integer** | Required when &#x60;recurrent&#x60; is true. Maximum number of payments allowed through the link. | [optional] |
+| **allowed_payment_methods** | **Array&lt;String&gt;** | Payment methods available in the payment link. |  |
+| **needs_shipping_contact** | **Boolean** | This flag allows you to fill in the shipping information at checkout. |  |
+| **starts_at** | **Integer** | Start time for the link. Unix timestamp in seconds. | [optional] |
+| **expires_at** | **Integer** | Expiration time for the link (Unix timestamp in seconds). Valid range is between 2 and 365 days (calculated from the next day of creation at 00:01).  |  |
+| **can_not_expire** | **Boolean** | If true, the link does not expire. | [optional] |
+| **order_template** | [**CheckoutOrderTemplate**](CheckoutOrderTemplate.md) |  |  |
 
 ## Example
 
@@ -19,14 +21,16 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::Checkout.new(
-  allowed_payment_methods: [&quot;cash&quot;],
-  expires_at: 1680397724,
-  name: Payment Link Name 1594138857,
-  needs_shipping_contact: false,
-  order_template: null,
-  payments_limit_count: 5,
+  name: Payment Link Name,
+  type: PaymentLink,
   recurrent: false,
-  type: PaymentLink
+  payments_limit_count: null,
+  allowed_payment_methods: [&quot;cash&quot;],
+  needs_shipping_contact: false,
+  starts_at: 1680224924,
+  expires_at: 1680397724,
+  can_not_expire: false,
+  order_template: null
 )
 ```
 

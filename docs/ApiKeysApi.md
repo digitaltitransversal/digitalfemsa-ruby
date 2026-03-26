@@ -5,10 +5,10 @@ All URIs are relative to *https://api.digitalfemsa.io*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_api_key**](ApiKeysApi.md#create_api_key) | **POST** /api_keys | Create API key |
-| [**delete_api_key**](ApiKeysApi.md#delete_api_key) | **DELETE** /api_keys/{id} | Delete API key |
-| [**get_api_key**](ApiKeysApi.md#get_api_key) | **GET** /api_keys/{id} | Get API key |
+| [**delete_api_key**](ApiKeysApi.md#delete_api_key) | **DELETE** /api_keys/{id} | Delete Api Key |
+| [**get_api_key**](ApiKeysApi.md#get_api_key) | **GET** /api_keys/{id} | Get Api Key |
 | [**get_api_keys**](ApiKeysApi.md#get_api_keys) | **GET** /api_keys | List API keys |
-| [**update_api_key**](ApiKeysApi.md#update_api_key) | **PUT** /api_keys/{id} | Update API key |
+| [**update_api_key**](ApiKeysApi.md#update_api_key) | **PUT** /api_keys/{id} | Update Api Key |
 
 
 ## create_api_key
@@ -90,9 +90,9 @@ end
 
 > <DeleteApiKeysResponse> delete_api_key(id, opts)
 
-Delete API key
+Delete Api Key
 
-Deletes an API key by its ID. 
+Deletes a api key that corresponds to a api key ID
 
 ### Examples
 
@@ -112,7 +112,7 @@ opts = {
 }
 
 begin
-  # Delete API key
+  # Delete Api Key
   result = api_instance.delete_api_key(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -128,7 +128,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Delete API key
+  # Delete Api Key
   data, status_code, headers = api_instance.delete_api_key_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -163,9 +163,9 @@ end
 
 > <ApiKeyResponse> get_api_key(id, opts)
 
-Get API key
+Get Api Key
 
-Retrieves the details of an API key by its ID. 
+Gets a api key that corresponds to a api key ID
 
 ### Examples
 
@@ -186,7 +186,7 @@ opts = {
 }
 
 begin
-  # Get API key
+  # Get Api Key
   result = api_instance.get_api_key(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -202,7 +202,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get API key
+  # Get Api Key
   data, status_code, headers = api_instance.get_api_key_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -260,7 +260,7 @@ opts = {
   limit: 56, # Integer | The numbers of items to return, the maximum value is 250
   _next: '_next_example', # String | next page
   previous: 'previous_example', # String | previous page
-  search: 'search_example' # String | General search, e.g. by id or description
+  search: 'search_example' # String | General search, e.g. by id, description, prefix
 }
 
 begin
@@ -299,7 +299,7 @@ end
 | **limit** | **Integer** | The numbers of items to return, the maximum value is 250 | [optional][default to 20] |
 | **_next** | **String** | next page | [optional] |
 | **previous** | **String** | previous page | [optional] |
-| **search** | **String** | General search, e.g. by id or description | [optional] |
+| **search** | **String** | General search, e.g. by id, description, prefix | [optional] |
 
 ### Return type
 
@@ -319,9 +319,9 @@ end
 
 > <ApiKeyResponse> update_api_key(id, opts)
 
-Update API key
+Update Api Key
 
-Updates an existing API key by its ID.  Use this endpoint to change the key's status (active/inactive) or update its description. 
+Update an existing api key
 
 ### Examples
 
@@ -342,7 +342,7 @@ opts = {
 }
 
 begin
-  # Update API key
+  # Update Api Key
   result = api_instance.update_api_key(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -358,7 +358,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Update API key
+  # Update Api Key
   data, status_code, headers = api_instance.update_api_key_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }

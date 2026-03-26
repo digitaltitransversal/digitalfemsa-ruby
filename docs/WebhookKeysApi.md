@@ -33,7 +33,6 @@ end
 api_instance = DigitalFemsa::WebhookKeysApi.new
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
-  x_child_company_id: '6441b6376b60c3a638da80af', # String | In the case of a holding company, the company id of the child company to which will process the request.
   webhook_key_request: DigitalFemsa::WebhookKeyRequest.new # WebhookKeyRequest | 
 }
 
@@ -69,7 +68,6 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
-| **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 | **webhook_key_request** | [**WebhookKeyRequest**](WebhookKeyRequest.md) |  | [optional] |
 
 ### Return type
@@ -240,7 +238,7 @@ end
 
 Get List of Webhook Keys
 
-Consume the list of webhook keys you have, each environment supports 10 webhook keys (For production and testing)
+Consume the list of webhook keys you have
 
 ### Examples
 
@@ -386,6 +384,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: application/vnd.app-v2.1.0+json
+- **Content-Type**: application/json
 - **Accept**: application/vnd.app-v2.1.0+json
 

@@ -100,7 +100,7 @@ module DigitalFemsa
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
-    # @option opts [String] :search General order search, e.g. by mail, reference etc.
+    # @option opts [String] :id id of the object to be retrieved
     # @option opts [String] :charge_id id of the charge used for filtering
     # @option opts [String] :type type of the object to be retrieved
     # @option opts [String] :currency currency of the object to be retrieved
@@ -118,7 +118,7 @@ module DigitalFemsa
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
-    # @option opts [String] :search General order search, e.g. by mail, reference etc.
+    # @option opts [String] :id id of the object to be retrieved
     # @option opts [String] :charge_id id of the charge used for filtering
     # @option opts [String] :type type of the object to be retrieved
     # @option opts [String] :currency currency of the object to be retrieved
@@ -147,7 +147,7 @@ module DigitalFemsa
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
       query_params[:'next'] = opts[:'_next'] if !opts[:'_next'].nil?
       query_params[:'previous'] = opts[:'previous'] if !opts[:'previous'].nil?
-      query_params[:'search'] = opts[:'search'] if !opts[:'search'].nil?
+      query_params[:'id'] = opts[:'id'] if !opts[:'id'].nil?
       query_params[:'charge_id'] = opts[:'charge_id'] if !opts[:'charge_id'].nil?
       query_params[:'type'] = opts[:'type'] if !opts[:'type'].nil?
       query_params[:'currency'] = opts[:'currency'] if !opts[:'currency'].nil?

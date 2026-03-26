@@ -92,8 +92,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Create Unique Payment Link
-    # Creates a new payment link. The request body defines the payment link type, allowed payment methods, and expiration settings.
+    # Create Payment Link
+    # Creates a Payment Link: a shareable URL that lets your customer pay without you building a custom checkout. Configure the link type, allowed payment methods, and expiration. The request also includes an order_template (currency and line items) used to generate an Order when the customer completes a payment. Use recurrent=false for a single-use link, or recurrent=true to allow multiple payments (limited by payments_limit_count).
     # @param checkout [Checkout] requested field for checkout
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -104,8 +104,8 @@ module DigitalFemsa
       data
     end
 
-    # Create Unique Payment Link
-    # Creates a new payment link. The request body defines the payment link type, allowed payment methods, and expiration settings.
+    # Create Payment Link
+    # Creates a Payment Link: a shareable URL that lets your customer pay without you building a custom checkout. Configure the link type, allowed payment methods, and expiration. The request also includes an order_template (currency and line items) used to generate an Order when the customer completes a payment. Use recurrent&#x3D;false for a single-use link, or recurrent&#x3D;true to allow multiple payments (limited by payments_limit_count).
     # @param checkout [Checkout] requested field for checkout
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')

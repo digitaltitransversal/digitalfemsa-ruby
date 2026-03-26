@@ -185,7 +185,7 @@ end
 api_instance = DigitalFemsa::TaxesApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
 tax_id = 'tax_lin_2tQ974hSHcsdeSZHG' # String | identifier
-update_order_tax_request = DigitalFemsa::UpdateOrderTaxRequest.new({amount: 100, description: 'VAT'}) # UpdateOrderTaxRequest | Request body for creating a tax line.
+update_order_tax_request = DigitalFemsa::UpdateOrderTaxRequest.new # UpdateOrderTaxRequest | Request body for updating a tax line.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
@@ -224,7 +224,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Identifier of the resource |  |
 | **tax_id** | **String** | identifier |  |
-| **update_order_tax_request** | [**UpdateOrderTaxRequest**](UpdateOrderTaxRequest.md) | Request body for creating a tax line. |  |
+| **update_order_tax_request** | [**UpdateOrderTaxRequest**](UpdateOrderTaxRequest.md) | Request body for updating a tax line. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 

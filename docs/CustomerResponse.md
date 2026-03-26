@@ -13,8 +13,6 @@
 | **phone** | **String** | Customer&#39;s phone number | [optional] |
 | **corporate** | **Boolean** | true if the customer is a company | [optional] |
 | **custom_reference** | **String** | Custom reference | [optional] |
-| **referrer** | **String** | Referrer information (if available) | [optional] |
-| **vertical_info** | **Hash&lt;String, Object&gt;** | Vertical-specific information (shape depends on integration) | [optional] |
 | **default_fiscal_entity_id** | **String** |  | [optional] |
 | **default_shipping_contact_id** | **String** |  | [optional] |
 | **metadata** | **Hash&lt;String, Object&gt;** | Customer metadata (maps to contextual_data in backend) | [optional] |
@@ -34,11 +32,9 @@ instance = DigitalFemsa::CustomerResponse.new(
   livemode: true,
   name: Felipe,
   email: felipe@gmail.com,
-  phone: +5215555555555,
+  phone: 5215555555555,
   corporate: false,
   custom_reference: custom_reference,
-  referrer: null,
-  vertical_info: null,
   default_fiscal_entity_id: fis_ent_2tKqqAfqPi21oCmEJ,
   default_shipping_contact_id: ship_cont_2tKZsTYcsryyu7Ah8,
   metadata: null,
