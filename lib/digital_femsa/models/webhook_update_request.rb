@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # an updated webhook
+  # Parameters used to update a webhook. All fields are optional; send only the fields you want to change.
   class WebhookUpdateRequest
     # Here you must place the URL of your Webhook remember that you must program what you will do with the events received. Also do not forget to handle the HTTPS protocol for greater security.
     attr_accessor :url

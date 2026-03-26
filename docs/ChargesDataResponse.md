@@ -22,6 +22,7 @@
 | **reference_id** | **String** | Reference ID of the charge | [optional] |
 | **refunds** | [**ChargeResponseRefunds**](ChargeResponseRefunds.md) |  | [optional] |
 | **status** | **String** |  | [optional] |
+| **is_refundable** | **Boolean** |  | [optional] |
 
 ## Example
 
@@ -29,24 +30,25 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::ChargesDataResponse.new(
-  amount: 4321,
+  amount: 600000,
   channel: null,
-  created_at: 1676386026,
+  created_at: 1768581166,
   currency: MXN,
   customer_id: null,
   description: Payment from order,
   device_fingerprint: 6FR3chaU4Y1nGAW5NAGd1rcjAKa142Ba,
   failure_code: suspected_fraud,
   failure_message: Este cargo ha sido declinado porque el comportamiento del comprador es sospechoso.,
-  id: 63efa757cf65380001aec040,
-  livemode: null,
+  id: 696a682e1ef5ca00015698b7,
+  livemode: true,
   object: null,
-  order_id: ord_2tN73UdUSNrYRPD9r,
-  paid_at: 1676390742,
+  order_id: ord_2zNwzJrfNC24uQUzq,
+  paid_at: null,
   payment_method: null,
   reference_id: ref_2tN73UdUSNrYRPD9r,
   refunds: null,
-  status: pending_payment
+  status: pending_payment,
+  is_refundable: false
 )
 ```
 

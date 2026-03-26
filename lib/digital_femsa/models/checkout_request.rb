@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # [Checkout](https://developers.femsa.com/v2.1.0/reference/payment-link) details 
+  # [Checkout](https://developers.digitalfemsa.io/docs/checkout-redireccionado) details 
   class CheckoutRequest
     # Are the payment methods available for this link
     attr_accessor :allowed_payment_methods

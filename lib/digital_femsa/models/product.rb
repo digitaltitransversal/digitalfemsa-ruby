@@ -15,19 +15,11 @@ require 'time'
 
 module DigitalFemsa
   class Product
-    attr_accessor :antifraud_info
-
-    # The brand of the item.
-    attr_accessor :brand
-
-    # Short description of the item
-    attr_accessor :description
-
-    # It is a key/value hash that can hold custom fields. Maximum 100 elements and allows special characters.
-    attr_accessor :metadata
-
     # The name of the item. It will be displayed in the order.
     attr_accessor :name
+
+    # The price of the item in cents.
+    attr_accessor :unit_price
 
     # The quantity of the item in the order.
     attr_accessor :quantity
@@ -35,24 +27,29 @@ module DigitalFemsa
     # The stock keeping unit for the item. It is used to identify the item in the order.
     attr_accessor :sku
 
+    # The brand of the item.
+    attr_accessor :brand
+
+    # Short description of the item
+    attr_accessor :description
+
     # List of tags for the item. It is used to identify the item in the order.
     attr_accessor :tags
 
-    # The price of the item in cents.
-    attr_accessor :unit_price
+    # Arbitrary key-value data for your internal use. Keys should be strings; values can be any JSON value. 
+    attr_accessor :metadata
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'antifraud_info' => :'antifraud_info',
-        :'brand' => :'brand',
-        :'description' => :'description',
-        :'metadata' => :'metadata',
         :'name' => :'name',
+        :'unit_price' => :'unit_price',
         :'quantity' => :'quantity',
         :'sku' => :'sku',
+        :'brand' => :'brand',
+        :'description' => :'description',
         :'tags' => :'tags',
-        :'unit_price' => :'unit_price'
+        :'metadata' => :'metadata'
       }
     end
 
@@ -64,15 +61,14 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'antifraud_info' => :'Hash<String, Object>',
-        :'brand' => :'String',
-        :'description' => :'String',
-        :'metadata' => :'Hash<String, String>',
         :'name' => :'String',
+        :'unit_price' => :'Integer',
         :'quantity' => :'Integer',
         :'sku' => :'String',
+        :'brand' => :'String',
+        :'description' => :'String',
         :'tags' => :'Array<String>',
-        :'unit_price' => :'Integer'
+        :'metadata' => :'Hash<String, Object>'
       }
     end
 
@@ -97,30 +93,16 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'antifraud_info')
-        if (value = attributes[:'antifraud_info']).is_a?(Hash)
-          self.antifraud_info = value
-        end
-      end
-
-      if attributes.key?(:'brand')
-        self.brand = attributes[:'brand']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
-      end
-
-      if attributes.key?(:'metadata')
-        if (value = attributes[:'metadata']).is_a?(Hash)
-          self.metadata = value
-        end
-      end
-
       if attributes.key?(:'name')
         self.name = attributes[:'name']
       else
         self.name = nil
+      end
+
+      if attributes.key?(:'unit_price')
+        self.unit_price = attributes[:'unit_price']
+      else
+        self.unit_price = nil
       end
 
       if attributes.key?(:'quantity')
@@ -133,16 +115,24 @@ module DigitalFemsa
         self.sku = attributes[:'sku']
       end
 
+      if attributes.key?(:'brand')
+        self.brand = attributes[:'brand']
+      end
+
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
       if attributes.key?(:'tags')
         if (value = attributes[:'tags']).is_a?(Array)
           self.tags = value
         end
       end
 
-      if attributes.key?(:'unit_price')
-        self.unit_price = attributes[:'unit_price']
-      else
-        self.unit_price = nil
+      if attributes.key?(:'metadata')
+        if (value = attributes[:'metadata']).is_a?(Hash)
+          self.metadata = value
+        end
       end
     end
 
@@ -151,24 +141,8 @@ module DigitalFemsa
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if !@description.nil? && @description.to_s.length > 250
-        invalid_properties.push('invalid value for "description", the character length must be smaller than or equal to 250.')
-      end
-
-      if !@metadata.nil? && @metadata.length > 100
-        invalid_properties.push('invalid value for "metadata", number of items must be less than or equal to 100.')
-      end
-
       if @name.nil?
         invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
-      if @quantity < 1
-        invalid_properties.push('invalid value for "quantity", must be greater than or equal to 1.')
       end
 
       if @unit_price.nil?
@@ -179,6 +153,26 @@ module DigitalFemsa
         invalid_properties.push('invalid value for "unit_price", must be greater than or equal to 0.')
       end
 
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
+      end
+
+      if @quantity < 1
+        invalid_properties.push('invalid value for "quantity", must be greater than or equal to 1.')
+      end
+
+      if !@description.nil? && @description.to_s.length > 250
+        invalid_properties.push('invalid value for "description", the character length must be smaller than or equal to 250.')
+      end
+
+      if !@tags.nil? && @tags.length < 1
+        invalid_properties.push('invalid value for "tags", number of items must be greater than or equal to 1.')
+      end
+
+      if !@metadata.nil? && @metadata.length > 100
+        invalid_properties.push('invalid value for "metadata", number of items must be less than or equal to 100.')
+      end
+
       invalid_properties
     end
 
@@ -186,42 +180,29 @@ module DigitalFemsa
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if !@description.nil? && @description.to_s.length > 250
-      return false if !@metadata.nil? && @metadata.length > 100
       return false if @name.nil?
-      return false if @quantity.nil?
-      return false if @quantity < 1
       return false if @unit_price.nil?
       return false if @unit_price < 0
+      return false if @quantity.nil?
+      return false if @quantity < 1
+      return false if !@description.nil? && @description.to_s.length > 250
+      return false if !@tags.nil? && @tags.length < 1
+      return false if !@metadata.nil? && @metadata.length > 100
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] description Value to be assigned
-    def description=(description)
-      if description.nil?
-        fail ArgumentError, 'description cannot be nil'
+    # @param [Object] unit_price Value to be assigned
+    def unit_price=(unit_price)
+      if unit_price.nil?
+        fail ArgumentError, 'unit_price cannot be nil'
       end
 
-      if description.to_s.length > 250
-        fail ArgumentError, 'invalid value for "description", the character length must be smaller than or equal to 250.'
+      if unit_price < 0
+        fail ArgumentError, 'invalid value for "unit_price", must be greater than or equal to 0.'
       end
 
-      @description = description
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] metadata Value to be assigned
-    def metadata=(metadata)
-      if metadata.nil?
-        fail ArgumentError, 'metadata cannot be nil'
-      end
-
-      if metadata.length > 100
-        fail ArgumentError, 'invalid value for "metadata", number of items must be less than or equal to 100.'
-      end
-
-      @metadata = metadata
+      @unit_price = unit_price
     end
 
     # Custom attribute writer method with validation
@@ -239,17 +220,45 @@ module DigitalFemsa
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] unit_price Value to be assigned
-    def unit_price=(unit_price)
-      if unit_price.nil?
-        fail ArgumentError, 'unit_price cannot be nil'
+    # @param [Object] description Value to be assigned
+    def description=(description)
+      if description.nil?
+        fail ArgumentError, 'description cannot be nil'
       end
 
-      if unit_price < 0
-        fail ArgumentError, 'invalid value for "unit_price", must be greater than or equal to 0.'
+      if description.to_s.length > 250
+        fail ArgumentError, 'invalid value for "description", the character length must be smaller than or equal to 250.'
       end
 
-      @unit_price = unit_price
+      @description = description
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] tags Value to be assigned
+    def tags=(tags)
+      if tags.nil?
+        fail ArgumentError, 'tags cannot be nil'
+      end
+
+      if tags.length < 1
+        fail ArgumentError, 'invalid value for "tags", number of items must be greater than or equal to 1.'
+      end
+
+      @tags = tags
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] metadata Value to be assigned
+    def metadata=(metadata)
+      if metadata.nil?
+        fail ArgumentError, 'metadata cannot be nil'
+      end
+
+      if metadata.length > 100
+        fail ArgumentError, 'invalid value for "metadata", number of items must be less than or equal to 100.'
+      end
+
+      @metadata = metadata
     end
 
     # Checks equality by comparing each attribute.
@@ -257,15 +266,14 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          antifraud_info == o.antifraud_info &&
-          brand == o.brand &&
-          description == o.description &&
-          metadata == o.metadata &&
           name == o.name &&
+          unit_price == o.unit_price &&
           quantity == o.quantity &&
           sku == o.sku &&
+          brand == o.brand &&
+          description == o.description &&
           tags == o.tags &&
-          unit_price == o.unit_price
+          metadata == o.metadata
     end
 
     # @see the `==` method
@@ -277,7 +285,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [antifraud_info, brand, description, metadata, name, quantity, sku, tags, unit_price].hash
+      [name, unit_price, quantity, sku, brand, description, tags, metadata].hash
     end
 
     # Builds the object from hash

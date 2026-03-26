@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # a webhook
+  # Parameters used to create or update a webhook.
   class WebhookRequest
     # Here you must place the URL of your Webhook remember that you must program what you will do with the events received. Also do not forget to handle the HTTPS protocol for greater security.
     attr_accessor :url

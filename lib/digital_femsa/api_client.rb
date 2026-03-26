@@ -34,7 +34,7 @@ module DigitalFemsa
     # @option config [Configuration] Configuration for initializing the object, default to Configuration.default
     def initialize(config = Configuration.default)
       @config = config
-      @user_agent = "DigitalFemsa/v2 RubyBindings/#{DigitalFemsa::VERSION}"
+      @user_agent = "App/v2 RubyBindings/#{DigitalFemsa::VERSION}"
       @default_headers = {
         'Content-Type' => 'application/json',
         'User-Agent' => @user_agent,

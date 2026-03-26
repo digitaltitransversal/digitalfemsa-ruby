@@ -18,11 +18,11 @@ require 'digital_femsa'
 
 instance = DigitalFemsa::OrderFiscalEntityRequest.new(
   address: null,
-  email: test@gmail.com,
+  email: null,
   metadata: null,
-  name: Femsa Inc,
-  phone: +525511223344,
-  tax_id: AAA010101AAA
+  name: null,
+  phone: null,
+  tax_id: null
 )
 ```
 

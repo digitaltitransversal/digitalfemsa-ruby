@@ -13,7 +13,7 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 Get a company's balance
 
-Get a company's balance
+Retrieves the current balance information for the authenticated company.  Monetary fields are returned as arrays of amounts grouped by currency. 
 
 ### Examples
 

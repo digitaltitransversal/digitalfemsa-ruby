@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # webhooks model
+  # Represents a webhook endpoint configured to receive event notifications.
   class WebhookResponse
     attr_accessor :deleted
 

@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Get transaction
-    # Get the details of a transaction
+    # Retrieves the details of a transaction by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -32,7 +32,7 @@ module DigitalFemsa
     end
 
     # Get transaction
-    # Get the details of a transaction
+    # Retrieves the details of a transaction by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -92,8 +92,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get List transactions
-    # Get transaction details in the form of a list
+    # List transactions
+    # Returns a paginated list of transactions (ledger movements).  A transaction is a movement that represents the financial impact of payment operations, including amounts, fees, and net values. Transactions can be linked to a charge and may be linked to a transfer (payout) when they are included in a payout.  If you need payout-level information (destination, statement reference/description, payout status), use GET /transfers. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -110,8 +110,8 @@ module DigitalFemsa
       data
     end
 
-    # Get List transactions
-    # Get transaction details in the form of a list
+    # List transactions
+    # Returns a paginated list of transactions (ledger movements).  A transaction is a movement that represents the financial impact of payment operations, including amounts, fees, and net values. Transactions can be linked to a charge and may be linked to a transfer (payout) when they are included in a payout.  If you need payout-level information (destination, statement reference/description, payout status), use GET /transfers. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

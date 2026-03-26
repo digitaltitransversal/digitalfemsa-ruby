@@ -4,22 +4,22 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**create_customer**](CustomersApi.md#create_customer) | **POST** /customers | Create customer |
+| [**create_customer**](CustomersApi.md#create_customer) | **POST** /customers | Create a customer |
 | [**create_customer_fiscal_entities**](CustomersApi.md#create_customer_fiscal_entities) | **POST** /customers/{id}/fiscal_entities | Create Fiscal Entity |
 | [**delete_customer_by_id**](CustomersApi.md#delete_customer_by_id) | **DELETE** /customers/{id} | Delete Customer |
 | [**get_customer_by_id**](CustomersApi.md#get_customer_by_id) | **GET** /customers/{id} | Get Customer |
 | [**get_customers**](CustomersApi.md#get_customers) | **GET** /customers | Get a list of customers |
 | [**update_customer**](CustomersApi.md#update_customer) | **PUT** /customers/{id} | Update customer |
-| [**update_customer_fiscal_entities**](CustomersApi.md#update_customer_fiscal_entities) | **PUT** /customers/{id}/fiscal_entities/{fiscal_entities_id} | Update  Fiscal Entity |
+| [**update_customer_fiscal_entities**](CustomersApi.md#update_customer_fiscal_entities) | **PUT** /customers/{id}/fiscal_entities/{fiscal_entities_id} | Update Fiscal Entity |
 
 
 ## create_customer
 
 > <CustomerResponse> create_customer(customer, opts)
 
-Create customer
+Create a customer
 
-The purpose of business is to create and keep a customer, you will learn what elements you need to create a customer. 
+Creates a new customer for the authenticated company.  Use customers to store and reuse buyer information (for example name, email, phone, and addresses). The created customer can be referenced later when creating orders and other resources. 
 
 ### Examples
 
@@ -33,14 +33,14 @@ DigitalFemsa.configure do |config|
 end
 
 api_instance = DigitalFemsa::CustomersApi.new
-customer = DigitalFemsa::Customer.new({email: 'miguel@gmail.com', name: 'miguel', phone: '+5215555555555'}) # Customer | requested field for customer
+customer = DigitalFemsa::Customer.new({name: 'miguel', email: 'miguel@gmail.com'}) # Customer | requested field for customer
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
 }
 
 begin
-  # Create customer
+  # Create a customer
   result = api_instance.create_customer(customer, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -56,7 +56,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Create customer
+  # Create a customer
   data, status_code, headers = api_instance.create_customer_with_http_info(customer, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -94,7 +94,7 @@ end
 
 Create Fiscal Entity
 
-Create Fiscal entity resource that corresponds to a customer ID.
+Create a fiscal entity resource for a given customer ID.
 
 ### Examples
 
@@ -109,7 +109,7 @@ end
 
 api_instance = DigitalFemsa::CustomersApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
-customer_fiscal_entities_request = DigitalFemsa::CustomerFiscalEntitiesRequest.new({address: DigitalFemsa::CustomerAddress.new({street1: 'Nuevo Leon 254', postal_code: '06100', city: 'Ciudad de Mexico'})}) # CustomerFiscalEntitiesRequest | requested field for customer fiscal entities
+customer_fiscal_entities_request = DigitalFemsa::CustomerFiscalEntitiesRequest.new({address: DigitalFemsa::CustomerAddress.new({street1: 'Nuevo Leon 254', postal_code: '06100', city: 'Ciudad de Mexico', country: 'MX'})}) # CustomerFiscalEntitiesRequest | requested field for customer fiscal entities
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
@@ -321,7 +321,7 @@ end
 
 Get a list of customers
 
-The purpose of business is to create and maintain a client, you will learn what elements you need to obtain a list of clients, which can be paged.
+Returns a paginated list of customers for the authenticated company.  Use the [search] parameter to filter results. 
 
 ### Examples
 
@@ -477,7 +477,7 @@ end
 
 > <UpdateCustomerFiscalEntitiesResponse> update_customer_fiscal_entities(id, fiscal_entities_id, customer_update_fiscal_entities_request, opts)
 
-Update  Fiscal Entity
+Update Fiscal Entity
 
 Update Fiscal Entity resource that corresponds to a customer ID.
 
@@ -495,14 +495,14 @@ end
 api_instance = DigitalFemsa::CustomersApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
 fiscal_entities_id = 'fis_ent_2tQ8HkkfbauaKP9Ho' # String | identifier
-customer_update_fiscal_entities_request = DigitalFemsa::CustomerUpdateFiscalEntitiesRequest.new # CustomerUpdateFiscalEntitiesRequest | requested field for customer update fiscal entities
+customer_update_fiscal_entities_request = DigitalFemsa::CustomerUpdateFiscalEntitiesRequest.new # CustomerUpdateFiscalEntitiesRequest | Request body for updating a customer fiscal entity.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
 }
 
 begin
-  # Update  Fiscal Entity
+  # Update Fiscal Entity
   result = api_instance.update_customer_fiscal_entities(id, fiscal_entities_id, customer_update_fiscal_entities_request, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -518,7 +518,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Update  Fiscal Entity
+  # Update Fiscal Entity
   data, status_code, headers = api_instance.update_customer_fiscal_entities_with_http_info(id, fiscal_entities_id, customer_update_fiscal_entities_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -534,7 +534,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Identifier of the resource |  |
 | **fiscal_entities_id** | **String** | identifier |  |
-| **customer_update_fiscal_entities_request** | [**CustomerUpdateFiscalEntitiesRequest**](CustomerUpdateFiscalEntitiesRequest.md) | requested field for customer update fiscal entities |  |
+| **customer_update_fiscal_entities_request** | [**CustomerUpdateFiscalEntitiesRequest**](CustomerUpdateFiscalEntitiesRequest.md) | Request body for updating a customer fiscal entity. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 

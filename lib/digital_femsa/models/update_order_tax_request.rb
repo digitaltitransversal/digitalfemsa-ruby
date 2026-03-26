@@ -14,12 +14,12 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # create new taxes for an existing order
+  # Create a new tax line for an existing order.
   class UpdateOrderTaxRequest
     # The amount to be collected for tax in cents
     attr_accessor :amount
 
-    # description or tax's name
+    # Description or tax name
     attr_accessor :description
 
     attr_accessor :metadata

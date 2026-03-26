@@ -20,14 +20,14 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::ApiKeyResponseOnDelete.new(
-  active: true,
+  active: false,
   created_at: 1684167881,
   description: online store,
   livemode: false,
   prefix: key_rp,
   id: 64625cc9f3e02c00163f5e4d,
   object: api_key,
-  deleted: false,
+  deleted: true,
   role: private
 )
 ```

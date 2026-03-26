@@ -22,7 +22,7 @@ instance = DigitalFemsa::EventsResendResponse.new(
   last_attempted_at: 1684265970,
   last_http_response_status: 405,
   response_data: {},
-  url: https://username:password@mockoon.stg.femsa.io/payments-api/cash/merchant_approval
+  url: https://example.com/new-webhooks
 )
 ```
 

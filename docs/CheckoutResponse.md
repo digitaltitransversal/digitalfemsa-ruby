@@ -12,7 +12,7 @@
 | **id** | **String** |  |  |
 | **livemode** | **Boolean** |  |  |
 | **metadata** | **Hash&lt;String, Object&gt;** |  | [optional] |
-| **name** | **String** | Reason for charge |  |
+| **name** | **String** | Payment link name |  |
 | **needs_shipping_contact** | **Boolean** |  | [optional] |
 | **object** | **String** |  |  |
 | **paid_payments_count** | **Integer** |  | [optional] |

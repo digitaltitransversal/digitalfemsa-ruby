@@ -15,7 +15,7 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 Create Shipping
 
-Create new shipping for an existing orden
+Creates a new shipping line for an existing order. The shipping line is added to the order identified by `id`. The response returns the created shipping line.
 
 ### Examples
 
@@ -30,7 +30,7 @@ end
 
 api_instance = DigitalFemsa::ShippingsApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
-shipping_request = DigitalFemsa::ShippingRequest.new({amount: 100}) # ShippingRequest | requested field for a shipping
+shipping_request = DigitalFemsa::ShippingRequest.new({amount: 100}) # ShippingRequest | Request body for creating or updating a shipping line.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
@@ -68,7 +68,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Identifier of the resource |  |
-| **shipping_request** | [**ShippingRequest**](ShippingRequest.md) | requested field for a shipping |  |
+| **shipping_request** | [**ShippingRequest**](ShippingRequest.md) | Request body for creating or updating a shipping line. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 
@@ -92,7 +92,7 @@ end
 
 Delete Shipping
 
-Delete shipping
+Deletes an existing shipping line from an order. The shipping line identified by `shipping_id` belongs to the order identified by `id`.
 
 ### Examples
 
@@ -169,7 +169,7 @@ end
 
 Update Shipping
 
-Update existing shipping for an existing orden
+Updates an existing shipping line for an order. The shipping line identified by `shipping_id` belongs to the order identified by `id`. Only the fields provided in the request body are updated.
 
 ### Examples
 
@@ -185,7 +185,7 @@ end
 api_instance = DigitalFemsa::ShippingsApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
 shipping_id = 'ship_lin_2tQ974hSHcsdeSZHG' # String | identifier
-shipping_request = DigitalFemsa::ShippingRequest.new({amount: 100}) # ShippingRequest | requested field for a shipping
+shipping_request = DigitalFemsa::ShippingRequest.new({amount: 100}) # ShippingRequest | Request body for creating or updating a shipping line.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
@@ -224,7 +224,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Identifier of the resource |  |
 | **shipping_id** | **String** | identifier |  |
-| **shipping_request** | [**ShippingRequest**](ShippingRequest.md) | requested field for a shipping |  |
+| **shipping_request** | [**ShippingRequest**](ShippingRequest.md) | Request body for creating or updating a shipping line. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 

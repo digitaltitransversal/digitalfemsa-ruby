@@ -4,17 +4,17 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**get_transfer**](TransfersApi.md#get_transfer) | **GET** /transfers/{id} | Get Transfer |
-| [**get_transfers**](TransfersApi.md#get_transfers) | **GET** /transfers | Get a list of transfers |
+| [**get_transfer**](TransfersApi.md#get_transfer) | **GET** /transfers/{id} | Get transfer |
+| [**get_transfers**](TransfersApi.md#get_transfers) | **GET** /transfers | List transfers |
 
 
 ## get_transfer
 
 > <TransferResponse> get_transfer(id, opts)
 
-Get Transfer
+Get transfer
 
-Get the details of a Transfer
+Retrieves the details of a transfer by its ID.
 
 ### Examples
 
@@ -35,7 +35,7 @@ opts = {
 }
 
 begin
-  # Get Transfer
+  # Get transfer
   result = api_instance.get_transfer(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -51,7 +51,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get Transfer
+  # Get transfer
   data, status_code, headers = api_instance.get_transfer_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -87,9 +87,9 @@ end
 
 > <GetTransfersResponse> get_transfers(opts)
 
-Get a list of transfers
+List transfers
 
-Get transfers details in the form of a list
+Returns a paginated list of transfers (payouts/dispersions).  A transfer represents a payout of funds to the merchant (where the money is sent and the payout status). Transfers typically aggregate multiple transactions.  If you need movement-level details (amount/fee/net per operation) or to reconcile charges, use GET /transactions. 
 
 ### Examples
 
@@ -113,7 +113,7 @@ opts = {
 }
 
 begin
-  # Get a list of transfers
+  # List transfers
   result = api_instance.get_transfers(opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -129,7 +129,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get a list of transfers
+  # List transfers
   data, status_code, headers = api_instance.get_transfers_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }

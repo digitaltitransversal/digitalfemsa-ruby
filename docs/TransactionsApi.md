@@ -5,7 +5,7 @@ All URIs are relative to *https://api.digitalfemsa.io*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**get_transaction**](TransactionsApi.md#get_transaction) | **GET** /transactions/{id} | Get transaction |
-| [**get_transactions**](TransactionsApi.md#get_transactions) | **GET** /transactions | Get List transactions |
+| [**get_transactions**](TransactionsApi.md#get_transactions) | **GET** /transactions | List transactions |
 
 
 ## get_transaction
@@ -14,7 +14,7 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 Get transaction
 
-Get the details of a transaction
+Retrieves the details of a transaction by its ID.
 
 ### Examples
 
@@ -87,9 +87,9 @@ end
 
 > <GetTransactionsResponse> get_transactions(opts)
 
-Get List transactions
+List transactions
 
-Get transaction details in the form of a list
+Returns a paginated list of transactions (ledger movements).  A transaction is a movement that represents the financial impact of payment operations, including amounts, fees, and net values. Transactions can be linked to a charge and may be linked to a transfer (payout) when they are included in a payout.  If you need payout-level information (destination, statement reference/description, payout status), use GET /transfers. 
 
 ### Examples
 
@@ -116,7 +116,7 @@ opts = {
 }
 
 begin
-  # Get List transactions
+  # List transactions
   result = api_instance.get_transactions(opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -132,7 +132,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get List transactions
+  # List transactions
   data, status_code, headers = api_instance.get_transactions_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }

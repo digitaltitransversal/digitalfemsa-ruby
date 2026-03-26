@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **amount** | **Integer** |  | [optional] |
-| **channel** | [**ChargeResponseChannel**](ChargeResponseChannel.md) |  | [optional] |
+| **channel** | [**ChargeOrderResponseChannel**](ChargeOrderResponseChannel.md) |  | [optional] |
 | **created_at** | **Integer** |  | [optional] |
 | **currency** | **String** |  | [optional] |
 | **customer_id** | **String** |  | [optional] |

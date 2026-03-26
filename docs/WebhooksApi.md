@@ -5,11 +5,11 @@ All URIs are relative to *https://api.digitalfemsa.io*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_webhook**](WebhooksApi.md#create_webhook) | **POST** /webhooks | Create Webhook |
-| [**delete_webhook**](WebhooksApi.md#delete_webhook) | **DELETE** /webhooks/{id} | Delete Webhook |
-| [**get_webhook**](WebhooksApi.md#get_webhook) | **GET** /webhooks/{id} | Get Webhook |
+| [**delete_webhook**](WebhooksApi.md#delete_webhook) | **DELETE** /webhooks/{id} | Delete webhook |
+| [**get_webhook**](WebhooksApi.md#get_webhook) | **GET** /webhooks/{id} | Get webhook |
 | [**get_webhooks**](WebhooksApi.md#get_webhooks) | **GET** /webhooks | Get List of Webhooks |
-| [**test_webhook**](WebhooksApi.md#test_webhook) | **POST** /webhooks/{id}/test | Test Webhook |
-| [**update_webhook**](WebhooksApi.md#update_webhook) | **PUT** /webhooks/{id} | Update Webhook |
+| [**test_webhook**](WebhooksApi.md#test_webhook) | **POST** /webhooks/{id}/test | Test webhook |
+| [**update_webhook**](WebhooksApi.md#update_webhook) | **PUT** /webhooks/{id} | Update webhook |
 
 
 ## create_webhook
@@ -32,7 +32,7 @@ DigitalFemsa.configure do |config|
 end
 
 api_instance = DigitalFemsa::WebhooksApi.new
-webhook_request = DigitalFemsa::WebhookRequest.new({url: 'https://webhook.site/89277eaa-a8e4-4306-8dc5-f55c80703dc8', synchronous: false}) # WebhookRequest | requested field for webhook
+webhook_request = DigitalFemsa::WebhookRequest.new({url: 'https://webhook.site/89277eaa-a8e4-4306-8dc5-f55c80703dc8', synchronous: false}) # WebhookRequest | Webhook creation/update request payload.
 opts = {
   accept_language: 'es' # String | Use for knowing which language to use
 }
@@ -68,7 +68,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **webhook_request** | [**WebhookRequest**](WebhookRequest.md) | requested field for webhook |  |
+| **webhook_request** | [**WebhookRequest**](WebhookRequest.md) | Webhook creation/update request payload. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 
 ### Return type
@@ -89,7 +89,9 @@ end
 
 > <WebhookResponse> delete_webhook(id, opts)
 
-Delete Webhook
+Delete webhook
+
+Deletes a webhook.
 
 ### Examples
 
@@ -109,7 +111,7 @@ opts = {
 }
 
 begin
-  # Delete Webhook
+  # Delete webhook
   result = api_instance.delete_webhook(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -125,7 +127,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Delete Webhook
+  # Delete webhook
   data, status_code, headers = api_instance.delete_webhook_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -160,7 +162,9 @@ end
 
 > <WebhookResponse> get_webhook(id, opts)
 
-Get Webhook
+Get webhook
+
+Retrieves the details of a webhook by its ID.
 
 ### Examples
 
@@ -181,7 +185,7 @@ opts = {
 }
 
 begin
-  # Get Webhook
+  # Get webhook
   result = api_instance.get_webhook(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -197,7 +201,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get Webhook
+  # Get webhook
   data, status_code, headers = api_instance.get_webhook_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -254,6 +258,7 @@ opts = {
   x_child_company_id: '6441b6376b60c3a638da80af', # String | In the case of a holding company, the company id of the child company to which will process the request.
   limit: 56, # Integer | The numbers of items to return, the maximum value is 250
   search: 'search_example', # String | General order search, e.g. by mail, reference etc.
+  url: 'https://api.digitalfemsa.io/webhook', # String | url for webhook filter
   _next: '_next_example', # String | next page
   previous: 'previous_example' # String | previous page
 }
@@ -293,6 +298,7 @@ end
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 | **limit** | **Integer** | The numbers of items to return, the maximum value is 250 | [optional][default to 20] |
 | **search** | **String** | General order search, e.g. by mail, reference etc. | [optional] |
+| **url** | **String** | url for webhook filter | [optional] |
 | **_next** | **String** | next page | [optional] |
 | **previous** | **String** | previous page | [optional] |
 
@@ -314,9 +320,9 @@ end
 
 > <WebhookResponse> test_webhook(id, opts)
 
-Test Webhook
+Test webhook
 
-Send a webhook.ping event
+Sends a test event to the specified webhook to verify it can receive events.
 
 ### Examples
 
@@ -336,7 +342,7 @@ opts = {
 }
 
 begin
-  # Test Webhook
+  # Test webhook
   result = api_instance.test_webhook(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -352,7 +358,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Test Webhook
+  # Test webhook
   data, status_code, headers = api_instance.test_webhook_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -387,9 +393,9 @@ end
 
 > <WebhookResponse> update_webhook(id, webhook_update_request, opts)
 
-Update Webhook
+Update webhook
 
-updates an existing webhook
+Updates an existing webhook.
 
 ### Examples
 
@@ -404,14 +410,14 @@ end
 
 api_instance = DigitalFemsa::WebhooksApi.new
 id = '6307a60c41de27127515a575' # String | Identifier of the resource
-webhook_update_request = DigitalFemsa::WebhookUpdateRequest.new({url: 'https://webhook.site/89277eaa-a8e4-4306-8dc5-f55c80703dc8'}) # WebhookUpdateRequest | requested fields in order to update a webhook
+webhook_update_request = DigitalFemsa::WebhookUpdateRequest.new({url: 'https://webhook.site/89277eaa-a8e4-4306-8dc5-f55c80703dc8'}) # WebhookUpdateRequest | Webhook update request payload.
 opts = {
   accept_language: 'es', # String | Use for knowing which language to use
   x_child_company_id: '6441b6376b60c3a638da80af' # String | In the case of a holding company, the company id of the child company to which will process the request.
 }
 
 begin
-  # Update Webhook
+  # Update webhook
   result = api_instance.update_webhook(id, webhook_update_request, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -427,7 +433,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Update Webhook
+  # Update webhook
   data, status_code, headers = api_instance.update_webhook_with_http_info(id, webhook_update_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -442,7 +448,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Identifier of the resource |  |
-| **webhook_update_request** | [**WebhookUpdateRequest**](WebhookUpdateRequest.md) | requested fields in order to update a webhook |  |
+| **webhook_update_request** | [**WebhookUpdateRequest**](WebhookUpdateRequest.md) | Webhook update request payload. |  |
 | **accept_language** | **String** | Use for knowing which language to use | [optional][default to &#39;es&#39;] |
 | **x_child_company_id** | **String** | In the case of a holding company, the company id of the child company to which will process the request. | [optional] |
 

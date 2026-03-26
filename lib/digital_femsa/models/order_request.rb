@@ -16,61 +16,57 @@ require 'time'
 module DigitalFemsa
   # a order
   class OrderRequest
-    # List of [charges](https://developers.femsa.com/v2.1.0/reference/orderscreatecharge) that are applied to the order
-    attr_accessor :charges
-
-    attr_accessor :checkout
-
-    # Currency with which the payment will be made. It uses the 3-letter code of the [International Standard ISO 4217.](https://es.wikipedia.org/wiki/ISO_4217)
+    # Currency with which the payment will be made.
     attr_accessor :currency
 
     attr_accessor :customer_info
 
-    # List of [discounts](https://developers.femsa.com/v2.1.0/reference/orderscreatediscountline) that are applied to the order. You must have at least one discount.
-    attr_accessor :discount_lines
-
-    attr_accessor :fiscal_entity
-
-    # List of [products](https://developers.femsa.com/v2.1.0/reference/orderscreateproduct) that are sold in the order. You must have at least one product.
+    # List of [products](https://developers.digitalfemsa.io/reference/orderscreateproduct) that are sold in the order. You must have at least one product.
     attr_accessor :line_items
 
-    # Metadata associated with the order
-    attr_accessor :metadata
+    # List of [charges](https://developers.digitalfemsa.io/reference/orderscreatecharge) that are applied to the order
+    attr_accessor :charges
+
+    attr_accessor :checkout
+
+    # List of [discounts](https://developers.digitalfemsa.io/reference/orderscreatediscountline) that are applied to the order. You must have at least one discount.
+    attr_accessor :discount_lines
+
+    # List of [taxes](https://developers.digitalfemsa.io/reference/orderscreatetaxes) that are applied to the order.
+    attr_accessor :tax_lines
 
     # Allows you to fill out the shipping information at checkout
     attr_accessor :needs_shipping_contact
 
+    attr_accessor :shipping_contact
+
+    # List of [shipping costs](https://developers.digitalfemsa.io/reference/orderscreateshipping). If the online store offers digital products.
+    attr_accessor :shipping_lines
+
+    attr_accessor :fiscal_entity
+
     # Indicates the processing mode for the order, either ecommerce, recurrent or validation.
     attr_accessor :processing_mode
 
-    # Indicates the redirection callback upon completion of the 3DS2 flow.
-    attr_accessor :return_url
-
-    attr_accessor :shipping_contact
-
-    # List of [shipping costs](https://developers.femsa.com/v2.1.0/reference/orderscreateshipping). If the online store offers digital products.
-    attr_accessor :shipping_lines
-
-    # List of [taxes](https://developers.femsa.com/v2.1.0/reference/orderscreatetaxes) that are applied to the order.
-    attr_accessor :tax_lines
+    # Arbitrary key-value data that you can attach to the order for your internal use (e.g. `customer_segment`, `sales_channel`, `internal_order_id`). It is not used for payment processing or fraud decisions. Keys should be strings; values can be any JSON value.
+    attr_accessor :metadata
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'charges' => :'charges',
-        :'checkout' => :'checkout',
         :'currency' => :'currency',
         :'customer_info' => :'customer_info',
-        :'discount_lines' => :'discount_lines',
-        :'fiscal_entity' => :'fiscal_entity',
         :'line_items' => :'line_items',
-        :'metadata' => :'metadata',
+        :'charges' => :'charges',
+        :'checkout' => :'checkout',
+        :'discount_lines' => :'discount_lines',
+        :'tax_lines' => :'tax_lines',
         :'needs_shipping_contact' => :'needs_shipping_contact',
-        :'processing_mode' => :'processing_mode',
-        :'return_url' => :'return_url',
         :'shipping_contact' => :'shipping_contact',
         :'shipping_lines' => :'shipping_lines',
-        :'tax_lines' => :'tax_lines'
+        :'fiscal_entity' => :'fiscal_entity',
+        :'processing_mode' => :'processing_mode',
+        :'metadata' => :'metadata'
       }
     end
 
@@ -82,20 +78,19 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'charges' => :'Array<ChargeRequest>',
-        :'checkout' => :'CheckoutRequest',
         :'currency' => :'String',
         :'customer_info' => :'OrderRequestCustomerInfo',
-        :'discount_lines' => :'Array<OrderDiscountLinesRequest>',
-        :'fiscal_entity' => :'OrderFiscalEntityRequest',
         :'line_items' => :'Array<Product>',
-        :'metadata' => :'Hash<String, Object>',
+        :'charges' => :'Array<ChargeRequest>',
+        :'checkout' => :'CheckoutRequest',
+        :'discount_lines' => :'Array<OrderDiscountLinesRequest>',
+        :'tax_lines' => :'Array<OrderTaxRequest>',
         :'needs_shipping_contact' => :'Boolean',
-        :'processing_mode' => :'String',
-        :'return_url' => :'String',
         :'shipping_contact' => :'CustomerShippingContacts',
         :'shipping_lines' => :'Array<ShippingRequest>',
-        :'tax_lines' => :'Array<OrderTaxRequest>'
+        :'fiscal_entity' => :'OrderFiscalEntityRequest',
+        :'processing_mode' => :'String',
+        :'metadata' => :'Hash<String, Object>'
       }
     end
 
@@ -120,16 +115,6 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'charges')
-        if (value = attributes[:'charges']).is_a?(Array)
-          self.charges = value
-        end
-      end
-
-      if attributes.key?(:'checkout')
-        self.checkout = attributes[:'checkout']
-      end
-
       if attributes.key?(:'currency')
         self.currency = attributes[:'currency']
       else
@@ -142,16 +127,6 @@ module DigitalFemsa
         self.customer_info = nil
       end
 
-      if attributes.key?(:'discount_lines')
-        if (value = attributes[:'discount_lines']).is_a?(Array)
-          self.discount_lines = value
-        end
-      end
-
-      if attributes.key?(:'fiscal_entity')
-        self.fiscal_entity = attributes[:'fiscal_entity']
-      end
-
       if attributes.key?(:'line_items')
         if (value = attributes[:'line_items']).is_a?(Array)
           self.line_items = value
@@ -160,22 +135,30 @@ module DigitalFemsa
         self.line_items = nil
       end
 
-      if attributes.key?(:'metadata')
-        if (value = attributes[:'metadata']).is_a?(Hash)
-          self.metadata = value
+      if attributes.key?(:'charges')
+        if (value = attributes[:'charges']).is_a?(Array)
+          self.charges = value
+        end
+      end
+
+      if attributes.key?(:'checkout')
+        self.checkout = attributes[:'checkout']
+      end
+
+      if attributes.key?(:'discount_lines')
+        if (value = attributes[:'discount_lines']).is_a?(Array)
+          self.discount_lines = value
+        end
+      end
+
+      if attributes.key?(:'tax_lines')
+        if (value = attributes[:'tax_lines']).is_a?(Array)
+          self.tax_lines = value
         end
       end
 
       if attributes.key?(:'needs_shipping_contact')
         self.needs_shipping_contact = attributes[:'needs_shipping_contact']
-      end
-
-      if attributes.key?(:'processing_mode')
-        self.processing_mode = attributes[:'processing_mode']
-      end
-
-      if attributes.key?(:'return_url')
-        self.return_url = attributes[:'return_url']
       end
 
       if attributes.key?(:'shipping_contact')
@@ -188,9 +171,17 @@ module DigitalFemsa
         end
       end
 
-      if attributes.key?(:'tax_lines')
-        if (value = attributes[:'tax_lines']).is_a?(Array)
-          self.tax_lines = value
+      if attributes.key?(:'fiscal_entity')
+        self.fiscal_entity = attributes[:'fiscal_entity']
+      end
+
+      if attributes.key?(:'processing_mode')
+        self.processing_mode = attributes[:'processing_mode']
+      end
+
+      if attributes.key?(:'metadata')
+        if (value = attributes[:'metadata']).is_a?(Hash)
+          self.metadata = value
         end
       end
     end
@@ -268,20 +259,19 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          charges == o.charges &&
-          checkout == o.checkout &&
           currency == o.currency &&
           customer_info == o.customer_info &&
-          discount_lines == o.discount_lines &&
-          fiscal_entity == o.fiscal_entity &&
           line_items == o.line_items &&
-          metadata == o.metadata &&
+          charges == o.charges &&
+          checkout == o.checkout &&
+          discount_lines == o.discount_lines &&
+          tax_lines == o.tax_lines &&
           needs_shipping_contact == o.needs_shipping_contact &&
-          processing_mode == o.processing_mode &&
-          return_url == o.return_url &&
           shipping_contact == o.shipping_contact &&
           shipping_lines == o.shipping_lines &&
-          tax_lines == o.tax_lines
+          fiscal_entity == o.fiscal_entity &&
+          processing_mode == o.processing_mode &&
+          metadata == o.metadata
     end
 
     # @see the `==` method
@@ -293,7 +283,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [charges, checkout, currency, customer_info, discount_lines, fiscal_entity, line_items, metadata, needs_shipping_contact, processing_mode, return_url, shipping_contact, shipping_lines, tax_lines].hash
+      [currency, customer_info, line_items, charges, checkout, discount_lines, tax_lines, needs_shipping_contact, shipping_contact, shipping_lines, fiscal_entity, processing_mode, metadata].hash
     end
 
     # Builds the object from hash

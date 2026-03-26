@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Create Discount
-    # Create discount lines for an existing orden
+    # Create discount lines for an existing order
     # @param id [String] Identifier of the resource
     # @param order_discount_lines_request [OrderDiscountLinesRequest] requested field for a discount lines
     # @param [Hash] opts the optional parameters
@@ -33,7 +33,7 @@ module DigitalFemsa
     end
 
     # Create Discount
-    # Create discount lines for an existing orden
+    # Create discount lines for an existing order
     # @param id [String] Identifier of the resource
     # @param order_discount_lines_request [OrderDiscountLinesRequest] requested field for a discount lines
     # @param [Hash] opts the optional parameters
@@ -104,7 +104,7 @@ module DigitalFemsa
     end
 
     # Delete Discount
-    # Delete an existing discount lines for an existing orden
+    # Delete an existing discount line for an existing order
     # @param id [String] Identifier of the resource
     # @param discount_lines_id [String] discount line id identifier
     # @param [Hash] opts the optional parameters
@@ -117,7 +117,7 @@ module DigitalFemsa
     end
 
     # Delete Discount
-    # Delete an existing discount lines for an existing orden
+    # Delete an existing discount line for an existing order
     # @param id [String] Identifier of the resource
     # @param discount_lines_id [String] discount line id identifier
     # @param [Hash] opts the optional parameters
@@ -183,7 +183,7 @@ module DigitalFemsa
     end
 
     # Get Discount
-    # Get an existing discount lines for an existing orden
+    # Get an existing discount line for an existing order
     # @param id [String] Identifier of the resource
     # @param discount_lines_id [String] discount line id identifier
     # @param [Hash] opts the optional parameters
@@ -196,7 +196,7 @@ module DigitalFemsa
     end
 
     # Get Discount
-    # Get an existing discount lines for an existing orden
+    # Get an existing discount line for an existing order
     # @param id [String] Identifier of the resource
     # @param discount_lines_id [String] discount line id identifier
     # @param [Hash] opts the optional parameters
@@ -261,8 +261,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get a List of Discount
-    # Get discount lines for an existing orden
+    # Get a List of Discounts
+    # Get discount lines for an existing order
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -277,8 +277,8 @@ module DigitalFemsa
       data
     end
 
-    # Get a List of Discount
-    # Get discount lines for an existing orden
+    # Get a List of Discounts
+    # Get discount lines for an existing order
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -355,7 +355,7 @@ module DigitalFemsa
     end
 
     # Update Discount
-    # Update an existing discount lines for an existing orden
+    # Update an existing discount line for an existing order
     # @param id [String] Identifier of the resource
     # @param discount_lines_id [String] discount line id identifier
     # @param update_order_discount_lines_request [UpdateOrderDiscountLinesRequest] requested field for a discount lines
@@ -369,7 +369,7 @@ module DigitalFemsa
     end
 
     # Update Discount
-    # Update an existing discount lines for an existing orden
+    # Update an existing discount line for an existing order
     # @param id [String] Identifier of the resource
     # @param discount_lines_id [String] discount line id identifier
     # @param update_order_discount_lines_request [UpdateOrderDiscountLinesRequest] requested field for a discount lines

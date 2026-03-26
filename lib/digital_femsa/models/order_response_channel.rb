@@ -14,51 +14,23 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # Company balance summary.  Monetary fields are returned as arrays of amounts grouped by currency (see `balance_common_field` items). 
-  class BalanceResponse
-    # Amounts currently available, grouped by currency.
-    attr_accessor :available
+  # Channel information for the order (for example Checkout-related metadata). It may be `null`.
+  class OrderResponseChannel
+    attr_accessor :segment
 
-    # The balance's cashout retention amount
-    attr_accessor :cashout_retention_amount
+    attr_accessor :checkout_request_id
 
-    # The balance's Femsa retention
-    attr_accessor :conekta_retention
+    attr_accessor :checkout_request_type
 
-    # Gateway balance amounts, grouped by currency.
-    attr_accessor :gateway
-
-    # Amounts pending settlement, grouped by currency.
-    attr_accessor :pending
-
-    # Amounts currently retained, grouped by currency.
-    attr_accessor :retained
-
-    # Retention amount applied, grouped by currency.
-    attr_accessor :retention_amount
-
-    # Target collateral amount, grouped by currency.
-    attr_accessor :target_collateral_amount
-
-    # Target retention amount, grouped by currency.
-    attr_accessor :target_retention_amount
-
-    # Amounts temporarily retained
-    attr_accessor :temporarily_retained
+    attr_accessor :id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'available' => :'available',
-        :'cashout_retention_amount' => :'cashout_retention_amount',
-        :'conekta_retention' => :'conekta_retention',
-        :'gateway' => :'gateway',
-        :'pending' => :'pending',
-        :'retained' => :'retained',
-        :'retention_amount' => :'retention_amount',
-        :'target_collateral_amount' => :'target_collateral_amount',
-        :'target_retention_amount' => :'target_retention_amount',
-        :'temporarily_retained' => :'temporarily_retained'
+        :'segment' => :'segment',
+        :'checkout_request_id' => :'checkout_request_id',
+        :'checkout_request_type' => :'checkout_request_type',
+        :'id' => :'id'
       }
     end
 
@@ -70,16 +42,10 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'available' => :'Array<BalanceCommonField>',
-        :'cashout_retention_amount' => :'Array<BalanceCommonField>',
-        :'conekta_retention' => :'Array<BalanceCommonField>',
-        :'gateway' => :'Array<BalanceCommonField>',
-        :'pending' => :'Array<BalanceCommonField>',
-        :'retained' => :'Array<BalanceCommonField>',
-        :'retention_amount' => :'Array<BalanceCommonField>',
-        :'target_collateral_amount' => :'Object',
-        :'target_retention_amount' => :'Array<BalanceCommonField>',
-        :'temporarily_retained' => :'Array<BalanceCommonField>'
+        :'segment' => :'String',
+        :'checkout_request_id' => :'String',
+        :'checkout_request_type' => :'String',
+        :'id' => :'String'
       }
     end
 
@@ -93,73 +59,31 @@ module DigitalFemsa
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `DigitalFemsa::BalanceResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `DigitalFemsa::OrderResponseChannel` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `DigitalFemsa::BalanceResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `DigitalFemsa::OrderResponseChannel`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'available')
-        if (value = attributes[:'available']).is_a?(Array)
-          self.available = value
-        end
+      if attributes.key?(:'segment')
+        self.segment = attributes[:'segment']
       end
 
-      if attributes.key?(:'cashout_retention_amount')
-        if (value = attributes[:'cashout_retention_amount']).is_a?(Array)
-          self.cashout_retention_amount = value
-        end
+      if attributes.key?(:'checkout_request_id')
+        self.checkout_request_id = attributes[:'checkout_request_id']
       end
 
-      if attributes.key?(:'conekta_retention')
-        if (value = attributes[:'conekta_retention']).is_a?(Array)
-          self.conekta_retention = value
-        end
+      if attributes.key?(:'checkout_request_type')
+        self.checkout_request_type = attributes[:'checkout_request_type']
       end
 
-      if attributes.key?(:'gateway')
-        if (value = attributes[:'gateway']).is_a?(Array)
-          self.gateway = value
-        end
-      end
-
-      if attributes.key?(:'pending')
-        if (value = attributes[:'pending']).is_a?(Array)
-          self.pending = value
-        end
-      end
-
-      if attributes.key?(:'retained')
-        if (value = attributes[:'retained']).is_a?(Array)
-          self.retained = value
-        end
-      end
-
-      if attributes.key?(:'retention_amount')
-        if (value = attributes[:'retention_amount']).is_a?(Array)
-          self.retention_amount = value
-        end
-      end
-
-      if attributes.key?(:'target_collateral_amount')
-        self.target_collateral_amount = attributes[:'target_collateral_amount']
-      end
-
-      if attributes.key?(:'target_retention_amount')
-        if (value = attributes[:'target_retention_amount']).is_a?(Array)
-          self.target_retention_amount = value
-        end
-      end
-
-      if attributes.key?(:'temporarily_retained')
-        if (value = attributes[:'temporarily_retained']).is_a?(Array)
-          self.temporarily_retained = value
-        end
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
       end
     end
 
@@ -183,16 +107,10 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          available == o.available &&
-          cashout_retention_amount == o.cashout_retention_amount &&
-          conekta_retention == o.conekta_retention &&
-          gateway == o.gateway &&
-          pending == o.pending &&
-          retained == o.retained &&
-          retention_amount == o.retention_amount &&
-          target_collateral_amount == o.target_collateral_amount &&
-          target_retention_amount == o.target_retention_amount &&
-          temporarily_retained == o.temporarily_retained
+          segment == o.segment &&
+          checkout_request_id == o.checkout_request_id &&
+          checkout_request_type == o.checkout_request_type &&
+          id == o.id
     end
 
     # @see the `==` method
@@ -204,7 +122,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [available, cashout_retention_amount, conekta_retention, gateway, pending, retained, retention_amount, target_collateral_amount, target_retention_amount, temporarily_retained].hash
+      [segment, checkout_request_id, checkout_request_type, id].hash
     end
 
     # Builds the object from hash

@@ -52,6 +52,8 @@ module DigitalFemsa
 
     attr_accessor :status
 
+    attr_accessor :is_refundable
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -72,7 +74,8 @@ module DigitalFemsa
         :'payment_method' => :'payment_method',
         :'reference_id' => :'reference_id',
         :'refunds' => :'refunds',
-        :'status' => :'status'
+        :'status' => :'status',
+        :'is_refundable' => :'is_refundable'
       }
     end
 
@@ -101,13 +104,16 @@ module DigitalFemsa
         :'payment_method' => :'ChargeResponsePaymentMethod',
         :'reference_id' => :'String',
         :'refunds' => :'ChargeResponseRefunds',
-        :'status' => :'String'
+        :'status' => :'String',
+        :'is_refundable' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'failure_code',
+        :'failure_message',
         :'paid_at',
         :'reference_id',
         :'refunds',
@@ -200,6 +206,10 @@ module DigitalFemsa
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
+
+      if attributes.key?(:'is_refundable')
+        self.is_refundable = attributes[:'is_refundable']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -239,7 +249,8 @@ module DigitalFemsa
           payment_method == o.payment_method &&
           reference_id == o.reference_id &&
           refunds == o.refunds &&
-          status == o.status
+          status == o.status &&
+          is_refundable == o.is_refundable
     end
 
     # @see the `==` method
@@ -251,7 +262,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, channel, created_at, currency, customer_id, description, device_fingerprint, failure_code, failure_message, id, livemode, object, order_id, paid_at, payment_method, reference_id, refunds, status].hash
+      [amount, channel, created_at, currency, customer_id, description, device_fingerprint, failure_code, failure_message, id, livemode, object, order_id, paid_at, payment_method, reference_id, refunds, status, is_refundable].hash
     end
 
     # Builds the object from hash

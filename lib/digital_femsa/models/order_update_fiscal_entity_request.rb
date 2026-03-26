@@ -24,7 +24,7 @@ module DigitalFemsa
     # Name of the fiscal entity
     attr_accessor :name
 
-    # Metadata associated with the fiscal entity
+    # Arbitrary key-value data associated with the fiscal entity for your internal use. Keys should be strings; values can be any JSON value. 
     attr_accessor :metadata
 
     # Phone of the fiscal entity

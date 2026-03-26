@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Create Webhook Key
-    # Create a webhook key
+    # Creates a new webhook signing key for the current company.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [WebhookKeyRequest] :webhook_key_request 
@@ -31,7 +31,7 @@ module DigitalFemsa
     end
 
     # Create Webhook Key
-    # Create a webhook key
+    # Creates a new webhook signing key for the current company.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [WebhookKeyRequest] :webhook_key_request 
@@ -90,7 +90,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Delete Webhook key
+    # Delete webhook key
+    # Deletes a webhook signing key.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -100,7 +101,8 @@ module DigitalFemsa
       data
     end
 
-    # Delete Webhook key
+    # Delete webhook key
+    # Deletes a webhook signing key.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -158,7 +160,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get Webhook Key
+    # Get webhook key
+    # Retrieves the details of a webhook signing key by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -169,7 +172,8 @@ module DigitalFemsa
       data
     end
 
-    # Get Webhook Key
+    # Get webhook key
+    # Retrieves the details of a webhook signing key by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -316,8 +320,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Update Webhook Key
-    # updates an existing webhook key
+    # Update webhook key
+    # Activates or deactivates an existing webhook signing key.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -328,8 +332,8 @@ module DigitalFemsa
       data
     end
 
-    # Update Webhook Key
-    # updates an existing webhook key
+    # Update webhook key
+    # Activates or deactivates an existing webhook signing key.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')

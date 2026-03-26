@@ -19,10 +19,10 @@ module DigitalFemsa
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Create a shipping contacts
-    # Create a shipping contacts for a customer.
+    # Create a shipping contact
+    # Creates a new shipping contact for a customer. The shipping contact is associated with the customer identified by `id`.
     # @param id [String] Identifier of the resource
-    # @param customer_shipping_contacts [CustomerShippingContacts] requested field for customer shippings contacts
+    # @param customer_shipping_contacts [CustomerShippingContacts] Request body for creating or updating a customer shipping contact.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -32,10 +32,10 @@ module DigitalFemsa
       data
     end
 
-    # Create a shipping contacts
-    # Create a shipping contacts for a customer.
+    # Create a shipping contact
+    # Creates a new shipping contact for a customer. The shipping contact is associated with the customer identified by &#x60;id&#x60;.
     # @param id [String] Identifier of the resource
-    # @param customer_shipping_contacts [CustomerShippingContacts] requested field for customer shippings contacts
+    # @param customer_shipping_contacts [CustomerShippingContacts] Request body for creating or updating a customer shipping contact.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -186,7 +186,7 @@ module DigitalFemsa
     # Update shipping contact that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param shipping_contacts_id [String] identifier
-    # @param customer_update_shipping_contacts [CustomerUpdateShippingContacts] requested field for customer update shippings contacts
+    # @param customer_update_shipping_contacts [CustomerUpdateShippingContacts] Request body for updating a customer shipping contact.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -200,7 +200,7 @@ module DigitalFemsa
     # Update shipping contact that corresponds to a customer ID.
     # @param id [String] Identifier of the resource
     # @param shipping_contacts_id [String] identifier
-    # @param customer_update_shipping_contacts [CustomerUpdateShippingContacts] requested field for customer update shippings contacts
+    # @param customer_update_shipping_contacts [CustomerUpdateShippingContacts] Request body for updating a customer shipping contact.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

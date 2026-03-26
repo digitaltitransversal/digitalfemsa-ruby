@@ -61,7 +61,7 @@ module DigitalFemsa
       {
         :'type' => :'String',
         :'object' => :'String',
-        :'auth_code' => :'Integer',
+        :'auth_code' => :'String',
         :'cashier_id' => :'String',
         :'reference' => :'String',
         :'barcode_url' => :'String',

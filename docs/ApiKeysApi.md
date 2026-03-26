@@ -4,10 +4,10 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**create_api_key**](ApiKeysApi.md#create_api_key) | **POST** /api_keys | Create Api Key |
+| [**create_api_key**](ApiKeysApi.md#create_api_key) | **POST** /api_keys | Create API key |
 | [**delete_api_key**](ApiKeysApi.md#delete_api_key) | **DELETE** /api_keys/{id} | Delete Api Key |
 | [**get_api_key**](ApiKeysApi.md#get_api_key) | **GET** /api_keys/{id} | Get Api Key |
-| [**get_api_keys**](ApiKeysApi.md#get_api_keys) | **GET** /api_keys | Get list of Api Keys |
+| [**get_api_keys**](ApiKeysApi.md#get_api_keys) | **GET** /api_keys | List API keys |
 | [**update_api_key**](ApiKeysApi.md#update_api_key) | **PUT** /api_keys/{id} | Update Api Key |
 
 
@@ -15,9 +15,9 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 > <ApiKeyCreateResponse> create_api_key(api_key_request, opts)
 
-Create Api Key
+Create API key
 
-Create a api key
+Creates a new API key.  The response includes an `authentication_token` that is shown only once (at creation time). Copy and store it securely. 
 
 ### Examples
 
@@ -38,7 +38,7 @@ opts = {
 }
 
 begin
-  # Create Api Key
+  # Create API key
   result = api_instance.create_api_key(api_key_request, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -54,7 +54,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Create Api Key
+  # Create API key
   data, status_code, headers = api_instance.create_api_key_with_http_info(api_key_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -238,9 +238,9 @@ end
 
 > <GetApiKeysResponse> get_api_keys(opts)
 
-Get list of Api Keys
+List API keys
 
-Consume the list of api keys you have
+Retrieves a paginated list of API keys for the authenticated account.  Use the pagination parameters (`limit`, `next_page`, `previous_page`) to navigate through results. Use the `search` query parameter to perform a general search (for example by key `id` or description). 
 
 ### Examples
 
@@ -264,7 +264,7 @@ opts = {
 }
 
 begin
-  # Get list of Api Keys
+  # List API keys
   result = api_instance.get_api_keys(opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -280,7 +280,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get list of Api Keys
+  # List API keys
   data, status_code, headers = api_instance.get_api_keys_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }

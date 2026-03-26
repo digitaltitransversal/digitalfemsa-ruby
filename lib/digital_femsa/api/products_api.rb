@@ -20,9 +20,9 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Create Product
-    # Create a new product for an existing order.
+    # Creates a new product (line item) for an existing order. Use this endpoint to add an additional item to the order after it has been created.
     # @param id [String] Identifier of the resource
-    # @param product [Product] requested field for a product
+    # @param product [Product] Fields required to create a new product (line item) for an existing order. This request adds a new item to the order.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -33,9 +33,9 @@ module DigitalFemsa
     end
 
     # Create Product
-    # Create a new product for an existing order.
+    # Creates a new product (line item) for an existing order. Use this endpoint to add an additional item to the order after it has been created.
     # @param id [String] Identifier of the resource
-    # @param product [Product] requested field for a product
+    # @param product [Product] Fields required to create a new product (line item) for an existing order. This request adds a new item to the order.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -104,7 +104,7 @@ module DigitalFemsa
     end
 
     # Delete Product
-    # Delete product for an existing orden
+    # Deletes a product (line item) from an existing order. The API will validate whether the order can be modified before removing the item.
     # @param id [String] Identifier of the resource
     # @param line_item_id [String] identifier
     # @param [Hash] opts the optional parameters
@@ -117,7 +117,7 @@ module DigitalFemsa
     end
 
     # Delete Product
-    # Delete product for an existing orden
+    # Deletes a product (line item) from an existing order. The API will validate whether the order can be modified before removing the item.
     # @param id [String] Identifier of the resource
     # @param line_item_id [String] identifier
     # @param [Hash] opts the optional parameters
@@ -183,10 +183,10 @@ module DigitalFemsa
     end
 
     # Update Product
-    # Update an existing product for an existing orden
+    # Updates an existing product (line item) for an existing order. Use this endpoint to modify the details of a specific line item in the order.
     # @param id [String] Identifier of the resource
     # @param line_item_id [String] identifier
-    # @param update_product [UpdateProduct] requested field for products
+    # @param update_product [UpdateProduct] Fields allowed to update an existing product (line item) in an order. All fields are optional; only the provided fields will be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -197,10 +197,10 @@ module DigitalFemsa
     end
 
     # Update Product
-    # Update an existing product for an existing orden
+    # Updates an existing product (line item) for an existing order. Use this endpoint to modify the details of a specific line item in the order.
     # @param id [String] Identifier of the resource
     # @param line_item_id [String] identifier
-    # @param update_product [UpdateProduct] requested field for products
+    # @param update_product [UpdateProduct] Fields allowed to update an existing product (line item) in an order. All fields are optional; only the provided fields will be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

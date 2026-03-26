@@ -7,7 +7,7 @@ All URIs are relative to *https://api.digitalfemsa.io*
 | [**orders_create_discount_line**](DiscountsApi.md#orders_create_discount_line) | **POST** /orders/{id}/discount_lines | Create Discount |
 | [**orders_delete_discount_lines**](DiscountsApi.md#orders_delete_discount_lines) | **DELETE** /orders/{id}/discount_lines/{discount_lines_id} | Delete Discount |
 | [**orders_get_discount_line**](DiscountsApi.md#orders_get_discount_line) | **GET** /orders/{id}/discount_lines/{discount_lines_id} | Get Discount |
-| [**orders_get_discount_lines**](DiscountsApi.md#orders_get_discount_lines) | **GET** /orders/{id}/discount_lines | Get a List of Discount |
+| [**orders_get_discount_lines**](DiscountsApi.md#orders_get_discount_lines) | **GET** /orders/{id}/discount_lines | Get a List of Discounts |
 | [**orders_update_discount_lines**](DiscountsApi.md#orders_update_discount_lines) | **PUT** /orders/{id}/discount_lines/{discount_lines_id} | Update Discount |
 
 
@@ -17,7 +17,7 @@ All URIs are relative to *https://api.digitalfemsa.io*
 
 Create Discount
 
-Create discount lines for an existing orden
+Create discount lines for an existing order
 
 ### Examples
 
@@ -94,7 +94,7 @@ end
 
 Delete Discount
 
-Delete an existing discount lines for an existing orden
+Delete an existing discount line for an existing order
 
 ### Examples
 
@@ -171,7 +171,7 @@ end
 
 Get Discount
 
-Get an existing discount lines for an existing orden
+Get an existing discount line for an existing order
 
 ### Examples
 
@@ -246,9 +246,9 @@ end
 
 > <GetOrderDiscountLinesResponse> orders_get_discount_lines(id, opts)
 
-Get a List of Discount
+Get a List of Discounts
 
-Get discount lines for an existing orden
+Get discount lines for an existing order
 
 ### Examples
 
@@ -273,7 +273,7 @@ opts = {
 }
 
 begin
-  # Get a List of Discount
+  # Get a List of Discounts
   result = api_instance.orders_get_discount_lines(id, opts)
   p result
 rescue DigitalFemsa::ApiError => e
@@ -289,7 +289,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Get a List of Discount
+  # Get a List of Discounts
   data, status_code, headers = api_instance.orders_get_discount_lines_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -331,7 +331,7 @@ end
 
 Update Discount
 
-Update an existing discount lines for an existing orden
+Update an existing discount line for an existing order
 
 ### Examples
 

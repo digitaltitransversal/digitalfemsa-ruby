@@ -14,6 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
+  # Customer information associated with the order.
   class OrderResponseCustomerInfo
     # Custom reference
     attr_accessor :customer_custom_reference

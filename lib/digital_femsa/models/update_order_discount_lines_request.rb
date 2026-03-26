@@ -23,6 +23,28 @@ module DigitalFemsa
 
     attr_accessor :type
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -97,6 +119,8 @@ module DigitalFemsa
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if !@amount.nil? && @amount < 0
+      type_validator = EnumAttributeValidator.new('String', ["loyalty", "campaign", "coupon", "sign"])
+      return false unless type_validator.valid?(@type)
       true
     end
 
@@ -112,6 +136,16 @@ module DigitalFemsa
       end
 
       @amount = amount
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      validator = EnumAttributeValidator.new('String', ["loyalty", "campaign", "coupon", "sign"])
+      unless validator.valid?(type)
+        fail ArgumentError, "invalid value for \"type\", must be one of #{validator.allowable_values}."
+      end
+      @type = type
     end
 
     # Checks equality by comparing each attribute.

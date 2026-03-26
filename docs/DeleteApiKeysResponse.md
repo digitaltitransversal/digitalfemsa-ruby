@@ -20,7 +20,7 @@
 require 'digital_femsa'
 
 instance = DigitalFemsa::DeleteApiKeysResponse.new(
-  active: true,
+  active: false,
   created_at: 1684167881,
   description: online store,
   livemode: false,

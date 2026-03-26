@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # webhook keys model
+  # Represents a webhook signing key after it has been deleted.
   class WebhookKeyDeleteResponse
     # Indicates if the webhook key is active
     attr_accessor :active

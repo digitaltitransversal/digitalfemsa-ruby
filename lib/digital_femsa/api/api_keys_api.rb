@@ -19,8 +19,8 @@ module DigitalFemsa
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Create Api Key
-    # Create a api key
+    # Create API key
+    # Creates a new API key.  The response includes an `authentication_token` that is shown only once (at creation time). Copy and store it securely. 
     # @param api_key_request [ApiKeyRequest] requested field for a api keys
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -31,8 +31,8 @@ module DigitalFemsa
       data
     end
 
-    # Create Api Key
-    # Create a api key
+    # Create API key
+    # Creates a new API key.  The response includes an &#x60;authentication_token&#x60; that is shown only once (at creation time). Copy and store it securely. 
     # @param api_key_request [ApiKeyRequest] requested field for a api keys
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -240,8 +240,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get list of Api Keys
-    # Consume the list of api keys you have
+    # List API keys
+    # Retrieves a paginated list of API keys for the authenticated account.  Use the pagination parameters (`limit`, `next_page`, `previous_page`) to navigate through results. Use the `search` query parameter to perform a general search (for example by key `id` or description). 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -255,8 +255,8 @@ module DigitalFemsa
       data
     end
 
-    # Get list of Api Keys
-    # Consume the list of api keys you have
+    # List API keys
+    # Retrieves a paginated list of API keys for the authenticated account.  Use the pagination parameters (&#x60;limit&#x60;, &#x60;next_page&#x60;, &#x60;previous_page&#x60;) to navigate through results. Use the &#x60;search&#x60; query parameter to perform a general search (for example by key &#x60;id&#x60; or description). 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

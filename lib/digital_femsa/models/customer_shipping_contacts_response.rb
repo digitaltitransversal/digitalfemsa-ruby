@@ -24,6 +24,7 @@ module DigitalFemsa
 
     attr_accessor :address
 
+    # Customer ID that owns this shipping contact.
     attr_accessor :parent_id
 
     attr_accessor :default
@@ -37,6 +38,7 @@ module DigitalFemsa
 
     attr_accessor :object
 
+    # Present only when the shipping contact was deleted.
     attr_accessor :deleted
 
     # Attribute mapping from ruby-style variable name to JSON key.

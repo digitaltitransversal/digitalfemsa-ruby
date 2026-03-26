@@ -20,9 +20,9 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Create Shipping
-    # Create new shipping for an existing orden
+    # Creates a new shipping line for an existing order. The shipping line is added to the order identified by `id`. The response returns the created shipping line.
     # @param id [String] Identifier of the resource
-    # @param shipping_request [ShippingRequest] requested field for a shipping
+    # @param shipping_request [ShippingRequest] Request body for creating or updating a shipping line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -33,9 +33,9 @@ module DigitalFemsa
     end
 
     # Create Shipping
-    # Create new shipping for an existing orden
+    # Creates a new shipping line for an existing order. The shipping line is added to the order identified by &#x60;id&#x60;. The response returns the created shipping line.
     # @param id [String] Identifier of the resource
-    # @param shipping_request [ShippingRequest] requested field for a shipping
+    # @param shipping_request [ShippingRequest] Request body for creating or updating a shipping line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -104,7 +104,7 @@ module DigitalFemsa
     end
 
     # Delete Shipping
-    # Delete shipping
+    # Deletes an existing shipping line from an order. The shipping line identified by `shipping_id` belongs to the order identified by `id`.
     # @param id [String] Identifier of the resource
     # @param shipping_id [String] identifier
     # @param [Hash] opts the optional parameters
@@ -117,7 +117,7 @@ module DigitalFemsa
     end
 
     # Delete Shipping
-    # Delete shipping
+    # Deletes an existing shipping line from an order. The shipping line identified by &#x60;shipping_id&#x60; belongs to the order identified by &#x60;id&#x60;.
     # @param id [String] Identifier of the resource
     # @param shipping_id [String] identifier
     # @param [Hash] opts the optional parameters
@@ -183,10 +183,10 @@ module DigitalFemsa
     end
 
     # Update Shipping
-    # Update existing shipping for an existing orden
+    # Updates an existing shipping line for an order. The shipping line identified by `shipping_id` belongs to the order identified by `id`. Only the fields provided in the request body are updated.
     # @param id [String] Identifier of the resource
     # @param shipping_id [String] identifier
-    # @param shipping_request [ShippingRequest] requested field for a shipping
+    # @param shipping_request [ShippingRequest] Request body for creating or updating a shipping line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -197,10 +197,10 @@ module DigitalFemsa
     end
 
     # Update Shipping
-    # Update existing shipping for an existing orden
+    # Updates an existing shipping line for an order. The shipping line identified by &#x60;shipping_id&#x60; belongs to the order identified by &#x60;id&#x60;. Only the fields provided in the request body are updated.
     # @param id [String] Identifier of the resource
     # @param shipping_id [String] identifier
-    # @param shipping_request [ShippingRequest] requested field for a shipping
+    # @param shipping_request [ShippingRequest] Request body for creating or updating a shipping line.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

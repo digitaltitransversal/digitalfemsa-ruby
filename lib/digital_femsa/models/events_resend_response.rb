@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # event model
+  # Webhook log model returned after resending an event webhook delivery.
   class EventsResendResponse
     attr_accessor :failed_attempts
 

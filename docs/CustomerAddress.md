@@ -9,7 +9,7 @@
 | **postal_code** | **String** |  |  |
 | **city** | **String** |  |  |
 | **state** | **String** |  | [optional] |
-| **country** | **String** | this field follows the [ISO 3166-1 alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) | [optional] |
+| **country** | **String** | this field follows the [ISO 3166-1 alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |  |
 | **residential** | **Boolean** |  | [optional][default to false] |
 | **external_number** | **String** |  | [optional] |
 
@@ -26,7 +26,7 @@ instance = DigitalFemsa::CustomerAddress.new(
   state: Ciudad de Mexico,
   country: MX,
   residential: true,
-  external_number: null
+  external_number: string
 )
 ```
 

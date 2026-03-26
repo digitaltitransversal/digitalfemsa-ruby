@@ -31,6 +31,11 @@ module DigitalFemsa
     # refund status
     attr_accessor :status
 
+    attr_accessor :payout_id
+
+    # payout reference for oxxo stores
+    attr_accessor :reference
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -40,7 +45,9 @@ module DigitalFemsa
         :'expires_at' => :'expires_at',
         :'id' => :'id',
         :'object' => :'object',
-        :'status' => :'status'
+        :'status' => :'status',
+        :'payout_id' => :'payout_id',
+        :'reference' => :'reference'
       }
     end
 
@@ -58,7 +65,9 @@ module DigitalFemsa
         :'expires_at' => :'Integer',
         :'id' => :'String',
         :'object' => :'String',
-        :'status' => :'String'
+        :'status' => :'String',
+        :'payout_id' => :'String',
+        :'reference' => :'String'
       }
     end
 
@@ -118,6 +127,14 @@ module DigitalFemsa
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
+
+      if attributes.key?(:'payout_id')
+        self.payout_id = attributes[:'payout_id']
+      end
+
+      if attributes.key?(:'reference')
+        self.reference = attributes[:'reference']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -166,7 +183,9 @@ module DigitalFemsa
           expires_at == o.expires_at &&
           id == o.id &&
           object == o.object &&
-          status == o.status
+          status == o.status &&
+          payout_id == o.payout_id &&
+          reference == o.reference
     end
 
     # @see the `==` method
@@ -178,7 +197,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, auth_code, created_at, expires_at, id, object, status].hash
+      [amount, auth_code, created_at, expires_at, id, object, status, payout_id, reference].hash
     end
 
     # Builds the object from hash

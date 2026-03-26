@@ -48,7 +48,7 @@ module DigitalFemsa
     # Indicates if the api key is private or public
     attr_accessor :role
 
-    # It is occupied as a user when authenticated with basic authentication, with a blank password. This value will only appear once, in the request to create a new key. Copy and save it in a safe place.
+    # Used as the username for Basic Authentication, with a blank password. This value is shown only once (when the key is created). Copy and store it securely. 
     attr_accessor :authentication_token
 
     # Attribute mapping from ruby-style variable name to JSON key.

@@ -18,6 +18,7 @@ docs/BalanceCommonField.md
 docs/BalanceResponse.md
 docs/BalancesApi.md
 docs/ChargeOrderResponse.md
+docs/ChargeOrderResponseChannel.md
 docs/ChargeOrderResponsePaymentMethod.md
 docs/ChargeRequest.md
 docs/ChargeRequestPaymentMethod.md
@@ -45,8 +46,6 @@ docs/CreateCustomerPaymentMethodsRequest.md
 docs/CreateCustomerPaymentMethodsResponse.md
 docs/Customer.md
 docs/CustomerAddress.md
-docs/CustomerAntifraudInfo.md
-docs/CustomerAntifraudInfoResponse.md
 docs/CustomerFiscalEntitiesDataResponse.md
 docs/CustomerFiscalEntitiesRequest.md
 docs/CustomerFiscalEntitiesResponse.md
@@ -102,12 +101,11 @@ docs/OrderDiscountLinesRequest.md
 docs/OrderFiscalEntityAddressResponse.md
 docs/OrderFiscalEntityRequest.md
 docs/OrderFiscalEntityResponse.md
-docs/OrderNextActionResponse.md
-docs/OrderNextActionResponseRedirectToUrl.md
 docs/OrderRefundRequest.md
 docs/OrderRequest.md
 docs/OrderRequestCustomerInfo.md
 docs/OrderResponse.md
+docs/OrderResponseChannel.md
 docs/OrderResponseCharges.md
 docs/OrderResponseCheckout.md
 docs/OrderResponseCustomerInfo.md
@@ -137,7 +135,6 @@ docs/ShippingContactsApi.md
 docs/ShippingOrderResponse.md
 docs/ShippingRequest.md
 docs/ShippingsApi.md
-docs/SmsCheckoutRequest.md
 docs/TaxesApi.md
 docs/TransactionResponse.md
 docs/TransactionsApi.md
@@ -147,7 +144,6 @@ docs/TransferResponse.md
 docs/TransfersApi.md
 docs/TransfersResponse.md
 docs/UpdateCustomer.md
-docs/UpdateCustomerAntifraudInfo.md
 docs/UpdateCustomerFiscalEntitiesResponse.md
 docs/UpdateCustomerPaymentMethodsResponse.md
 docs/UpdateOrderDiscountLinesRequest.md
@@ -197,6 +193,7 @@ lib/digital_femsa/models/api_key_update_request.rb
 lib/digital_femsa/models/balance_common_field.rb
 lib/digital_femsa/models/balance_response.rb
 lib/digital_femsa/models/charge_order_response.rb
+lib/digital_femsa/models/charge_order_response_channel.rb
 lib/digital_femsa/models/charge_order_response_payment_method.rb
 lib/digital_femsa/models/charge_request.rb
 lib/digital_femsa/models/charge_request_payment_method.rb
@@ -222,8 +219,6 @@ lib/digital_femsa/models/create_customer_payment_methods_request.rb
 lib/digital_femsa/models/create_customer_payment_methods_response.rb
 lib/digital_femsa/models/customer.rb
 lib/digital_femsa/models/customer_address.rb
-lib/digital_femsa/models/customer_antifraud_info.rb
-lib/digital_femsa/models/customer_antifraud_info_response.rb
 lib/digital_femsa/models/customer_fiscal_entities_data_response.rb
 lib/digital_femsa/models/customer_fiscal_entities_request.rb
 lib/digital_femsa/models/customer_fiscal_entities_response.rb
@@ -275,12 +270,11 @@ lib/digital_femsa/models/order_discount_lines_request.rb
 lib/digital_femsa/models/order_fiscal_entity_address_response.rb
 lib/digital_femsa/models/order_fiscal_entity_request.rb
 lib/digital_femsa/models/order_fiscal_entity_response.rb
-lib/digital_femsa/models/order_next_action_response.rb
-lib/digital_femsa/models/order_next_action_response_redirect_to_url.rb
 lib/digital_femsa/models/order_refund_request.rb
 lib/digital_femsa/models/order_request.rb
 lib/digital_femsa/models/order_request_customer_info.rb
 lib/digital_femsa/models/order_response.rb
+lib/digital_femsa/models/order_response_channel.rb
 lib/digital_femsa/models/order_response_charges.rb
 lib/digital_femsa/models/order_response_checkout.rb
 lib/digital_femsa/models/order_response_customer_info.rb
@@ -304,14 +298,12 @@ lib/digital_femsa/models/product_data_response.rb
 lib/digital_femsa/models/product_order_response.rb
 lib/digital_femsa/models/shipping_order_response.rb
 lib/digital_femsa/models/shipping_request.rb
-lib/digital_femsa/models/sms_checkout_request.rb
 lib/digital_femsa/models/transaction_response.rb
 lib/digital_femsa/models/transfer_destination_response.rb
 lib/digital_femsa/models/transfer_method_response.rb
 lib/digital_femsa/models/transfer_response.rb
 lib/digital_femsa/models/transfers_response.rb
 lib/digital_femsa/models/update_customer.rb
-lib/digital_femsa/models/update_customer_antifraud_info.rb
 lib/digital_femsa/models/update_customer_fiscal_entities_response.rb
 lib/digital_femsa/models/update_customer_payment_methods_response.rb
 lib/digital_femsa/models/update_order_discount_lines_request.rb

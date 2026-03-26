@@ -16,7 +16,7 @@ require 'digital_femsa'
 instance = DigitalFemsa::ChargeRequest.new(
   amount: 40000,
   payment_method: null,
-  reference_id: null
+  reference_id: ref_2tN73UdUSNrYRPD9r
 )
 ```
 

@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # logs model
+  # Log model representing a recorded request/response cycle for troubleshooting and auditing.
   class LogsResponse
     # True, if there are more pages.
     attr_accessor :has_more

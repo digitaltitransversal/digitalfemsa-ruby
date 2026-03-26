@@ -20,7 +20,7 @@ module DigitalFemsa
       @api_client = api_client
     end
     # Cancel Order
-    # Cancel an order that has been previously created.
+    # Cancels an existing order. This operation marks the order as cancelled and prevents further processing depending on its current state. If the order cannot be cancelled (for example, due to its status or related charge constraints), the API returns an error response.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -32,7 +32,7 @@ module DigitalFemsa
     end
 
     # Cancel Order
-    # Cancel an order that has been previously created.
+    # Cancels an existing order. This operation marks the order as cancelled and prevents further processing depending on its current state. If the order cannot be cancelled (for example, due to its status or related charge constraints), the API returns an error response.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -93,7 +93,7 @@ module DigitalFemsa
     end
 
     # Create order
-    # Create a new order.
+    # Creates a new order (products + amounts + customer data).  Minimum required fields: - `currency` - `line_items` - `customer_info`  About `customer_info`: - You can reference an existing customer using `customer_info.customer_id`, or - You can provide customer details at minimum `customer_info.name` and `customer_info.email` to create the order with customer context.  How to create the order: - Create an order only (no payment): send only the order data. - Create an order and create the first payment charge: include `charges`. - Create an order with a checkout configuration (for a hosted payment flow): include `checkout`.  Important rules: - You cannot send `charges` and `checkout` in the same request (they are mutually exclusive). - If you send `shipping_contact_id` and/or `fiscal_entity_id`, you must also send `customer_info.customer_id` so the API can validate those IDs against that customer. 
     # @param order_request [OrderRequest] requested field for order
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -105,7 +105,7 @@ module DigitalFemsa
     end
 
     # Create order
-    # Create a new order.
+    # Creates a new order (products + amounts + customer data).  Minimum required fields: - &#x60;currency&#x60; - &#x60;line_items&#x60; - &#x60;customer_info&#x60;  About &#x60;customer_info&#x60;: - You can reference an existing customer using &#x60;customer_info.customer_id&#x60;, or - You can provide customer details at minimum &#x60;customer_info.name&#x60; and &#x60;customer_info.email&#x60; to create the order with customer context.  How to create the order: - Create an order only (no payment): send only the order data. - Create an order and create the first payment charge: include &#x60;charges&#x60;. - Create an order with a checkout configuration (for a hosted payment flow): include &#x60;checkout&#x60;.  Important rules: - You cannot send &#x60;charges&#x60; and &#x60;checkout&#x60; in the same request (they are mutually exclusive). - If you send &#x60;shipping_contact_id&#x60; and/or &#x60;fiscal_entity_id&#x60;, you must also send &#x60;customer_info.customer_id&#x60; so the API can validate those IDs against that customer. 
     # @param order_request [OrderRequest] requested field for order
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -171,7 +171,7 @@ module DigitalFemsa
     end
 
     # Get Order
-    # Info for a specific order
+    # Returns the full details of an Order by its ID. The response follows the standard Order representation, including nested previews (for example `charges`, `line_items`, `shipping_lines`, `tax_lines`, and `discount_lines`) when available.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -183,7 +183,7 @@ module DigitalFemsa
     end
 
     # Get Order
-    # Info for a specific order
+    # Returns the full details of an Order by its ID. The response follows the standard Order representation, including nested previews (for example &#x60;charges&#x60;, &#x60;line_items&#x60;, &#x60;shipping_lines&#x60;, &#x60;tax_lines&#x60;, and &#x60;discount_lines&#x60;) when available.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -244,7 +244,7 @@ module DigitalFemsa
     end
 
     # Get a list of Orders
-    # Get order details in the form of a list
+    # Returns a paginated list of orders created in your account. Use pagination parameters to navigate through results, and `search` to filter by supported criteria. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -259,7 +259,7 @@ module DigitalFemsa
     end
 
     # Get a list of Orders
-    # Get order details in the form of a list
+    # Returns a paginated list of orders created in your account. Use pagination parameters to navigate through results, and &#x60;search&#x60; to filter by supported criteria. 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -331,7 +331,7 @@ module DigitalFemsa
     end
 
     # Cancel Refund
-    # A refunded order describes the items, amount, and reason an order is being refunded.
+    # Cancels a refund previously created for an order. This operation is only available when the refund is still cancellable according to its current status and the payment method rules. If the refund cannot be cancelled, the API returns an error response.
     # @param id [String] Identifier of the resource
     # @param refund_id [String] refund identifier
     # @param [Hash] opts the optional parameters
@@ -344,7 +344,7 @@ module DigitalFemsa
     end
 
     # Cancel Refund
-    # A refunded order describes the items, amount, and reason an order is being refunded.
+    # Cancels a refund previously created for an order. This operation is only available when the refund is still cancellable according to its current status and the payment method rules. If the refund cannot be cancelled, the API returns an error response.
     # @param id [String] Identifier of the resource
     # @param refund_id [String] refund identifier
     # @param [Hash] opts the optional parameters
@@ -410,7 +410,7 @@ module DigitalFemsa
     end
 
     # Refund Order
-    # A refunded order describes the items, amount, and reason an order is being refunded.
+    # Creates a refund for an order. This operation is used to refund a previously paid order (fully or partially, depending on the request body). The API will validate the order and its related charges before processing the refund. If the refund cannot be created due to business rules or state, an error response is returned.
     # @param id [String] Identifier of the resource
     # @param order_refund_request [OrderRefundRequest] requested field for a refund
     # @param [Hash] opts the optional parameters
@@ -423,7 +423,7 @@ module DigitalFemsa
     end
 
     # Refund Order
-    # A refunded order describes the items, amount, and reason an order is being refunded.
+    # Creates a refund for an order. This operation is used to refund a previously paid order (fully or partially, depending on the request body). The API will validate the order and its related charges before processing the refund. If the refund cannot be created due to business rules or state, an error response is returned.
     # @param id [String] Identifier of the resource
     # @param order_refund_request [OrderRefundRequest] requested field for a refund
     # @param [Hash] opts the optional parameters
@@ -494,12 +494,12 @@ module DigitalFemsa
     end
 
     # Capture Order
-    # Processes an order that has been previously authorized.
+    # Captures (finalizes) an order that has been previously authorized. Use this endpoint to capture a specific amount. The captured amount must be greater than 0 and must comply with the order and charge constraints enforced by the API.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
-    # @option opts [OrderCaptureRequest] :order_capture_request requested fields for capture order
+    # @option opts [OrderCaptureRequest] :order_capture_request Requested fields for capturing an order
     # @return [OrderResponse]
     def orders_create_capture(id, opts = {})
       data, _status_code, _headers = orders_create_capture_with_http_info(id, opts)
@@ -507,12 +507,12 @@ module DigitalFemsa
     end
 
     # Capture Order
-    # Processes an order that has been previously authorized.
+    # Captures (finalizes) an order that has been previously authorized. Use this endpoint to capture a specific amount. The captured amount must be greater than 0 and must comply with the order and charge constraints enforced by the API.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
-    # @option opts [OrderCaptureRequest] :order_capture_request requested fields for capture order
+    # @option opts [OrderCaptureRequest] :order_capture_request Requested fields for capturing an order
     # @return [Array<(OrderResponse, Integer, Hash)>] OrderResponse data, response status code and response headers
     def orders_create_capture_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -573,8 +573,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Update Order
-    # Update an existing Order.
+    # Update order
+    # Updates an existing order by its ID.  Orders are the central resource in the API. Updating an order may also update related order sub-resources when they are included in the request payload, according to server-side validations.  Only fields supported by the API can be modified. 
     # @param id [String] Identifier of the resource
     # @param order_update_request [OrderUpdateRequest] requested field for an order
     # @param [Hash] opts the optional parameters
@@ -585,8 +585,8 @@ module DigitalFemsa
       data
     end
 
-    # Update Order
-    # Update an existing Order.
+    # Update order
+    # Updates an existing order by its ID.  Orders are the central resource in the API. Updating an order may also update related order sub-resources when they are included in the request payload, according to server-side validations.  Only fields supported by the API can be modified. 
     # @param id [String] Identifier of the resource
     # @param order_update_request [OrderUpdateRequest] requested field for an order
     # @param [Hash] opts the optional parameters

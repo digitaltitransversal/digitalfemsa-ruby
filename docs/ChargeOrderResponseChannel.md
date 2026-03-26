@@ -1,4 +1,4 @@
-# DigitalFemsa::ChargeResponseChannel
+# DigitalFemsa::ChargeOrderResponseChannel
 
 ## Properties
 
@@ -14,11 +14,11 @@
 ```ruby
 require 'digital_femsa'
 
-instance = DigitalFemsa::ChargeResponseChannel.new(
+instance = DigitalFemsa::ChargeOrderResponseChannel.new(
   segment: Checkout,
-  checkout_request_id: f3a5bfc1-ba1c-474f-9687-46d8b75ffc90,
-  checkout_request_type: Integration,
-  id: channel_2zNxD65G8MBNkYksy
+  checkout_request_id: 6fca054a-8519-4c43-971e-cea35cc519bb,
+  checkout_request_type: HostedPayment,
+  id: channel_2tNDzhA4Akmzj11AU
 )
 ```
 

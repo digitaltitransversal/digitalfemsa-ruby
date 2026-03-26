@@ -8,7 +8,7 @@
 | **object** | **String** | Object type, in this case is list |  |
 | **next_page_url** | **String** | URL of the next page. | [optional] |
 | **previous_page_url** | **String** | Url of the previous page. | [optional] |
-| **data** | [**Array&lt;TransactionResponse&gt;**](TransactionResponse.md) | Transactions | [optional] |
+| **data** | [**Array&lt;TransactionResponse&gt;**](TransactionResponse.md) | Transactions (ledger movements) | [optional] |
 
 ## Example
 

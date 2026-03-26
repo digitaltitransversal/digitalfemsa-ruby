@@ -21,7 +21,7 @@ module DigitalFemsa
     end
     # Create Webhook
     # What we do at Femsa translates into events. For example, an event of interest to us occurs at the time a payment is successfully processed. At that moment we will be interested in doing several things: Send an email to the buyer, generate an invoice, start the process of shipping the product, etc.
-    # @param webhook_request [WebhookRequest] requested field for webhook
+    # @param webhook_request [WebhookRequest] Webhook creation/update request payload.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @return [WebhookResponse]
@@ -32,7 +32,7 @@ module DigitalFemsa
 
     # Create Webhook
     # What we do at Femsa translates into events. For example, an event of interest to us occurs at the time a payment is successfully processed. At that moment we will be interested in doing several things: Send an email to the buyer, generate an invoice, start the process of shipping the product, etc.
-    # @param webhook_request [WebhookRequest] requested field for webhook
+    # @param webhook_request [WebhookRequest] Webhook creation/update request payload.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @return [Array<(WebhookResponse, Integer, Hash)>] WebhookResponse data, response status code and response headers
@@ -94,7 +94,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Delete Webhook
+    # Delete webhook
+    # Deletes a webhook.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -104,7 +105,8 @@ module DigitalFemsa
       data
     end
 
-    # Delete Webhook
+    # Delete webhook
+    # Deletes a webhook.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -162,7 +164,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Get Webhook
+    # Get webhook
+    # Retrieves the details of a webhook by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -173,7 +176,8 @@ module DigitalFemsa
       data
     end
 
-    # Get Webhook
+    # Get webhook
+    # Retrieves the details of a webhook by its ID.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -240,6 +244,7 @@ module DigitalFemsa
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :search General order search, e.g. by mail, reference etc.
+    # @option opts [String] :url url for webhook filter
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
     # @return [GetWebhooksResponse]
@@ -255,6 +260,7 @@ module DigitalFemsa
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
     # @option opts [Integer] :limit The numbers of items to return, the maximum value is 250 (default to 20)
     # @option opts [String] :search General order search, e.g. by mail, reference etc.
+    # @option opts [String] :url url for webhook filter
     # @option opts [String] :_next next page
     # @option opts [String] :previous previous page
     # @return [Array<(GetWebhooksResponse, Integer, Hash)>] GetWebhooksResponse data, response status code and response headers
@@ -281,6 +287,7 @@ module DigitalFemsa
       query_params = opts[:query_params] || {}
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
       query_params[:'search'] = opts[:'search'] if !opts[:'search'].nil?
+      query_params[:'url'] = opts[:'url'] if !opts[:'url'].nil?
       query_params[:'next'] = opts[:'_next'] if !opts[:'_next'].nil?
       query_params[:'previous'] = opts[:'previous'] if !opts[:'previous'].nil?
 
@@ -320,8 +327,8 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Test Webhook
-    # Send a webhook.ping event
+    # Test webhook
+    # Sends a test event to the specified webhook to verify it can receive events.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -331,8 +338,8 @@ module DigitalFemsa
       data
     end
 
-    # Test Webhook
-    # Send a webhook.ping event
+    # Test webhook
+    # Sends a test event to the specified webhook to verify it can receive events.
     # @param id [String] Identifier of the resource
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
@@ -390,10 +397,10 @@ module DigitalFemsa
       return data, status_code, headers
     end
 
-    # Update Webhook
-    # updates an existing webhook
+    # Update webhook
+    # Updates an existing webhook.
     # @param id [String] Identifier of the resource
-    # @param webhook_update_request [WebhookUpdateRequest] requested fields in order to update a webhook
+    # @param webhook_update_request [WebhookUpdateRequest] Webhook update request payload.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.
@@ -403,10 +410,10 @@ module DigitalFemsa
       data
     end
 
-    # Update Webhook
-    # updates an existing webhook
+    # Update webhook
+    # Updates an existing webhook.
     # @param id [String] Identifier of the resource
-    # @param webhook_update_request [WebhookUpdateRequest] requested fields in order to update a webhook
+    # @param webhook_update_request [WebhookUpdateRequest] Webhook update request payload.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :accept_language Use for knowing which language to use (default to 'es')
     # @option opts [String] :x_child_company_id In the case of a holding company, the company id of the child company to which will process the request.

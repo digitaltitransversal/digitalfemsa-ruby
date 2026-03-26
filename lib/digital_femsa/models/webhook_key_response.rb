@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module DigitalFemsa
-  # webhook keys model
+  # Represents a webhook signing key configuration for the company.
   class WebhookKeyResponse
     # Unique identifier of the webhook key
     attr_accessor :id

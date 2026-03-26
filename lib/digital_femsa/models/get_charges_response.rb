@@ -15,27 +15,27 @@ require 'time'
 
 module DigitalFemsa
   class GetChargesResponse
-    # Indicates if there are more pages to be requested
-    attr_accessor :has_more
-
-    # Object type, in this case is list
-    attr_accessor :object
-
     # URL of the next page.
     attr_accessor :next_page_url
 
     # Url of the previous page.
     attr_accessor :previous_page_url
 
+    # Indicates if there are more pages to be requested
+    attr_accessor :has_more
+
+    # Object type, in this case is list
+    attr_accessor :object
+
     attr_accessor :data
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'has_more' => :'has_more',
-        :'object' => :'object',
         :'next_page_url' => :'next_page_url',
         :'previous_page_url' => :'previous_page_url',
+        :'has_more' => :'has_more',
+        :'object' => :'object',
         :'data' => :'data'
       }
     end
@@ -48,10 +48,10 @@ module DigitalFemsa
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'has_more' => :'Boolean',
-        :'object' => :'String',
         :'next_page_url' => :'String',
         :'previous_page_url' => :'String',
+        :'has_more' => :'Boolean',
+        :'object' => :'String',
         :'data' => :'Array<ChargeResponse>'
       }
     end
@@ -87,6 +87,14 @@ module DigitalFemsa
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'next_page_url')
+        self.next_page_url = attributes[:'next_page_url']
+      end
+
+      if attributes.key?(:'previous_page_url')
+        self.previous_page_url = attributes[:'previous_page_url']
+      end
+
       if attributes.key?(:'has_more')
         self.has_more = attributes[:'has_more']
       else
@@ -97,14 +105,6 @@ module DigitalFemsa
         self.object = attributes[:'object']
       else
         self.object = nil
-      end
-
-      if attributes.key?(:'next_page_url')
-        self.next_page_url = attributes[:'next_page_url']
-      end
-
-      if attributes.key?(:'previous_page_url')
-        self.previous_page_url = attributes[:'previous_page_url']
       end
 
       if attributes.key?(:'data')
@@ -144,10 +144,10 @@ module DigitalFemsa
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          has_more == o.has_more &&
-          object == o.object &&
           next_page_url == o.next_page_url &&
           previous_page_url == o.previous_page_url &&
+          has_more == o.has_more &&
+          object == o.object &&
           data == o.data
     end
 
@@ -160,7 +160,7 @@ module DigitalFemsa
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [has_more, object, next_page_url, previous_page_url, data].hash
+      [next_page_url, previous_page_url, has_more, object, data].hash
     end
 
     # Builds the object from hash
