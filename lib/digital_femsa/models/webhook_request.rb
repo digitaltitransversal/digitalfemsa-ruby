@@ -12,6 +12,7 @@ Generator version: 7.5.0
 
 require 'date'
 require 'time'
+require 'uri'
 
 module DigitalFemsa
   # Parameters used to create or update a webhook.
@@ -86,9 +87,10 @@ module DigitalFemsa
         invalid_properties.push('invalid value for "url", url cannot be nil.')
       end
 
-      pattern = Regexp.new(/^(?!.*(localhost|127\.0\.0\.1)).*$/)
-      if @url !~ pattern
-        invalid_properties.push("invalid value for \"url\", must conform to the pattern #{pattern}.")
+      begin
+        validate_url_safety(@url) if @url
+      rescue ArgumentError => e
+        invalid_properties.push(e.message)
       end
 
       if @synchronous.nil?
@@ -103,7 +105,11 @@ module DigitalFemsa
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @url.nil?
-      return false if @url !~ Regexp.new(/^(?!.*(localhost|127\.0\.0\.1)).*$/)
+      begin
+        validate_url_safety(@url)
+      rescue ArgumentError
+        return false
+      end
       return false if @synchronous.nil?
       true
     end
@@ -115,12 +121,245 @@ module DigitalFemsa
         fail ArgumentError, 'url cannot be nil'
       end
 
-      pattern = Regexp.new(/^(?!.*(localhost|127\.0\.0\.1)).*$/)
-      if url !~ pattern
-        fail ArgumentError, "invalid value for \"url\", must conform to the pattern #{pattern}."
+      validate_url_safety(url)
+      @url = url
+    end
+
+    private
+
+    # Comprehensive URL validation to prevent SSRF attacks
+    # @param [String] url URL to validate
+    def validate_url_safety(url)
+      # Parse the URL to extract hostname
+      begin
+        uri = URI.parse(url)
+        hostname = uri.hostname
+        port = uri.port
+        
+        # Ensure URL has a valid scheme (http/https)
+        unless uri.scheme =~ /\A(https?)\z/
+          fail ArgumentError, "invalid value for \"url\", must use http or https scheme"
+        end
+
+        # Block if hostname is nil or empty
+        if hostname.nil? || hostname.empty?
+          fail ArgumentError, "invalid value for \"url\", hostname cannot be empty"
+        end
+
+        # Block localhost variations and private IP ranges
+        if hostname_matches_restricted_patterns?(hostname)
+          fail ArgumentError, "invalid value for \"url\", hostname points to restricted network resource"
+        end
+
+        # Block ports commonly used for internal services
+        if port_matches_restricted_ports?(port)
+          fail ArgumentError, "invalid value for \"url\", port is not allowed"
+        end
+
+      rescue URI::InvalidURIError
+        fail ArgumentError, "invalid value for \"url\", must be a valid URL"
+      end
+    end
+
+    # Check if hostname matches restricted patterns
+    # @param [String] hostname Hostname to check
+    # @return [Boolean] true if hostname is restricted
+    def hostname_matches_restricted_patterns?(hostname)
+      # Convert to lowercase for case-insensitive comparison
+      hostname = hostname.downcase
+
+      # Block localhost variations
+      localhost_patterns = [
+        'localhost',
+        '127.0.0.1',
+        '127.0.0.0',
+        '0.0.0.0',
+        '::1',
+        '0:0:0:0:0:0:0:1',
+        'ip6-localhost',
+        'ip6-loopback'
+      ]
+
+      # Block private IP ranges
+      private_ip_patterns = [
+        /^127\.\d+\.\d+\.\d+/,      # 127.0.0.0/8 (loopback)
+        /^10\.\d+\.\d+\.\d+/,       # 10.0.0.0/8
+        /^172\.(1[6-9]|2[0-9]|3[0-1])\.\d+\.\d+/,  # 172.16.0.0/12
+        /^192\.168\.\d+\.\d+/,      # 192.168.0.0/16
+        /^169\.254\.\d+\.\d+/,      # 169.254.0.0/16 (link-local)
+        /^224\.\d+\.\d+\.\d+/,      # 224.0.0.0/4 (multicast)
+        /^fc00:/,                    # fc00::/7 (IPv6 unique local)
+        /^fe80:/,                    # fe80::/10 (IPv6 link-local)
+        /^ff00:/                     # ff00::/8 (IPv6 multicast)
+      ]
+
+      # Block internal hostnames and services
+      internal_hostnames = [
+        'internal',
+        'intranet',
+        'corp',
+        'private',
+        'admin',
+        'management',
+        'api-gateway',
+        'database',
+        'cache',
+        'redis',
+        'mongo',
+        'mysql',
+        'postgres',
+        'elasticsearch',
+        'kibana',
+        'grafana',
+        'prometheus',
+        'consul',
+        'vault',
+        'etcd',
+        'zookeeper',
+        'kafka',
+        'rabbitmq'
+      ]
+
+      # Check localhost patterns
+      return true if localhost_patterns.include?(hostname)
+
+      # Check private IP ranges
+      private_ip_patterns.each do |pattern|
+        return true if hostname.match?(pattern)
       end
 
-      @url = url
+      # Check internal hostnames (including subdomains)
+      internal_hostnames.each do |internal_name|
+        return true if hostname.include?(internal_name)
+      end
+
+      # Check for common DNS rebinding services
+      dns_rebinding_domains = [
+        'xip.io',
+        'nip.io',
+        'sslip.io',
+        'localtest.me',
+        'vcap.me',
+        'localho.st',
+        '127-0-0-1.org.uk'
+      ]
+
+      dns_rebinding_domains.each do |domain|
+        return true if hostname.end_with?(domain)
+      end
+
+      # Check if hostname resolves to private IP (basic check)
+      # Note: In production, you might want to add actual DNS resolution here
+      if hostname_resolves_to_private_ip?(hostname)
+        return true
+      end
+
+      false
+    end
+
+    # Check if port matches restricted ports
+    # @param [Integer] port Port to check
+    # @return [Boolean] true if port is restricted
+    def port_matches_restricted_ports?(port)
+      return false if port.nil?  # Allow default ports
+
+      # Block ports commonly used for internal services
+      restricted_ports = [
+        22,    # SSH
+        23,    # Telnet
+        25,    # SMTP
+        53,    # DNS
+        135,   # Windows RPC
+        139,   # NetBIOS
+        445,   # SMB
+        1433,  # SQL Server
+        1521,  # Oracle
+        2049,  # NFS
+        2181,  # Zookeeper
+        3306,  # MySQL
+        3389,  # RDP
+        5432,  # PostgreSQL
+        5672,  # RabbitMQ
+        5984,  # CouchDB
+        6379,  # Redis
+        6380,  # Redis SSL
+        8080,  # Common internal web services
+        8081,  # Alternative web services
+        8443,  # Alternative HTTPS
+        9000,  # Common internal services
+        9042,  # Cassandra
+        9092,  # Kafka
+        9200,  # Elasticsearch
+        9300,  # Elasticsearch transport
+        11211, # Memcached
+        27017, # MongoDB
+        27018, # MongoDB shard
+        27019, # MongoDB config
+        5000,  # Common internal services
+        5001,  # Alternative services
+        6000,  # Common internal services
+        7000,  # Common internal services
+        7001,  # WebLogic
+        8000,  # Common internal services
+        8001,  # Alternative services
+        8009,  # AJP
+        8443,  # Tomcat SSL
+        8888,  # Common internal services
+        9001,  # Common internal services
+        9090,  # Common internal services
+        9091,  # Common internal services
+        9093,  # Common internal services
+        9999,  # Common internal services
+        10000, # Common internal services
+        10001, # Common internal services
+        10002, # Common internal services
+        10003, # Common internal services
+        10004, # Common internal services
+        10005, # Common internal services
+        10006, # Common internal services
+        10007, # Common internal services
+        10008, # Common internal services
+        10009, # Common internal services
+        10010  # Common internal services
+      ]
+
+      restricted_ports.include?(port)
+    end
+
+    # Basic check if hostname might resolve to private IP
+    # @param [String] hostname Hostname to check
+    # @return [Boolean] true if hostname might resolve to private IP
+    def hostname_resolves_to_private_ip?(hostname)
+      # This is a basic heuristic. In production, you might want to
+      # actually resolve the hostname and check the IP addresses.
+      
+      # Check for common patterns that might resolve to internal IPs
+      suspicious_patterns = [
+        /^internal-/,
+        /^private-/,
+        /^intranet-/,
+        /^corp-/,
+        /^dev-/,
+        /^test-/,
+        /^staging-/,
+        /^admin-/,
+        /^db-/,
+        /^cache-/,
+        /^api-/,
+        /^service-/,
+        /^worker-/,
+        /^node-/,
+        /^server-/,
+        /^host-/,
+        /^vm-/,
+        /^container-/
+      ]
+
+      suspicious_patterns.each do |pattern|
+        return true if hostname.match?(pattern)
+      end
+
+      false
     end
 
     # Checks equality by comparing each attribute.
