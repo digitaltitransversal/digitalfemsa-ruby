@@ -10,6 +10,43 @@ Generator version: 7.5.0
 
 =end
 
+# Configure SimpleCov for code coverage
+require 'simplecov'
+require 'simplecov-json'
+
+SimpleCov.start do
+  # Minimum coverage threshold
+  minimum_coverage 80
+  
+  # Track files in the lib directory
+  track_files '{lib,app}/**/*.rb'
+  
+  # Exclude certain files from coverage
+  add_filter '/spec/'
+  add_filter '/vendor/'
+  add_filter '/tasks/'
+  add_filter '/config/'
+  
+  # Group coverage by file type
+  add_group 'Models', 'lib/digital_femsa/models'
+  add_group 'APIs', 'lib/digital_femsa/api'
+  add_group 'Core', 'lib/digital_femsa.rb'
+  add_group 'Configuration', 'lib/digital_femsa/configuration.rb'
+  add_group 'API Client', 'lib/digital_femsa/api_client.rb'
+  
+  # Use multiple formatters
+  formatters = SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::JSONFormatter
+  ])
+  SimpleCov.formatter = formatters
+  
+  # Add custom metrics
+  add_filter do |source_file|
+    source_file.lines.count < 5 # Exclude very small files
+  end
+end
+
 # load the gem
 require 'digital_femsa'
 
