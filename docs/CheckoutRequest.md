@@ -11,6 +11,7 @@
 | **on_demand_enabled** | **Boolean** |  | [optional] |
 | **success_url** | **String** | Redirection url back to the site in case of successful payment, applies only to HostedPayment | [optional] |
 | **type** | **String** | This field represents the type of checkout | [optional] |
+| **redirection_time** | **Integer** | Number of seconds to wait before redirecting to the success or failure url | [optional] |
 
 ## Example
 
@@ -24,7 +25,8 @@ instance = DigitalFemsa::CheckoutRequest.new(
   name: null,
   on_demand_enabled: true,
   success_url: null,
-  type: Integration
+  type: Integration,
+  redirection_time: 60
 )
 ```
 
