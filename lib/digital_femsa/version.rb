@@ -11,5 +11,5 @@ Generator version: 7.5.0
 =end
 
 module DigitalFemsa
-  VERSION = '1.1.1'
+  VERSION = '1.1.2'
 end
