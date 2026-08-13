@@ -3,7 +3,7 @@
   "gemAuthor": "DigitalFemsa",
   "gemName" : "digital_femsa",
   "gemLicense": "MIT",
-  "gemVersion": "1.1.1",
+  "gemVersion": "1.1.2",
   "hideGenerationTimestamp": false,
   "moduleName": "DigitalFemsa",
   "gemSummary" : "This library provides https://api.digitalfemsa.io operations",

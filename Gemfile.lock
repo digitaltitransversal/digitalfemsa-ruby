@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    digital_femsa (1.1.1)
+    digital_femsa (1.1.2)
       faraday (= 2.14.2)
       faraday-multipart
       marcel
